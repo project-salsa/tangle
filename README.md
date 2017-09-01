@@ -1,8 +1,9 @@
-## Required Tools
-1. Install npm version 4.6.1 - `npm i -g npm@4.6.1`
-2. Run `npm i` inside of the base directory
-3. Install watchman (instructions [here](https://medium.com/@vonchristian/how-to-setup-watchman-on-ubuntu-16-04-53196cc0227c) (for Ubuntu))
-4. Run `npm start` and wait for the QR code to appear. If it doesn't, ping Reno on Discord and tell him he has sucky instructions.
+## Install/Setup Guide
+1. Install node (any version will likely work, but this has been tested on v8.0+)
+2. Install npm version 4.6.1 - `npm i -g npm@4.6.1`
+3. Run `npm i` inside of the base directory
+4. Install watchman (might be optional, try without first) (instructions [here](https://medium.com/@vonchristian/how-to-setup-watchman-on-ubuntu-16-04-53196cc0227c) (for Ubuntu))
+5. Run `npm start` and wait for the QR code to appear. If it doesn't, ping Reno on Discord and tell him he has sucky instructions.
 
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
