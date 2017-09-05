@@ -28,6 +28,10 @@ export default class HomeComponent extends React.Component {
           onPress={() => navigate('UserPreferences')}
           title="Go to User Prefs."
         />
+        <Button
+          onPress={() => navigate('CreateRequest')}
+          title="Go to Create Request"
+        />
       </View>
     )
   }
