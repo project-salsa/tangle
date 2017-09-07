@@ -17,6 +17,8 @@ export default class CreateRequestComponent extends React.Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
+
         return(
             <Container>
                 <Header>
@@ -28,6 +30,7 @@ export default class CreateRequestComponent extends React.Component {
                     <Body>
                         <Text>Create Game Request</Text>
                     </Body>
+                    <Right />
                 </Header>
                 <Content>
                     <Form>
@@ -42,6 +45,14 @@ export default class CreateRequestComponent extends React.Component {
                             <Item label="Super Smash Bros. Melee" value="game2" />
                             <Item label="Super Smash Bros. for Wii U" value="game3" />
                         </Picker>
+
+                        <Body>
+                            <Button full primary
+                                onPress={() => navigate('Dashboard')}
+                            >
+                                <Text>Send Request</Text>
+                            </Button>
+                        </Body>
                     </Form>
                 </Content>
             </Container>
