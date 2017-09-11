@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: "gray",
         borderWidth: 2,
-        fontStyle: "italic"
     },
     contButton: {
         backgroundColor: "blue",
