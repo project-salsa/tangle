@@ -4,6 +4,13 @@ import { Text, View, AppRegistry, StyleSheet, TextInput, ScrollView, Button, Tou
 export default class FirstTimeComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+            field1: " ",
+            field2: " ",
+            field3: " ",
+            field4: " ",
+            field5: " "
+        };
     }
 
     render() {
@@ -27,6 +34,7 @@ export default class FirstTimeComponent extends React.Component {
                                 style={styles.genericTextBox}
                                 placeholder="  Field Placeholder"
                                 selectTextOnFocus={true}
+                                onChangeText={(field_input) => this.setState({field1:field_input})}
                             />
                         </View>
                         <View style={{flex:5}} />
@@ -36,6 +44,7 @@ export default class FirstTimeComponent extends React.Component {
                                 style={styles.genericTextBox}
                                 placeholder="  Field Placeholder"
                                 selectTextOnFocus={true}
+                                onChangeText={(field_input) => this.setState({field2:field_input})}
                             />
                         </View>
                         <View style={{flex:5}} />
@@ -45,6 +54,7 @@ export default class FirstTimeComponent extends React.Component {
                                 style={styles.genericTextBox}
                                 placeholder="  Field Placeholder"
                                 selectTextOnFocus={true}
+                                onChangeText={(field_input) => this.setState({field3:field_input})}
                             />
                         </View>
                         <View style={{flex:5}} />
@@ -56,6 +66,7 @@ export default class FirstTimeComponent extends React.Component {
                                 style={styles.genericTextBox}
                                 placeholder="  Field Placeholder"
                                 selectTextOnFocus={true}
+                                onChangeText={(field_input) => this.setState({field4:field_input})}
                             />
                         </View>
                         <View style={{flex:5}} />
@@ -65,13 +76,21 @@ export default class FirstTimeComponent extends React.Component {
                                 style={styles.genericTextBox}
                                 placeholder="  Field Placeholder"
                                 selectTextOnFocus={true}
+                                onChangeText={(field_input) => this.setState({field5:field_input})}
                             />
                         </View>
                         <View style={{flex:7}} />
                         <View style={{flex:7, flexDirection: "row"}}>
                             <TouchableOpacity
                                 style={styles.contButton}
-                                onPress={() => alert("Ideally, this would do something.")}>
+                                onPress={() => alert(
+                                    "Printing out input fields: \n" +
+                                    "Field 1: " + this.state.field1 + "\n" +
+                                    "Field 2: " + this.state.field2 + "\n" +
+                                    "Field 3: " + this.state.field3 + "\n" +
+                                    "Field 4: " + this.state.field4 + "\n" +
+                                    "Field 5: " + this.state.field5 + "\n"
+                                )}>
                                 <Text style={styles.contButtonText}>CONTINUE</Text>
                             </TouchableOpacity>
                         </View>
