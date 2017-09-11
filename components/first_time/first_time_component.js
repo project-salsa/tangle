@@ -48,6 +48,8 @@ export default class FirstTimeComponent extends React.Component {
                             />
                         </View>
                         <View style={{flex:5}} />
+                        <Text style={{fontSize: 24, fontWeight: "bold"}}>Subsection Header!</Text>
+                        <View style={{flex:3}} />
                         <Text>Enter your data value!</Text>
                         <View style={{flex:5, flexDirection:"row"}}>
                             <TextInput
