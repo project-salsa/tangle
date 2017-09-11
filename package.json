@@ -23,16 +23,4 @@
     "react": "16.0.0-alpha.12",
     "react-native": "^0.47.0",
     "react-navigation": "^1.0.0-beta.11"
-  },
-  "description": "1. Install node (any version will likely work, but this has been tested on v8.0+)\r 2. Install npm version 4.6.1 - `npm i -g npm@4.6.1`\r 3. Run `npm i` inside of the base directory\r 4. Install watchman (might be optional, try without first) (instructions [here](https://medium.com/@vonchristian/how-to-setup-watchman-on-ubuntu-16-04-53196cc0227c) (for Ubuntu))\r 5. Run `npm start` and wait for the QR code to appear. If it doesn't, ping Reno on Discord and tell him he has sucky instructions.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/project-salsa/player-finder.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/project-salsa/player-finder/issues"
-  },
-  "homepage": "https://github.com/project-salsa/player-finder#readme"
-}
+  }
