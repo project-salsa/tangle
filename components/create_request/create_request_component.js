@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Header, Body, Title, Text, Form, Left, Right, Content, Picker, Button, Icon, Item} from "native-base";
+import {Container, Header, Body, Title, Text, Form, Left, Right, Content, Picker, Button, Icon, Item, Input, Label} from "native-base";
 
 
 export default class CreateRequestComponent extends React.Component {
@@ -28,11 +28,10 @@ export default class CreateRequestComponent extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Text>Create Game Request</Text>
+                        <Title>Create Game Request</Title>
                     </Body>
-                    <Right />
                 </Header>
-                <Content>
+                <Content padder>
                     <Form>
                         <Picker
                             mode="dropdown"
@@ -45,7 +44,11 @@ export default class CreateRequestComponent extends React.Component {
                             <Item label="Super Smash Bros. Melee" value="game2" />
                             <Item label="Super Smash Bros. for Wii U" value="game3" />
                         </Picker>
-
+                        <Item floatingLabel>
+                            <Icon active ios='ios-pin' android='md-pin' />
+                            <Label>Location</Label>
+                            <Input />
+                        </Item>
                         <Body>
                             <Button full primary
                                 onPress={() => navigate('Dashboard')}
