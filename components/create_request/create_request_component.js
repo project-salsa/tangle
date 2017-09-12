@@ -45,30 +45,37 @@ export default class CreateRequestComponent extends React.Component {
                             selectedValue={this.state.gameSelection}
                             onValueChange={this.onValueChange.bind(this)}
                         >
-                            <Item label="No Game Selected" value="none" />
+                            <Item label="Dungeons & Dragons" value="dnd" />
                             <Item label="League of Legends" value="game0" />
                             <Item label="Overwatch" value="game1" />
                             <Item label="Super Smash Bros. Melee" value="game2" />
                             <Item label="Super Smash Bros. for Wii U" value="game3" />
+                            {/* Add more games as we see fit */}
                         </Picker>
                         <Item floatingLabel>
                             <Icon active ios='ios-happy' android='md-happy' />
                             <Label>Number of Players</Label>
-                            <Input
+                            <Input padder
                                 onChangeText={(input) => this.setState({playerCount:input})}
                             />
+                            {/* Would like to make this a NumberPicker, but manual input is fine for now */}
                         </Item>
                         <Item floatingLabel>
                             <Icon active ios='ios-pin' android='md-pin' />
                             <Label>Location</Label>
-                            <Input
+                            <Input padder
                                 onChangeText={(input) => this.setState({locationName:input})}
                             />
+                            {/* User input for now, consider using map data in the future */}
                         </Item>
                     </Form>
                     <Button full primary
                             onPress={() => navigate('Dashboard')}
                     >
+                        {/*
+                            Right now, this just goes to the Dashboard
+                            This will need to send the state data to the server
+                        */}
                         <Text>Send Request</Text>
                     </Button>
                 </Content>
