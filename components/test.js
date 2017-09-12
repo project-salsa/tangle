@@ -1,8 +1,8 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React from 'react'
+import {View, Text} from 'react-native'
 
 export default class Test extends React.Component {
-  render() {
+  render () {
     return (
       <View>
         <Text>hi hi hello</Text>
