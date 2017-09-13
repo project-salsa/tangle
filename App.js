@@ -2,12 +2,12 @@ import { AppRegistry } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import HomeComponent from './components/home_screen'
 import DashboardComponent from './components/dashboard/dashboard_component'
-import RequestComponent from "./components/request/request_component"
-import UserProfileComponent from "./components/user_profile/user_profile_component"
-import LoginComponent from "./components/login/login_component"
-import UserPreferencesComponent from "./components/user_preferences/user_preferences_component"
-import CreateRequestComponent from "./components/create_request/create_request_component"
-import FirstTimeComponent from "./components/first_time/first_time_component"
+import RequestComponent from './components/request/request_component'
+import UserProfileComponent from './components/user_profile/user_profile_component'
+import LoginComponent from './components/login/login_component'
+import UserPreferencesComponent from './components/user_preferences/user_preferences_component'
+import CreateRequestComponent from './components/create_request/create_request_component'
+import FirstTimeComponent from './components/first_time/first_time_component'
 
 const App = StackNavigator({
   Home: { screen: HomeComponent },
