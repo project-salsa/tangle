@@ -1,6 +1,5 @@
 import React from 'react'
 import {View, Text, Button} from 'react-native'
-
 // here to prevent Expo font error
 import Expo from 'expo'
 
