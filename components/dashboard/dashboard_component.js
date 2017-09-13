@@ -1,12 +1,16 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React from 'react'
+import { Container, Content, H1 } from 'native-base'
+import RequestList from './request_list'
 
 export default class DashboardComponent extends React.Component {
-  render() {
+  render () {
     return (
-      <View>
-        <Text>sal kdjaslk djlksa</Text>
-      </View>
+      <Container>
+        <Content>
+          <H1>Dashboard</H1>
+          <RequestList navigation={this.props.navigation} />
+        </Content>
+      </Container>
     )
   }
 }
