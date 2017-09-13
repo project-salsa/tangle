@@ -8,6 +8,10 @@ A cross platorm app built using React Native. Matches local gamers up with each 
 
 Run `npm start`, and use the Expo app to scan the QR code given. The app will automatically re-compile with any changes.
 
+## Contributing
+
+We use StandardJS as a style guide. All changes to this repository's code should pass that style check. See [here](https://standardjs.com/index.html#install) for information on setting up a local tool to check your style before making a Pull Request.
+
 ## First Time Setup Guide
 1. Install node (any version will likely work, but this has been tested on v8.0+)
 2. Install npm version 4.6.1 - `npm i -g npm@4.6.1`
