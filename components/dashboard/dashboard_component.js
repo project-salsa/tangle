@@ -1,8 +1,8 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React from 'react'
+import {View, Text} from 'react-native'
 
 export default class DashboardComponent extends React.Component {
-  render() {
+  render () {
     return (
       <View>
         <Text>sal kdjaslk djlksa</Text>
