@@ -9,7 +9,7 @@ export default class HomeComponent extends React.Component {
       <View>
         <Text>This screen is for development: it will not be included in the main app at all.</Text>
         <Button
-          onPress={() => navigate('Dashboard')}
+          onPress={() => navigate('Dashboard', {navigation: this.props.navigation})}
           title='Go to Dashboard'
         />
         <Button
@@ -30,11 +30,11 @@ export default class HomeComponent extends React.Component {
         />
         <Button
           onPress={() => navigate('CreateRequest')}
-          title="Go to Create Request"
+          title='Go to Create Request'
         />
         <Button
-            onPress={() => navigate('FirstTime')}
-            title="Go to First Time"
+          onPress={() => navigate('FirstTime')}
+          title='Go to First Time'
         />
       </View>
     )
