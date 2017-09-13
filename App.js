@@ -8,6 +8,7 @@ import LoginComponent from './components/login/login_component'
 import UserPreferencesComponent from './components/user_preferences/user_preferences_component'
 import CreateRequestComponent from './components/create_request/create_request_component'
 import RequestCard from './components/common/request_card'
+import FirstTimeComponent from './components/first_time/first_time_component'
 
 const App = StackNavigator({
   Home: { screen: HomeComponent },
@@ -17,6 +18,7 @@ const App = StackNavigator({
   Login: { screen: LoginComponent },
   UserPreferences: { screen: UserPreferencesComponent },
   CreateRequest: { screen: CreateRequestComponent },
+  FirstTime: { screen: FirstTimeComponent },
   RequestCard: { screen: RequestCard }
 })
 
