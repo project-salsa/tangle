@@ -34,7 +34,7 @@ export default class HomeComponent extends React.Component {
         />
         <Button
           onPress={() => navigate('FirstTime')}
-          title='Go to First Time]'
+          title='Go to First Time'
         />
       </View>
     )
