@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Left, Right, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
+import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
 
 export default class CreateRequestComponent extends React.Component {
     constructor (props) {
