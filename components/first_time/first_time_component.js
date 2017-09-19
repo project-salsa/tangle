@@ -56,6 +56,20 @@ export default class CreateRequestComponent extends React.Component {
                                           "Field 3: " + this.state.field3 + "\n" +
                                           "Field 4: " + this.state.field4 + "\n" +
                                           "Field 5: " + this.state.field5 + "\n");
+                                    fetch("https://localhost", {
+                                        method: 'POST',
+                                        headers: {
+                                            'Accept': 'application/json',
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            username: this.state.field1,
+                                            d_o_b: this.state.field2,
+                                            discord_tag: this.state.field3,
+                                            misc1: this.state.field4,
+                                            misc2: this.state.field5
+                                        })
+                                    });
                                     navigate('UserProfile');
                                 }}
                         >
