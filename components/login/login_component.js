@@ -1,5 +1,6 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
+import axios from 'axios'
 
 export default class CreateRequestComponent extends React.Component {
   constructor (props) {
@@ -37,8 +38,14 @@ export default class CreateRequestComponent extends React.Component {
           <View>
             <Button full primary
               onPress={() => {
-                // eslint-disable-next-line no-undef
-                alert('Inputs: ' + this.state.username + ', ' + this.state.password)
+                axios({
+                  method: 'post',
+                  url: 'https://www.placeholder.com',
+                  data: {
+                    username: this.state.field1,
+                    password: this.state.field2
+                  }
+                })
                 navigate('Dashboard')
               }}
                   >

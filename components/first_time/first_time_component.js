@@ -1,5 +1,6 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Item, Input, Label} from 'native-base'
+import axios from 'axios'
 
 export default class CreateRequestComponent extends React.Component {
   constructor (props) {
@@ -50,32 +51,19 @@ export default class CreateRequestComponent extends React.Component {
           <View>
             <Button full primary
               onPress={() => {
-                // eslint-disable-next-line no-undef
-                alert('Printing out input fields: \n' +
-                                          'Field 1: ' + this.state.field1 + '\n' +
-                                          'Field 2: ' + this.state.field2 + '\n' +
-                                          'Field 3: ' + this.state.field3 + '\n' +
-                                          'Field 4: ' + this.state.field4 + '\n' +
-                                          'Field 5: ' + this.state.field5 + '\n')
-                /*
-                fetch('https://localhost', {
-                  method: 'POST',
-                  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
+                axios({
+                  method: 'post',
+                  url: 'https://www.placeholder.com',
+                  data: {
                     username: this.state.field1,
                     d_o_b: this.state.field2,
                     discord_tag: this.state.field3,
                     misc1: this.state.field4,
                     misc2: this.state.field5
-                  })
+                  }
                 })
-                */
                 navigate('UserProfile')
-              }}
-                        >
+              }} >
               <Text>CONTINUE</Text>
             </Button>
           </View>
