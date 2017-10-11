@@ -38,14 +38,8 @@ export default class CreateRequestComponent extends React.Component {
           <View>
             <Button full primary
               onPress={() => {
-                axios({
-                  method: 'post',
-                  url: 'https://www.placeholder.com',
-                  data: {
-                    username: this.state.field1,
-                    password: this.state.field2
-                  }
-                })
+// eslint-disable-next-line no-undef
+                alert("I'll do HTTP stuff soon")
                 navigate('Dashboard')
               }}
                   >
