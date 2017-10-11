@@ -2,7 +2,7 @@ import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Item, Input, Label} from 'native-base'
 import axios from 'axios'
 
-export default class CreateRequestComponent extends React.Component {
+export default class FirstTimeComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
