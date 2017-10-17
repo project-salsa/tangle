@@ -1,29 +1,58 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Left, Right, Content, Picker, Button, Icon, Item, Label} from 'native-base'
+import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label} from 'native-base'
 import TextBox from './textbox/textbox'
+import axios from 'axios'
 
 export default class CreateRequestComponent extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      postTitle: undefined,
-      gameSelection: undefined,
-      playerCount: undefined,
-      locationName: undefined,
-      games: []
+      postTitle: '',
+      hostUser: 'DummyUser', // change when we can track current user
+      gameSelection: '',
+      platform: '',
+      tags: [],
+      locationName: '',
+      maxPlayers: 2
     }
+
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  onValueChange (value: string) {
-    if (value !== 'none') {
-      this.setState({
-        gameSelection: value
-      })
-    }
+  handleInputChange (event) {
+    const target = event.target
+    const val = target.type
+    const name = target.name
+
+    this.setState({
+      [name]: val
+    })
+  }
+
+  handleSubmit () {
+    const { navigate } = this.props.navigation
+    axios.post('/requests', {
+      title: this.state.postTitle,
+      user: this.state.hostUser,
+      game: this.state.gameSelection,
+      platform: this.state.platform,
+      tags: this.state.tags,
+      location: this.state.locationName,
+      maxPlayers: this.state.maxPlayers
+    })
+    .then((resp) => {
+      console.log(resp)
+      navigate('Dashboard')
+    }, (err) => {
+      console.log(err)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   render () {
-    const { navigate } = this.props.navigation;
+    let gameList = ['League', 'Smash', 'Overwatch']
     return (
       <Container>
         <Header>
@@ -38,24 +67,24 @@ export default class CreateRequestComponent extends React.Component {
         </Header>
         <Content padder>
           <Form>
+
             <Item floatingLabel>
               <Label>Post Title</Label>
               <TextBox padder
-                     onChangeText={(input) => this.setState({postTitle: input})} />
+                name='postTitle'
+                onChangeText={this.handleInputChange} />
             </Item>
 
             <Text>Select a Game</Text>
-            let gameList = ["League of Legends", "Overwatch"];
             <Picker
               iosHeader='Select a Game'
               placeholder={'Choose...'}
               mode='dialog'
               prompt='Select a Game'
-              selectedValue={this.state.gameSelection}
-              onValueChange={this.onValueChange.bind(this)}>
-
+              selectedValue='Overwatch'
+              onValueChange={this.handleInputChange}>
               {gameList.map((item, index) => {
-                return(<Item label={item} value={index} key={index}/>)
+                return (<Item label={item} value={index} key={index} />)
               })}
             </Picker>
 
@@ -63,29 +92,31 @@ export default class CreateRequestComponent extends React.Component {
               <Icon active ios='ios-happy' android='md-happy' />
               <Label>Number of Players</Label>
               <TextBox padder
-                keyboardType = 'numeric'
-                onChangeText={(input) => this.setState({playerCount: input})}
-                            />
-              {/* Would like to make this a NumberPicker, but manual input is fine for now */}
+                name='maxPlayers'
+                type='number'
+                keyboardType='numeric'
+                value={this.state.maxPlayers}
+                onChangeText={this.handleInputChange} />
             </Item>
 
             <Item floatingLabel>
               <Icon active ios='ios-pin' android='md-pin' />
               <Label>Location</Label>
               <TextBox padder
-                onChangeText={(input) => this.setState({locationName: input})} />
+                name='locationName'
+                onChangeText={this.handleInputChange} />
               {/* User input for now, consider using map data in the future */}
             </Item>
+
           </Form>
+
           <Button full primary
-            onPress={() => navigate('Dashboard')}
-                    >
-            {/*
-                            Right now, this just goes to the Dashboard
-                            This will need to send the state data to the server
-                        */}
+            onPress={this.handleSubmit}>
+            {/*  Right now, this just goes to the Dashboard
+                 This will need to send the state data to the server */}
             <Text>Send Request</Text>
           </Button>
+
         </Content>
       </Container>
     )

@@ -4,15 +4,14 @@ import CreateRequestComponent from '../../components/create_request/create_reque
 
 export default class CreateRequestView extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      gamesList: [],
-      newPost: undefined
+      gamesList: []
     }
   }
 
   componentDidMount () {
-    axios.get('something').then((data) => {
+    axios.get('/games').then((data) => {
       this.setState({
         gamesList: data
       })
@@ -25,7 +24,9 @@ export default class CreateRequestView extends React.Component {
 
   render () {
     return (
-      <CreateRequestComponent games={this.gamesList} />
+      <CreateRequestComponent
+        navigation={this.props.navigation}
+        gamesList={this.state.gamesList} />
     )
   }
 }

@@ -9,7 +9,7 @@ export default class TextBox extends Component {
     return null
   }
 
-  render() {
+  render () {
     return (
       <Container>
         <Input />
