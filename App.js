@@ -1,7 +1,7 @@
 import { AppRegistry } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import HomeComponent from './components/home_screen'
-import DashboardComponent from './components/dashboard/dashboard_component'
+import DashboardView from './containers/dashboard_view'
 import RequestComponent from './components/request/request_component'
 import UserProfileComponent from './components/user_profile/user_profile_component'
 import LoginComponent from './components/login/login_component'
@@ -12,7 +12,7 @@ import FirstTimeComponent from './components/first_time/first_time_component'
 
 const App = StackNavigator({
   Home: { screen: HomeComponent },
-  Dashboard: { screen: DashboardComponent },
+  Dashboard: { screen: DashboardView },
   Request: { screen: RequestComponent },
   UserProfile: { screen: UserProfileComponent },
   Login: { screen: LoginComponent },
