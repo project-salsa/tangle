@@ -6,8 +6,8 @@ export default class LoginComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: undefined,
-      password: undefined
+      username: '',
+      password: ''
     }
   }
 

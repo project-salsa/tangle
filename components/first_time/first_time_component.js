@@ -6,11 +6,11 @@ export default class FirstTimeComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      field1: undefined,
-      field2: undefined,
-      field3: undefined,
-      field4: undefined,
-      field5: undefined
+      field1: '',
+      field2: '',
+      field3: '',
+      field4: '',
+      field5: ''
     }
   }
 
