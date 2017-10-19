@@ -9,7 +9,7 @@ import UserPreferencesComponent from './components/user_preferences/user_prefere
 import CreateRequestComponent from './components/create_request/create_request_component'
 import RequestCard from './components/common/request_card'
 import FirstTimeComponent from './components/first_time/first_time_component'
-import EditUserProfile from './components/user_profile/user_profile_edit'
+import EditUserProfileContainer from './containers/user_profile/user_profile_edit_container'
 
 const App = StackNavigator({
   Home: { screen: HomeComponent },
@@ -21,7 +21,7 @@ const App = StackNavigator({
   CreateRequest: { screen: CreateRequestComponent },
   FirstTime: { screen: FirstTimeComponent },
   RequestCard: { screen: RequestCard },
-  EditUserProfile: {screen: EditUserProfile}
+  EditUserProfile: {screen: EditUserProfileContainer}
 })
 
 export default App

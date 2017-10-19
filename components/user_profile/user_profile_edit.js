@@ -1,6 +1,7 @@
 import { Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Thumbnail, Item, Input } from 'native-base'
+import axios from 'axios'
 
 // import Request from 'react-http-request';
 
@@ -18,6 +19,39 @@ export default class UserProfileEdit extends Component {
       steam: 'DummySteam',
       battlenet: 'DummyBattle.net'
     }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleInputChange (event) {
+    const target = event.target
+    const val = target.type
+    const name = target.name
+
+    this.setState({
+      [name]: val
+    })
+  }
+
+  handleSubmit () {
+    const { navigate } = this.props.navigation
+    axios.post('/users', {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      profilePic: this.state.profilePic,
+      gameTags: this.state.gameTags,
+      discord: this.state.discord,
+      steam: this.state.steam,
+      battlenet: this.state.battlenet
+    })
+      .then((resp) => {
+        console.log(resp)
+        navigate('Dashboard')
+      }, (err) => {
+        console.log(err)
+      }).catch((err) => {
+        console.log(err)
+      })
   }
 
   render () {
@@ -63,7 +97,10 @@ export default class UserProfileEdit extends Component {
             Update Username
           </Text>
             <Item style={styles.userValues}>
-              <Input onChangeText={(input) => this.setState({username: input})} />
+              <Input
+                name='username'
+                onChangeText={this.handleInputChange}
+              />
             </Item>
             {/* /* Display Email */}
             <Text style={styles.title}>
@@ -71,7 +108,10 @@ export default class UserProfileEdit extends Component {
               Update Email
             </Text>
             <Item style={styles.userValues}>
-              <Input onChangeText={(input) => this.setState({email: input})} />
+              <Input
+                name='email'
+                onChangeText={this.handleInputChange}
+              />
             </Item>
             {/* /* Display Password */}
             <Text style={styles.title}>
@@ -79,37 +119,49 @@ export default class UserProfileEdit extends Component {
             Update Password
           </Text>
             <Item style={styles.userValues}>
-              <Input onChangeText={(input) => this.setState({password: input})} />
+              <Input
+                name='password'
+                onChangeText={this.handleInputChange}
+              />
             </Item>
-          <Text style={styles.title}>
-            {'\n'}
+            <Text style={styles.title}>
+              {'\n'}
             Discord
           </Text>
-          <Item style={styles.userValues}>
-            <Input onChangeText={(input) => this.setState({discord: input})} />
-          </Item>
+            <Item style={styles.userValues}>
+              <Input
+                name='discord'
+                onChangeText={this.handleInputChange}
+              />
+            </Item>
             <Text style={styles.title}>
               {'\n'}
               Steam
             </Text>
             <Item style={styles.userValues}>
-              <Input onChangeText={(input) => this.setState({steam: input})} />
+              <Input
+                name='steam'
+                onChangeText={this.handleInputChange}
+              />
             </Item>
             <Text style={styles.title}>
               {'\n'}
               Battle.net
             </Text>
             <Item style={styles.userValues}>
-              <Input onChangeText={(input) => this.setState({battlenet: input})} />
+              <Input
+                name='battlenet'
+                onChangeText={this.handleInputChange}
+            />
             </Item>
-          <Text style={styles.title}>
-            {'\n'}
-          </Text>
-          <Button block info>
-            <Text fontSize={20}>
+            <Text style={styles.title}>
+              {'\n'}
+            </Text>
+            <Button block info onPress={this.handleSubmit}>
+              <Text fontSize={20}>
               Save
             </Text>
-          </Button>
+            </Button>
           </Body>
         </Content>
       </Container>

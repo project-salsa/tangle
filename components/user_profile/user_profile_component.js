@@ -43,7 +43,7 @@ export default class UserProfileComponent extends Component {
             <Title>User Profile</Title>
           </Body>
           <Right>
-            <Button rounded light onPress={() => navigate('EditUserProfile')} >
+            <Button rounded light onPress={() => navigate('EditUserProfile', {navigation: this.props.navigation})} >
               <Text fontSize={4}>
                                 Edit Profile
               </Text>
