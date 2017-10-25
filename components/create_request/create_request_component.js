@@ -71,7 +71,7 @@ export default class CreateRequestComponent extends React.Component {
               selectedValue={this.state.gameSelection}
               onValueChange={(value) => this.setState({gameSelection: value})}>
               {this.props.gamesList.map((item, index) => {
-                return (<Item label={item} value={index} key={index} />)
+                return (<Item label={item} value={item} key={index} />)
               })}
             </Picker>
 
