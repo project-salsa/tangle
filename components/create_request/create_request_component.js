@@ -15,18 +15,7 @@ export default class CreateRequestComponent extends React.Component {
       maxPlayers: 2
     }
 
-    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleInputChange (event) {
-    const target = event.target
-    const val = target.type
-    const name = target.name
-
-    this.setState({
-      [name]: val
-    })
   }
 
   handleSubmit () {
@@ -66,12 +55,11 @@ export default class CreateRequestComponent extends React.Component {
         </Header>
         <Content padder>
           <Form>
-
             <Item floatingLabel>
               <Label>Post Title</Label>
               <Input
                 name='postTitle'
-                onChangeText={this.handleInputChange} />
+                onChangeText={(text) => this.setState({title: text})} />
             </Item>
 
             <Text>Select a Game</Text>
@@ -80,7 +68,7 @@ export default class CreateRequestComponent extends React.Component {
               placeholder={'Choose...'}
               mode='dialog'
               prompt='Select a Game'
-              onValueChange={this.handleInputChange}>
+              onValueChange={(value) => this.setState({game: value})}>
               {this.props.gamesList.map((item, index) => {
                 return (<Item label={item} value={index} key={index} />)
               })}
@@ -94,7 +82,7 @@ export default class CreateRequestComponent extends React.Component {
                 type='number'
                 keyboardType='numeric'
                 maxLength={1}
-                onChangeText={this.handleInputChange} />
+                onChangeText={(text) => this.setState({maxPlayers: text})} />
             </Item>
 
             <Item floatingLabel>
@@ -102,10 +90,9 @@ export default class CreateRequestComponent extends React.Component {
               <Label>Location</Label>
               <Input padder
                 name='locationName'
-                onChangeText={this.handleInputChange} />
-              {/* User input for now, consider using map data in the future */}
+                onChangeText={(text) => this.setState({location: text})} />
+              {/* TODO User input for now, consider using map data in the future */}
             </Item>
-
           </Form>
 
           <Button full primary
