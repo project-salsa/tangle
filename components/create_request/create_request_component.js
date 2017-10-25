@@ -1,6 +1,5 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label} from 'native-base'
-import TextBox from './textbox/textbox'
+import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 
 export default class CreateRequestComponent extends React.Component {
@@ -70,7 +69,7 @@ export default class CreateRequestComponent extends React.Component {
 
             <Item floatingLabel>
               <Label>Post Title</Label>
-              <TextBox
+              <Input
                 name='postTitle'
                 onChangeText={this.handleInputChange} />
             </Item>
@@ -90,18 +89,18 @@ export default class CreateRequestComponent extends React.Component {
             <Item floatingLabel>
               <Icon active ios='ios-happy' android='md-happy' />
               <Label>Number of Players</Label>
-              <TextBox padder
+              <Input padder
                 name='maxPlayers'
                 type='number'
                 keyboardType='numeric'
-                value={this.state.maxPlayers}
+                maxLength={1}
                 onChangeText={this.handleInputChange} />
             </Item>
 
             <Item floatingLabel>
               <Icon active ios='ios-pin' android='md-pin' />
               <Label>Location</Label>
-              <TextBox padder
+              <Input padder
                 name='locationName'
                 onChangeText={this.handleInputChange} />
               {/* User input for now, consider using map data in the future */}
