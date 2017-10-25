@@ -43,12 +43,10 @@ export default class CreateRequestComponent extends React.Component {
       currentPlayers: []
     })
     .then((resp) => {
-      if (resp.success) {
+      if (resp.data.success) {
         navigate('Dashboard')
       }
-      console.log(resp)
-    }, (err) => {
-      console.log(err)
+      console.log(resp.data)
     }).catch((err) => {
       console.log(err)
     })
