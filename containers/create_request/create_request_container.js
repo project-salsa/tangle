@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import CreateRequestComponent from '../../components/create_request/create_request_component'
+const serverAddress = 'https://tangled.michaelbeaver.info'
 
 export default class CreateRequestView extends React.Component {
   constructor (props) {
@@ -11,9 +12,9 @@ export default class CreateRequestView extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('/games').then((data) => {
+    axios.get(serverAddress + '/games').then((data) => {
       this.setState({
-        gamesList: data
+        gamesList: data.games
       })
     }, (err) => {
       console.log(err)
@@ -25,6 +26,7 @@ export default class CreateRequestView extends React.Component {
   render () {
     return (
       <CreateRequestComponent
+        serverAddress={serverAddress}
         navigation={this.props.navigation}
         gamesList={this.state.gamesList} />
     )

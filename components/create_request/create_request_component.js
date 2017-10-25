@@ -8,7 +8,7 @@ export default class CreateRequestComponent extends React.Component {
     super(props)
     this.state = {
       postTitle: '',
-      hostUser: 'DummyUser', // change when we can track current user
+      hostUser: 'DummyUser', // TODO change when we can track current user
       gameSelection: '',
       platform: '',
       tags: [],
@@ -32,7 +32,7 @@ export default class CreateRequestComponent extends React.Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
-    axios.post('/requests', {
+    axios.post(this.props.serverAddress + '/requests', {
       title: this.state.postTitle,
       user: this.state.hostUser,
       game: this.state.gameSelection,
@@ -42,8 +42,10 @@ export default class CreateRequestComponent extends React.Component {
       maxPlayers: this.state.maxPlayers
     })
     .then((resp) => {
+      if (resp.success) {
+        navigate('Dashboard')
+      }
       console.log(resp)
-      navigate('Dashboard')
     }, (err) => {
       console.log(err)
     }).catch((err) => {
@@ -52,7 +54,6 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   render () {
-    let gameList = ['League', 'Smash', 'Overwatch']
     return (
       <Container>
         <Header>
@@ -81,9 +82,8 @@ export default class CreateRequestComponent extends React.Component {
               placeholder={'Choose...'}
               mode='dialog'
               prompt='Select a Game'
-              selectedValue='Overwatch'
               onValueChange={this.handleInputChange}>
-              {gameList.map((item, index) => {
+              {this.props.gamesList.map((item, index) => {
                 return (<Item label={item} value={index} key={index} />)
               })}
             </Picker>
@@ -112,8 +112,6 @@ export default class CreateRequestComponent extends React.Component {
 
           <Button full primary
             onPress={this.handleSubmit}>
-            {/*  Right now, this just goes to the Dashboard
-                 This will need to send the state data to the server */}
             <Text>Send Request</Text>
           </Button>
 
