@@ -6,21 +6,19 @@ export default class CreateRequestView extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      serverAddress = 'https://tangled.michaelbeaver.info',
+      serverAddress: 'https://tangled.michaelbeaver.info',
       gamesList: []
     }
   }
 
   componentDidMount () {
-    axios.get(serverAddress + '/games/').then((data) => {
-      console.log(data)
+    axios.get(this.state.serverAddress + '/games/').then((response) => {
+      console.log(response)
       this.setState({
-        gamesList: data.games
+        gamesList: response.games
+      }).catch((err) => {
+        console.log(err)
       })
-    }, (err) => {
-      console.log(err)
-    }).catch((err) => {
-      console.log(err)
     })
   }
 
