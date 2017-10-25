@@ -16,9 +16,9 @@ export default class CreateRequestView extends React.Component {
       console.log(response)
       this.setState({
         gamesList: response.games
-      }).catch((err) => {
-        console.log(err)
       })
+    }).catch((err) => {
+      console.log(err)
     })
   }
 
