@@ -59,7 +59,7 @@ export default class CreateRequestComponent extends React.Component {
               <Label>Post Title</Label>
               <Input
                 name='postTitle'
-                onChangeText={(text) => this.setState({title: text})} />
+                onChangeText={(text) => this.setState({postTitle: text})} />
             </Item>
 
             <Text>Select a Game</Text>
@@ -68,7 +68,7 @@ export default class CreateRequestComponent extends React.Component {
               placeholder={'Choose...'}
               mode='dialog'
               prompt='Select a Game'
-              onValueChange={(value) => this.setState({game: value})}>
+              onValueChange={(value) => this.setState({gameSelection: value})}>
               {this.props.gamesList.map((item, index) => {
                 return (<Item label={item} value={index} key={index} />)
               })}
@@ -90,7 +90,7 @@ export default class CreateRequestComponent extends React.Component {
               <Label>Location</Label>
               <Input padder
                 name='locationName'
-                onChangeText={(text) => this.setState({location: text})} />
+                onChangeText={(text) => this.setState({locationName: text})} />
               {/* TODO User input for now, consider using map data in the future */}
             </Item>
           </Form>
