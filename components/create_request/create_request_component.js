@@ -70,7 +70,7 @@ export default class CreateRequestComponent extends React.Component {
 
             <Item floatingLabel>
               <Label>Post Title</Label>
-              <TextBox padder
+              <TextBox
                 name='postTitle'
                 onChangeText={this.handleInputChange} />
             </Item>
