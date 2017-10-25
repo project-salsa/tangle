@@ -12,10 +12,9 @@ export default class CreateRequestView extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(this.state.serverAddress + '/games/').then((response) => {
-      console.log(response)
+    axios.get(this.state.serverAddress + '/games').then((response) => {
       this.setState({
-        gamesList: response.games
+        gamesList: response.data.games
       })
     }).catch((err) => {
       console.log(err)

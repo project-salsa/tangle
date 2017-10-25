@@ -10,7 +10,7 @@ export default class CreateRequestComponent extends React.Component {
       postTitle: '',
       hostUser: 'DummyUser', // TODO change when we can track current user
       gameSelection: '',
-      platform: '',
+      platform: 'PC',
       tags: [],
       locationName: '',
       maxPlayers: 2
@@ -39,7 +39,8 @@ export default class CreateRequestComponent extends React.Component {
       platform: this.state.platform,
       tags: this.state.tags,
       location: this.state.locationName,
-      maxPlayers: this.state.maxPlayers
+      maxPlayers: this.state.maxPlayers,
+      currentPlayers: []
     })
     .then((resp) => {
       if (resp.success) {
