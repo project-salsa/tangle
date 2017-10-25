@@ -68,6 +68,7 @@ export default class CreateRequestComponent extends React.Component {
               placeholder={'Choose...'}
               mode='dialog'
               prompt='Select a Game'
+              selectedValue={this.state.gameSelection}
               onValueChange={(value) => this.setState({gameSelection: value})}>
               {this.props.gamesList.map((item, index) => {
                 return (<Item label={item} value={index} key={index} />)
