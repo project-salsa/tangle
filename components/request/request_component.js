@@ -57,7 +57,7 @@ export default class RequestComponent extends React.Component {
             <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Place</Text>
-                <Thumbnail source={this.state.locationPic} />
+                <Thumbnail source={this.state.gamePic} />
                 <Text>{this.props.locationName}</Text>
               </Body>
             </Col>
