@@ -20,15 +20,16 @@ export default class RequestContainer extends React.Component {
 
   componentDidMount () {
     axios.get(this.state.serverAddress + '/requests/' + this.props.requestId).then((response) => {
+      const request = response.data.request
       this.setState({
-        postTitle: response.data.title,
+        postTitle: request.title,
         hostUser: response.data.user,
         game: response.data.game,
-        platform: response.data.platform,
-        tags: response.data.tags,
-        locationName: response.data.location,
-        maxPlayers: response.data.maxPlayers,
-        currentPlayers: response.data.currentPlayers
+        platform: request.platform,
+        tags: request.tags,
+        locationName: request.location,
+        maxPlayers: request.maxPlayers,
+        currentPlayers: request.currentPlayers
       })
     }).catch((err) => {
       console.log(err)
