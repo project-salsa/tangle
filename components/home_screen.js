@@ -24,7 +24,7 @@ export default class HomeComponent extends React.Component {
           title='Go to Dashboard'
         />
         <Button
-          onPress={() => navigate('Request')}
+          onPress={() => navigate('Request', {navigation: this.props.navigation})}
           title='Go to Request'
         />
         <Button
