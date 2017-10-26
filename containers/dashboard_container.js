@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import Dashboard from '../components/dashboard/dashboard'
+import DashboardComponent from '../components/dashboard/dashboard_component'
 
-export default class DashboardView extends React.Component {
+export default class DashboardContainer extends React.Component {
   constructor (props) {
     super(props)
 
@@ -12,9 +12,9 @@ export default class DashboardView extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('url').then((data) => {
+    return axios.get('https://tangled.michaelbeaver.info/requests/').then((response) => {
       this.setState({
-        requests: data
+        requests: response.data.requests
       })
     }).catch((err) => {
      // TODO: handle errors more properly, but I think this is fine for now. It'll just return an empty list to the component
@@ -23,7 +23,7 @@ export default class DashboardView extends React.Component {
 
   render () {
     return (
-      <Dashboard navigation={this.props.navigation} />
+      <DashboardComponent requests={this.state.requests} navigation={this.props.navigation} />
     )
   }
 }
