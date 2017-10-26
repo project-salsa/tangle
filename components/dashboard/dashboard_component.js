@@ -8,7 +8,7 @@ export default class DashboardComponent extends React.Component {
       <Container>
         <Content>
           <H1>Dashboard</H1>
-          <RequestList navigation={this.props.navigation} />
+          <RequestList requests={this.props.requests} navigation={this.props.navigation} />
         </Content>
       </Container>
     )
