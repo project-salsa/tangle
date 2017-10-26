@@ -19,6 +19,7 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   handleSubmit () {
+    console.log(this.state)
     const { navigate } = this.props.navigation
     axios.post(this.props.serverAddress + '/requests', {
       title: this.state.postTitle,
