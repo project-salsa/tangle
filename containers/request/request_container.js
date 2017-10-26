@@ -19,7 +19,7 @@ export default class RequestContainer extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(this.state.serverAddress + '/requests/' + this.props.requestId).then((response) => {
+    axios.get(this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId).then((response) => {
       const request = response.data.request
       this.setState({
         postTitle: request.title,
