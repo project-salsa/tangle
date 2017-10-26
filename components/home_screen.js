@@ -40,7 +40,7 @@ export default class HomeComponent extends React.Component {
           title='Go to User Prefs.'
         />
         <Button
-          onPress={() => navigate('CreateRequest')}
+          onPress={() => navigate('CreateRequest', {navigation: this.props.navigation})}
           title='Go to Create Request'
         />
         <Button
