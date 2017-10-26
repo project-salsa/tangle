@@ -4,11 +4,10 @@ import { Card, CardItem, Left, Text } from 'native-base'
 export default class RequestCard extends React.Component {
   render () {
     const { navigate } = this.props.navigation
-
     return (
       <Card>
-        <CardItem button onPress={() => navigate('Request', { navigation: this.props.navigation, requestId: this.props.requestId })}>
-          <Left>
+        <CardItem button onPress={() => navigate('Request', { requestId: this.props.requestId })}>
+            <Left>
             <Text>
               {this.props.title}
               {'\n'}
