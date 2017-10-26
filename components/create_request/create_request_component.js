@@ -33,7 +33,7 @@ export default class CreateRequestComponent extends React.Component {
     })
     .then((resp) => {
       if (resp.data.success) {
-        navigate('Dashboard')
+        navigate('Request', {requestId: resp.data.requestId})
       }
       console.log(resp.data)
     }).catch((err) => {
