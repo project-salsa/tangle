@@ -23,8 +23,8 @@ export default class RequestContainer extends React.Component {
       const request = response.data.request
       this.setState({
         postTitle: request.title,
-        hostUser: response.data.user,
-        game: response.data.game,
+        hostUser: request.user,
+        game: request.game,
         platform: request.platform,
         tags: request.tags,
         locationName: request.location,
