@@ -8,29 +8,26 @@ export default class UserProfileContainer extends React.Component {
     this.state = {
       profilePic: '',
       username: '',
-      password: '',
       email: '',
       discord: '',
       steam: '',
-      battlenet: '',
-      gameTags: []
+      battleNet: '',
+      gameTags: '',
+      serverAddress: 'https://tangled.michaelbeaver.info'
     }
   }
 
   componentDidMount () {
-    axios.get('/users').then((data) => {
+    axios.get(this.state.serverAddress + '/users/' + this.props.username).then((response) => {
+      const user = response.data.user
       this.setState({
-        profilePic: data.user.profilePic,
-        username: data.user.username,
-        password: data.user.password,
-        email: data.user.email,
-        discord: data.user.discord,
-        steam: data.user.steam,
-        battlenet: data.user.battlenet,
-        gameTags: data.user.gameTags
+        username: user.username,
+        email: user.email,
+        discord: user.discordId,
+        steam: user.steamId,
+        battleNet: user.battleNetId,
+        gameTags: user.subscribedTags
       })
-    }, (err) => {
-      console.log(err)
     }).catch((err) => {
       console.log(err)
     })
@@ -39,15 +36,12 @@ export default class UserProfileContainer extends React.Component {
   render () {
     return (
       <UserProfileComponent
-        profilePic={this.profilePic}
-        username={this.username}
-        userPassword={this.password}
-        userEmail={this.email}
-        discord={this.discord}
-        userSteam={this.steam}
-        userBattlenet={this.battlenet}
-        gameTags={this.gameTags}
-      />
+        username={this.state.username}
+        userEmail={this.state.email}
+        discord={this.state.discord}
+        userSteam={this.state.steam}
+        userBattlenet={this.state.battleNet}
+        gameTags={this.state.gameTags} />
     )
   }
 }
