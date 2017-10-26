@@ -9,7 +9,6 @@ export default class RequestComponent extends React.Component {
     this.state = {
       isActive: true,
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
-      locationPic: {uri: 'http://www.rollacity.org/images/mo.gif'},
       gamePic: {uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Overwatch_circle_logo.svg/500px-Overwatch_circle_logo.svg.png'},
       hasJoined: false
     }
@@ -40,7 +39,7 @@ export default class RequestComponent extends React.Component {
           <Grid>
             <Row style={{ backgroundColor: '#776B76', height: 200 }}>
               <Body>
-                <Text>Pic goes here lol</Text>
+                <Text>Banner Goes Here!</Text>
               </Body>
             </Row>
           </Grid>
@@ -52,7 +51,7 @@ export default class RequestComponent extends React.Component {
               <Body>
                 <Text style={{fontSize: 18}}>Host</Text>
                 <Thumbnail source={this.state.profilePic} />
-                <Text>{this.props.hostUser}</Text>
+                <Text>{this.props.hostUser.username}</Text>
               </Body>
             </Col>
             <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
@@ -66,7 +65,7 @@ export default class RequestComponent extends React.Component {
               <Body>
                 <Text style={{fontSize: 18}}>Game</Text>
                 <Thumbnail source={this.state.gamePic} />
-                <Text>{this.props.game}</Text>
+                <Text>{this.props.game.name}</Text>
               </Body>
             </Col>
           </Grid>

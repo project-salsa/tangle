@@ -6,38 +6,35 @@ export default class RequestContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      postTitle: 'DummyPost',
-      hostUser: 'DummyUser',
-      game: 'CoolGame',
-      platform: 'DummyBox 4',
+      postTitle: '',
+      hostUser: '',
+      game: '',
+      platform: '',
       tags: [],
-      locationName: 'DummyTown',
+      locationName: '',
       maxPlayers: 2,
       currentPlayers: [],
-      isActive: false
+      serverAddress: 'https://tangled.michaelbeaver.info'
     }
   }
-/*
+
   componentDidMount () {
-    axios.get('/requests').then((data) => {
+    axios.get(this.state.serverAddress + '/requests/' + this.props.requestId).then((response) => {
       this.setState({
-        postTitle: data.title,
-        hostUser: data.user.username,
-        game: data.game.name,
-        platform: data.platform,
-        tags: data.tags,
-        locationName: data.location,
-        maxPlayers: data.maxPlayers,
-        currentPlayers: data.currentPlayers,
-        isActive: data.isActive
+        postTitle: response.data.title,
+        hostUser: response.data.user,
+        game: response.data.game,
+        platform: response.data.platform,
+        tags: response.data.tags,
+        locationName: response.data.location,
+        maxPlayers: response.data.maxPlayers,
+        currentPlayers: response.data.currentPlayers
       })
-    }, (err) => {
-      console.log(err)
     }).catch((err) => {
       console.log(err)
     })
   }
-*/
+
   render () {
     return (
       <RequestComponent
