@@ -9,9 +9,8 @@ export default class UserProfileComponent extends Component {
   constructor (props) {
     super(props)
     this.state = {
-
       username: 'DummyUser',
-      // This profilePic will grab the users image stored on database, for now is empty string
+      // TODO add profilePic to user schema in db and pull it from back-end
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
       gameTags: ['game1', 'game2', 'game3', 'game4'],
       discord: 'DummyDiscord'
@@ -42,7 +41,7 @@ export default class UserProfileComponent extends Component {
           <Right>
             <Button rounded light>
               <Text fontSize={4}>
-                                Edit Profile
+                Edit Profile
               </Text>
               {/* TODO Make Edit Profile, only for user */}
             </Button>
@@ -55,27 +54,27 @@ export default class UserProfileComponent extends Component {
             </Text>
             {/* Thumbnail for Profile Picture */}
             <Thumbnail large source={this.state.profilePic} />
-            {/* /* Display Username */}
+            {/* Display Username */}
             <Text style={styles.title}>
               {'\n'}
-                            Username
+              Username
             </Text>
             <Text style={styles.userValues}>
-              {this.state.username}
+              {this.props.username}
             </Text>
           </Body>
           <Text style={styles.title}>
-                        Discord
+            Discord
           </Text>
           <Text style={styles.userValues}>
-            {this.state.discord}
+            {this.props.discord}
           </Text>
           <Text style={styles.title}>
             {'\n'}
-                        Game Tags
+            Game Tags
           </Text>
           {/* /* Display Game Tags */}
-          <List dataArray={this.state.gameTags}
+          <List dataArray={this.props.gameTags}
             // style={ styles.userValues}
             renderRow={(item) =>
               <ListItem>

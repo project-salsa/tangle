@@ -1,27 +1,18 @@
+import React from 'react'
 import { AppRegistry } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import HomeComponent from './components/home_screen'
-import DashboardComponent from './components/dashboard/dashboard_component'
-import RequestComponent from './components/request/request_component'
-import UserProfileComponent from './components/user_profile/user_profile_component'
-import LoginComponent from './components/login/login_component'
-import UserPreferencesComponent from './components/user_preferences/user_preferences_component'
-import CreateRequestComponent from './components/create_request/create_request_component'
-import RequestCard from './components/common/request_card'
-import FirstTimeComponent from './components/first_time/first_time_component'
+import { Provider } from 'mobx-react'
 
-const App = StackNavigator({
-  Home: { screen: HomeComponent },
-  Dashboard: { screen: DashboardComponent },
-  Request: { screen: RequestComponent },
-  UserProfile: { screen: UserProfileComponent },
-  Login: { screen: LoginComponent },
-  UserPreferences: { screen: UserPreferencesComponent },
-  CreateRequest: { screen: CreateRequestComponent },
-  FirstTime: { screen: FirstTimeComponent },
-  RequestCard: { screen: RequestCard }
-})
+import stores from './stores'
+import Router from './router'
 
-export default App
+class App extends React.Component {
+  render () {
+    return (
+      <Provider {...stores}>
+        <Router />
+      </Provider>
+    )
+  }
+}
 
 AppRegistry.registerComponent('App', () => App)
