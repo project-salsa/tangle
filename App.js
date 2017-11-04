@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react'
 import stores from './stores'
 import Router from './router'
 
-class App extends React.Component {
+export default class App extends React.Component {
   render () {
     return (
       <Provider {...stores}>
