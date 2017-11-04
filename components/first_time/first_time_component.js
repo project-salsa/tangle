@@ -5,6 +5,7 @@ import axios from 'axios'
 export default class FirstTimeComponent extends React.Component {
   constructor (props) {
     super(props)
+    // TODO: Make these more descriptive as we figure out how this page works.
     this.state = {
       field1: '',
       field2: '',
