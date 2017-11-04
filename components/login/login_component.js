@@ -9,6 +9,25 @@ export default class LoginComponent extends React.Component {
       username: '',
       password: ''
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit () {
+    const { navigate } = this.props.navigation
+
+    axios.post('https://tangled.michaelbeaver.info',
+      {
+        username: this.state.username,
+        password: this.state.password
+      }
+    ).then(() => {
+      navigate('Dashboard')
+    }).catch((err) => {
+      // TODO: Error handling
+      console.log('Oh no! Error: ', err)
+      navigate('Dashboard')
+    })
   }
 
   render () {
@@ -36,19 +55,7 @@ export default class LoginComponent extends React.Component {
           <View style={{backgroundColor: '#999999', height: 15}} />
           <View style={{height: 10}} />
           <View>
-            <Button full primary
-              onPress={() => {
-                axios({
-                  method: 'post',
-                  url: 'https://tangled.michaelbeaver.info',
-                  data: {
-                    username: this.state.field1,
-                    password: this.state.field2
-                  }
-                })
-                navigate('Dashboard')
-              }}
-                  >
+            <Button full primary onPress={this.handleSubmit}>
               <Text>Login</Text>
             </Button>
             <View style={{height: 15}} />
