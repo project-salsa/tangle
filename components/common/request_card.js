@@ -7,7 +7,7 @@ export default class RequestCard extends React.Component {
     return (
       <Card>
         <CardItem button onPress={() => navigate('Request', { requestId: this.props.requestId })}>
-            <Left>
+          <Left>
             <Text>
               {this.props.title}
               {'\n'}

@@ -1,5 +1,5 @@
 import AuthStore from './auth'
 
 export default {
-  authStore: new AuthStore(),
+  authStore: new AuthStore()
 }
