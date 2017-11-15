@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "eslint": "^4.9.0",
+    "eslint": "^4.11.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-jsx": "^4.0.2",
     "eslint-plugin-import": "^2.8.0",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
-    "axios": "^0.17.0",
+    "axios": "^0.17.1",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "expo": "^20.0.0",
     "mobx": "^3.3.1",

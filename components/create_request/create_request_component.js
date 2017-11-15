@@ -1,13 +1,15 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class CreateRequestComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       postTitle: '',
-      hostUser: 'DummyUser', // TODO change when we can track current user
+      hostUser: 'DummyUser', // TODO: change when we can track current user
       gameSelection: '',
       platform: 'PC',
       tags: [],
@@ -21,7 +23,7 @@ export default class CreateRequestComponent extends React.Component {
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
-    axios.post(this.props.serverAddress + '/requests', {
+    axios.post(this.props.serverAddress + '/requests', { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }, {
       title: this.state.postTitle,
       user: this.state.hostUser,
       game: this.state.gameSelection,

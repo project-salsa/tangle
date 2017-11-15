@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import DashboardComponent from '../components/dashboard/dashboard_component'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class DashboardContainer extends React.Component {
   constructor (props) {
     super(props)
@@ -12,7 +14,7 @@ export default class DashboardContainer extends React.Component {
   }
 
   componentDidMount () {
-    return axios.get('https://tangled.michaelbeaver.info/requests/').then((response) => {
+    return axios.get('https://tangled.michaelbeaver.info/requests/', { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }).then((response) => {
       this.setState({
         requests: response.data.requests
       })

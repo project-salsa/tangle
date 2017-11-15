@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import RequestComponent from '../../components/request/request_component'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class RequestContainer extends React.Component {
   constructor (props) {
     super(props)
@@ -19,7 +21,7 @@ export default class RequestContainer extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId).then((response) => {
+    axios.get(this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId, { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }).then((response) => {
       const request = response.data.request
       this.setState({
         postTitle: request.title,

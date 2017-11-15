@@ -18,7 +18,9 @@ export default class UserProfileContainer extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(this.state.serverAddress + '/users/' + this.props.username).then((response) => {
+    const { params } = this.props.navigation.state
+
+    axios.get(this.state.serverAddress + '/users/' + params.username).then((response) => {
       const user = response.data.user
       this.setState({
         username: user.username,

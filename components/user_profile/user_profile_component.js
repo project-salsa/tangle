@@ -2,9 +2,10 @@ import { Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon,
   Thumbnail, List, ListItem } from 'native-base'
+import { inject } from 'mobx-react'
 
 // import Request from 'react-http-request';
-
+@inject('authStore')
 export default class UserProfileComponent extends Component {
   constructor (props) {
     super(props)
@@ -26,6 +27,16 @@ export default class UserProfileComponent extends Component {
         fontSize: 24
       }
     })
+    let canEdit
+    if (this.props.authStore.username == this.props.username){
+        canEdit = <Button rounded light>
+          <Text fontSize={4}>
+            Edit Profile
+          </Text>
+          {/* TODO Make Edit Profile, only for user */}
+        </Button>
+    }
+
 
     return (
       <Container>
@@ -39,12 +50,7 @@ export default class UserProfileComponent extends Component {
             <Title>User Profile</Title>
           </Body>
           <Right>
-            <Button rounded light>
-              <Text fontSize={4}>
-                Edit Profile
-              </Text>
-              {/* TODO Make Edit Profile, only for user */}
-            </Button>
+            {canEdit}
           </Right>
         </Header>
         <Content>

@@ -28,7 +28,7 @@ export default class HomeComponent extends React.Component {
           title='Go to Request'
         />
         <Button
-          onPress={() => navigate('UserProfile')}
+          onPress={() => navigate('UserProfile', {username: 'DummyUser'})}
           title='Go to User Profile'
         />
         <Button

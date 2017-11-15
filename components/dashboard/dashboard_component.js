@@ -6,8 +6,6 @@ import { inject } from 'mobx-react'
 @inject('authStore')
 export default class DashboardComponent extends React.Component {
   render () {
-    console.log('The token! ', this.props.authStore.token)
-
     return (
       <Container>
         <Content>
