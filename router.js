@@ -9,11 +9,7 @@ import CreateRequestContainer from './containers/create_request/create_request_c
 import RequestCard from './components/common/request_card'
 import FirstTimeComponent from './components/first_time/first_time_component'
 
-const navOptions = {
-  initialRouteName: 'Home'
-}
-
-export default StackNavigator({
+export const AppNavigator = StackNavigator({
   Home: { screen: HomeComponent },
   UserProfile: { screen: UserProfileContainer },
   Dashboard: { screen: DashboardContainer },
@@ -23,4 +19,18 @@ export default StackNavigator({
   CreateRequest: { screen: CreateRequestContainer },
   FirstTime: { screen: FirstTimeComponent },
   RequestCard: { screen: RequestCard }
-}, navOptions)
+}, {
+  initialRouteName: 'Dashboard'
+})
+
+/*
+ Since the users shouldn't access anything until they log in, this prevents them from navigating elsewhere.
+ This leaves us free to add other navigators to the other screens without having them available to users who
+ haven't logged in.
+*/
+export const RootNavigator = StackNavigator({
+  Login: { screen: LoginComponent },
+  AppNavigator: { screen: AppNavigator }
+}, {
+  initialRouteName: 'Login'
+})

@@ -3,13 +3,13 @@ import { AppRegistry } from 'react-native'
 import { Provider } from 'mobx-react'
 
 import stores from './stores'
-import Router from './router'
+import { RootNavigator } from './router'
 
-class App extends React.Component {
+export default class App extends React.Component {
   render () {
     return (
       <Provider {...stores}>
-        <Router />
+        <RootNavigator />
       </Provider>
     )
   }
