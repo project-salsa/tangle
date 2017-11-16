@@ -23,23 +23,31 @@ export default class CreateRequestComponent extends React.Component {
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
-    axios.post(this.props.serverAddress + '/requests', { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }, {
-      title: this.state.postTitle,
-      user: this.state.hostUser,
-      game: this.state.gameSelection,
-      platform: this.state.platform,
-      tags: this.state.tags,
-      location: this.state.locationName,
-      maxPlayers: this.state.maxPlayers,
-      currentPlayers: []
-    })
-    .then((resp) => {
+    const axiosOptions = {
+      method: 'POST',
+      url: this.props.serverAddress + '/requests',
+      data: {
+        title: this.state.postTitle,
+        user: this.state.hostUser,
+        game: this.state.gameSelection,
+        platform: this.state.platform,
+        tags: this.state.tags,
+        location: this.state.locationName,
+        maxPlayers: this.state.maxPlayers,
+        currentPlayers: []
+      },
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    axios(axiosOptions).then((resp) => {
       if (resp.data.success) {
         navigate('Request', {requestId: resp.data.requestId})
       }
       console.log(resp.data)
     }).catch((err) => {
-      console.log(err)
+      console.log(JSON.stringify(err))
     })
   }
 
