@@ -14,12 +14,23 @@ export default class DashboardContainer extends React.Component {
   }
 
   componentDidMount () {
-    return axios.get('https://tangled.michaelbeaver.info/requests/', { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }).then((response) => {
-      this.setState({
-        requests: response.data.requests
-      })
+    const axiosOptions = {
+      method: 'GET',
+      url: 'https://tangled.michaelbeaver.info/requests/',
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    return axios(axiosOptions).then((resp) => {
+      if (resp.data.success) {
+        this.setState({
+          requests: response.data.requests
+        })
+      }
+      console.log(resp.data)
     }).catch((err) => {
-     // TODO: handle errors more properly, but I think this is fine for now. It'll just return an empty list to the component
+      // TODO: handle errors more properly, but I think this is fine for now. It'll just return an empty list to the component
     })
   }
 

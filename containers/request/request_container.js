@@ -21,20 +21,30 @@ export default class RequestContainer extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId, { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }).then((response) => {
-      const request = response.data.request
-      this.setState({
-        postTitle: request.title,
-        hostUser: request.user,
-        game: request.game,
-        platform: request.platform,
-        tags: request.tags,
-        locationName: request.location,
-        maxPlayers: request.maxPlayers,
-        currentPlayers: request.currentPlayers
-      })
+    const axiosOptions = {
+            method: 'GET',
+            url: this.state.serverAddress + '/requests' + this.props.navigation.state.params.requestId,
+            headers: {
+              Authorization: `Bearer ${this.props.authStore.token}`
+            },
+            json: true
+          };
+    axios(axiosOptions).then((resp) => {
+      if (resp.data.success) {
+        this.setState({
+          postTitle: request.title,
+          hostUser: request.user,
+          game: request.game,
+          platform: request.platform,
+          tags: request.tags,
+          locationName: request.location,
+          maxPlayers: request.maxPlayers,
+          currentPlayers: request.currentPlayers
+        })
+      }
+      console.log(resp.data)
     }).catch((err) => {
-      console.log(err)
+      console.log(JSON.stringify(err))
     })
   }
 

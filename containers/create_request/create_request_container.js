@@ -14,12 +14,23 @@ export default class CreateRequestView extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(this.state.serverAddress + '/games', { headers: { Authorization: `Bearer ${this.props.authStore.token}` } }).then((response) => {
-      this.setState({
-        gamesList: response.data.games
-      })
+    const axiosOptions = {
+      method: 'GET',
+      url: this.state.serverAddress + '/games',
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    axios(axiosOptions).then((resp) => {
+      if (resp.data.success) {
+        this.setState({
+          gamesList: reponse.data.games
+        })
+      }
+      console.log(resp.data)
     }).catch((err) => {
-      console.log(err)
+      console.log(JSON.stringify(err))
     })
   }
 
