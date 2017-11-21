@@ -2,6 +2,7 @@ import React from 'react'
 import {Text} from 'react-native'
 import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import DisplayMap from '../DisplayMap'
 
 export default class RequestComponent extends React.Component {
   constructor (props) {
@@ -43,6 +44,7 @@ export default class RequestComponent extends React.Component {
               </Body>
             </Row>
           </Grid>
+          <DisplayMap mark_lat={37.9} mark_long={-91.8} focus />
           <Body>
             <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
           </Body>

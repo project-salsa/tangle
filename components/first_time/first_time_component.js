@@ -1,7 +1,6 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Item, Input, Label} from 'native-base'
 import axios from 'axios'
-import DisplayMap from '../DisplayMap'
 
 export default class FirstTimeComponent extends React.Component {
   constructor (props) {
@@ -26,7 +25,6 @@ export default class FirstTimeComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          <DisplayMap />
           <Form style={{backgroundColor: '#AAAAAA'}}>
             <Item inlineLabel>
               <Label>  Display Name: </Label>
