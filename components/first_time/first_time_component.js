@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Item, Input, Label} from 'native-base'
 import axios from 'axios'
+import MapView from 'react-native-maps'
 
 export default class FirstTimeComponent extends React.Component {
   constructor (props) {
@@ -25,6 +26,16 @@ export default class FirstTimeComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
+          <View style={{height: 200, width: 400}}>
+            <MapView
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421
+              }}
+            />
+          </View>
           <Form style={{backgroundColor: '#AAAAAA'}}>
             <Item inlineLabel>
               <Label>  Display Name: </Label>
