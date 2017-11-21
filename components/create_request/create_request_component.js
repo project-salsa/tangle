@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
+import SelectMap from '../SelectMap'
 
 export default class CreateRequestComponent extends React.Component {
   constructor (props) {
@@ -55,6 +56,7 @@ export default class CreateRequestComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
+          <SelectMap />
           <Form>
             <Item floatingLabel>
               <Label>Post Title</Label>

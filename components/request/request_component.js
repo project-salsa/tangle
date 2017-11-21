@@ -12,6 +12,7 @@ export default class RequestComponent extends React.Component {
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
       gamePic: {uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Overwatch_circle_logo.svg/500px-Overwatch_circle_logo.svg.png'},
       hasJoined: false
+      // TODO: Remove hardcoded coordinate values for DisplayMap
     }
 
     this.handleButtonPress = this.handleButtonPress.bind(this)

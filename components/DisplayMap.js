@@ -33,7 +33,6 @@ export default class DisplayMap extends React.Component {
       <MapView style={{height: 250, flex: 1}} region={this.state.region}>
         <MapView.Marker
           coordinate={this.state.mark_cord}
-          onDragEnd={(e) => this.setState({ mark_cord: e.nativeEvent.coordinate })}
         />
       </MapView>
     )
