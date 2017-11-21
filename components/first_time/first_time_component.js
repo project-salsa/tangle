@@ -1,7 +1,6 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Item, Input, Label} from 'native-base'
 import axios from 'axios'
-import MapView from 'react-native-maps'
 import DisplayMap from '../DisplayMap'
 
 export default class FirstTimeComponent extends React.Component {
@@ -27,9 +26,7 @@ export default class FirstTimeComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          <View style={{height: 400, flex: 1}}>
-            <DisplayMap />
-          </View>
+          <DisplayMap mark_lat={38} mark_long={-92} />
           <Form style={{backgroundColor: '#AAAAAA'}}>
             <Item inlineLabel>
               <Label>  Display Name: </Label>

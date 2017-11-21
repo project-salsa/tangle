@@ -1,5 +1,4 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Content, View, Button, Item, Input, Label} from 'native-base'
 import MapView from 'react-native-maps'
 
 export default class DisplayMap extends React.Component {
@@ -8,27 +7,24 @@ export default class DisplayMap extends React.Component {
     this.state = {
       region: {
         latitude: 37.9485,
-        longitude: 91.7715,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+        longitude: -91.7715,
+        latitudeDelta: 0.009,
+        longitudeDelta: 0.005
       },
       mark_cord: {
-        latitude: 0,
-        longitude: 0
+        latitude: this.props.mark_lat,
+        longitude: this.props.mark_long
       }
     }
   }
 
-  onRegionChange (region) {
-    this.setState({ region })
-  }
-
   render () {
     return (
-      <MapView
-        region={this.state.region}
-        onRegionChange={this.onRegionChange}
-      />
+      <MapView style={{height: 250, flex: 1}} region={this.state.region}>
+        <MapView.Marker draggable
+          coordinate={this.state.mark_cord}
+          onDragEnd={(e) => this.setState({ mark_cord: e.nativeEvent.coordinate })} />
+      </MapView>
     )
   }
 }
