@@ -26,7 +26,7 @@ export default class FirstTimeComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          <DisplayMap mark_lat={38} mark_long={-92} />
+          <DisplayMap />
           <Form style={{backgroundColor: '#AAAAAA'}}>
             <Item inlineLabel>
               <Label>  Display Name: </Label>
