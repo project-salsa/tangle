@@ -18,7 +18,7 @@ export default class UserProfileEditContainer extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('/users').then((data) => {
+    axios.get('https://tangled.michaelbeaver.info/users').then((data) => {
       this.setState({
         profilePic: data.user.profilePic,
         username: data.user.username,

@@ -34,7 +34,7 @@ export default class UserProfileEdit extends Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
-    axios.post('/users', {
+    axios.post('https://tangled.michaelbeaver.info/users', {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password,
