@@ -3,14 +3,12 @@ import React, { Component } from 'react'
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon,
   Thumbnail, List, ListItem } from 'native-base'
 
-// import Request from 'react-http-request';
-
 export default class UserProfileComponent extends Component {
   constructor (props) {
     super(props)
     this.state = {
-
       username: 'DummyUser',
+      // TODO add profilePic to user schema in db and pull it from back-end
       email: 'email@email.com',
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
       gameTags: ['game1', 'game2', 'game3', 'game4'],
@@ -45,7 +43,7 @@ export default class UserProfileComponent extends Component {
           <Right>
             <Button rounded light onPress={() => navigate('EditUserProfile', {navigation: this.props.navigation})} >
               <Text fontSize={4}>
-                                Edit Profile
+                Edit Profile
               </Text>
             </Button>
           </Right>
@@ -57,10 +55,10 @@ export default class UserProfileComponent extends Component {
             </Text>
             {/* Thumbnail for Profile Picture */}
             <Thumbnail large source={this.state.profilePic} />
-            {/* /* Display Username */}
+            {/* Display Username */}
             <Text style={styles.title}>
               {'\n'}
-                            Username
+              Username
             </Text>
             <Text style={styles.userValues}>
               {this.state.username}
@@ -73,7 +71,7 @@ export default class UserProfileComponent extends Component {
             {this.state.email}
           </Text>
           <Text style={styles.title}>
-                        Discord
+            Discord
           </Text>
           <Text style={styles.userValues}>
             {this.state.discord}
@@ -92,7 +90,7 @@ export default class UserProfileComponent extends Component {
           </Text>
           <Text style={styles.title}>
             {'\n'}
-                        Game Tags
+            Game Tags
           </Text>
           {/* /* Display Game Tags */}
           <List dataArray={this.state.gameTags}
