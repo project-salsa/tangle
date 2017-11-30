@@ -44,6 +44,7 @@ export default class RequestContainer extends React.Component {
       }
       console.log(resp.data)
     }).catch((err) => {
+      // TODO: Log Errors instead of printing them to console
       console.log(JSON.stringify(err))
     })
   }
