@@ -49,6 +49,7 @@ export default class CreateRequestComponent extends React.Component {
       }
       console.log(resp.data)
     }).catch((err) => {
+      // TODO: Log errors
       console.log(JSON.stringify(err))
     })
   }
