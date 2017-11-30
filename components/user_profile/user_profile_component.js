@@ -36,7 +36,6 @@ export default class UserProfileComponent extends Component {
           <Text fontSize={4}>
             Edit Profile
           </Text>
-          {/* TODO Make Edit Profile, only for user */}
         </Button>
     }
 
