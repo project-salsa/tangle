@@ -23,6 +23,8 @@ export default class CreateRequestComponent extends React.Component {
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
+    // TODO: In the data section here, I think we can make this less verbose using some ES6 spread syntax.
+    // Not a big deal since it's a code style issue, but worth looking into later.
     const axiosOptions = {
       method: 'POST',
       url: this.props.serverAddress + '/requests',
