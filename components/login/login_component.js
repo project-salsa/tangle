@@ -1,7 +1,8 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
-import axios from 'axios'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class LoginComponent extends React.Component {
   constructor (props) {
     super(props)
@@ -15,18 +16,11 @@ export default class LoginComponent extends React.Component {
 
   handleSubmit () {
     const { navigate } = this.props.navigation
-
-    axios.post('https://tangled.michaelbeaver.info',
-      {
-        username: this.state.username,
-        password: this.state.password
-      }
-    ).then(() => {
+    this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
       navigate('Dashboard')
     }).catch((err) => {
-      // TODO: Error handling
-      console.log('Oh no! Error: ', err)
-      navigate('Dashboard')
+      // TODO: Login Errors
+      console.log('Error while logging in: ' + err)
     })
   }
 
