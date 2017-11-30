@@ -28,8 +28,8 @@ export default class CreateRequestView extends React.Component {
           gamesList: reponse.data.games
         })
       }
-      console.log(resp.data)
     }).catch((err) => {
+      // TODO: Log Errors instead of printing them to console
       console.log(JSON.stringify(err))
     })
   }
