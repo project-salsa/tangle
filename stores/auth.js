@@ -7,7 +7,7 @@ export default class AuthStore {
 
   logUserIn(username, password) {
     return new Promise ((resolve, reject) => {
-      axios.post('https://tangled.michaelbeaver.info/login/',
+      axios.post('https://tangled.michaelbeaver.info/login',
         {
           username: username,
           password: password
@@ -18,6 +18,7 @@ export default class AuthStore {
         return resolve()
       }).catch((err) => {
         // TODO: Error handling
+        console.log("Axios Error - Auth Store")
         return reject(err.message)
       })
     })
