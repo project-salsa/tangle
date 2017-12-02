@@ -13,15 +13,25 @@ export default class CreateRequestComponent extends React.Component {
       platform: 'PC',
       tags: [],
       locationName: '',
-      maxPlayers: 2
+      maxPlayers: 2,
+      cords: {
+        latitude: 0,
+        longitude: 0
+      }
     }
-
+    this.handleCoordinateChange = this.handleCoordinateChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleCoordinateChange(coordinate) {
+    this.state.cords = coordinate
+    alert(coordinate)
   }
 
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
+    // TODO: Add coordinates to axios post
     axios.post(this.props.serverAddress + '/requests', {
       title: this.state.postTitle,
       user: this.state.hostUser,
@@ -56,7 +66,7 @@ export default class CreateRequestComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          <SelectMap />
+          <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
           <Form>
             <Item floatingLabel>
               <Label>Post Title</Label>
