@@ -14,7 +14,11 @@ export default class SelectMap extends React.Component {
       mark_cord: {
         latitude: 0,
         longitude: 0
-      }
+      },
+      map_height: 200
+    }
+    if (this.props.map_ht) {
+      this.state.map_height = this.props.map_ht
     }
   }
 
@@ -25,7 +29,7 @@ export default class SelectMap extends React.Component {
   render () {
     return (
       <MapView
-        style={{height: 250, flex: 1}}
+        style={{height: this.state.map_height, flex: 1}}
         region={this.state.region}
         onPress={(e) => this.setState({ mark_cord: e.nativeEvent.coordinate })}>
         <MapView.Marker coordinate={this.state.mark_cord} />
