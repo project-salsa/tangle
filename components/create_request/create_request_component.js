@@ -25,7 +25,6 @@ export default class CreateRequestComponent extends React.Component {
 
   handleCoordinateChange(coordinate) {
     this.state.cords = coordinate
-    alert(coordinate)
   }
 
   handleSubmit () {
