@@ -9,15 +9,39 @@ export default class CreateRequestComponent extends React.Component {
     super(props)
     this.state = {
       postTitle: '',
-      hostUser: 'DummyUser', // TODO: change when we can track current user
+      hostUser: this.props.authStore.username,
       gameSelection: '',
-      platform: 'PC',
+      platform: '',
       tags: [],
       locationName: '',
       maxPlayers: 2
     }
 
+    this.getPlatforms = this.getPlatforms.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  getPlatforms() {
+    let gamesList = []
+    if (this.state.gameSelection !== '') {
+      const axiosOptions = {
+        method: 'GET',
+        url: this.props.serverAddress + '/games/' + this.state,gameSelection,
+        headers: {
+          Authorization: `Bearer ${this.props.authStore.token}`
+        },
+        json: true
+      };
+      axios(axiosOptions).then((response) => {
+        if (response.data.success) {
+          gamesList = response.data.platforms
+        }
+      }).catch((err) => {
+        // TODO: Log Errors instead of printing them to console
+        console.log(err.message)
+      })
+    }
+    return gamesList
   }
 
   handleSubmit () {
@@ -50,7 +74,7 @@ export default class CreateRequestComponent extends React.Component {
       console.log(resp.data)
     }).catch((err) => {
       // TODO: Log errors
-      console.log(JSON.stringify(err))
+      console.log(err.message)
     })
   }
 
@@ -89,6 +113,19 @@ export default class CreateRequestComponent extends React.Component {
               })}
             </Picker>
 
+            <Text>Select a Platform</Text>
+            <Picker
+              iosHeader='Select a Platform'
+              placeholder={'Choose...'}
+              mode='dialog'
+              prompt='Select a Platform'
+              selectedValue={this.state.platform}
+              onValueChange={(value) => this.setState({platform: value})}>
+              {this.getPlatforms().map((item, index) => {
+                return (<Item label={item} value={item} key={index} />)
+              })}
+            </Picker>
+
             <Item floatingLabel>
               <Icon active ios='ios-happy' android='md-happy' />
               <Label>Number of Players</Label>
@@ -106,7 +143,7 @@ export default class CreateRequestComponent extends React.Component {
               <Input padder
                 name='locationName'
                 onChangeText={(text) => this.setState({locationName: text})} />
-              {/* TODO User input for now, consider using map data in the future */}
+              {/* TODO Change to Daniel's location select component */}
             </Item>
           </Form>
 

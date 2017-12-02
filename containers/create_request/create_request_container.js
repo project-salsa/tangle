@@ -22,15 +22,15 @@ export default class CreateRequestView extends React.Component {
       },
       json: true
     };
-    axios(axiosOptions).then((resp) => {
-      if (resp.data.success) {
+    axios(axiosOptions).then((response) => {
+      if (response.data.success) {
         this.setState({
-          gamesList: reponse.data.games
+          gamesList: response.data.games
         })
       }
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
-      console.log(JSON.stringify(err))
+      console.log(err.message)
     })
   }
 
