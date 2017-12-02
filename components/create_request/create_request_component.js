@@ -12,9 +12,8 @@ export default class CreateRequestComponent extends React.Component {
       gameSelection: '',
       platform: 'PC',
       tags: [],
-      locationName: '',
       maxPlayers: 2,
-      cords: {
+      location: {
         latitude: 0,
         longitude: 0
       }
@@ -24,20 +23,20 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   handleCoordinateChange(coordinate) {
-    this.state.cords = coordinate
+    this.setState({ location: coordinate })
+    alert("LAT: " + coordinate.latitude + " LONG: " + coordinate.longitude)
   }
 
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
-    // TODO: Add coordinates to axios post
     axios.post(this.props.serverAddress + '/requests', {
       title: this.state.postTitle,
       user: this.state.hostUser,
       game: this.state.gameSelection,
       platform: this.state.platform,
       tags: this.state.tags,
-      location: this.state.locationName,
+      location: this.state.location,
       maxPlayers: this.state.maxPlayers,
       currentPlayers: []
     })
@@ -96,15 +95,6 @@ export default class CreateRequestComponent extends React.Component {
                 keyboardType='numeric'
                 maxLength={1}
                 onChangeText={(text) => this.setState({maxPlayers: text})} />
-            </Item>
-
-            <Item floatingLabel>
-              <Icon active ios='ios-pin' android='md-pin' />
-              <Label>Location</Label>
-              <Input padder
-                name='locationName'
-                onChangeText={(text) => this.setState({locationName: text})} />
-              {/* TODO User input for now, consider using map data in the future */}
             </Item>
           </Form>
 
