@@ -26,7 +26,6 @@ export default class CreateRequestComponent extends React.Component {
 
   handleCoordinateChange(coordinate) {
     this.setState({ location: coordinate })
-    alert("LAT: " + coordinate.latitude + " LONG: " + coordinate.longitude)
   }
 
   handleSubmit () {
