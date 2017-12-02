@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import DashboardComponent from '../components/dashboard/dashboard_component'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class DashboardContainer extends React.Component {
   constructor (props) {
     super(props)
@@ -12,12 +14,24 @@ export default class DashboardContainer extends React.Component {
   }
 
   componentDidMount () {
-    return axios.get('https://tangled.michaelbeaver.info/requests/').then((response) => {
-      this.setState({
-        requests: response.data.requests
-      })
+    const axiosOptions = {
+      method: 'GET',
+      url: 'https://tangled.michaelbeaver.info/requests/',
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    return axios(axiosOptions).then((response) => {
+      if (response.data.success) {
+        this.setState({
+          requests: response.data.requests
+        })
+      }
+      console.log(response.data)
     }).catch((err) => {
-     // TODO: handle errors more properly, but I think this is fine for now. It'll just return an empty list to the component
+      // TODO: handle errors more properly, but I think this is fine for now. It'll just return an empty list to the component
+      console.log('Axios Error', err.message)
     })
   }
 

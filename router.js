@@ -8,6 +8,7 @@ import UserPreferencesComponent from './components/user_preferences/user_prefere
 import CreateRequestContainer from './containers/create_request/create_request_container'
 import RequestCard from './components/common/request_card'
 import FirstTimeComponent from './components/first_time/first_time_component'
+import EditUserProfileContainer from './containers/user_profile/user_profile_edit_container'
 
 const navOptions = {
   initialRouteName: 'Home'
@@ -22,5 +23,6 @@ export default StackNavigator({
   UserPreferences: { screen: UserPreferencesComponent },
   CreateRequest: { screen: CreateRequestContainer },
   FirstTime: { screen: FirstTimeComponent },
-  RequestCard: { screen: RequestCard }
+  RequestCard: { screen: RequestCard },
+  EditUserProfile: {screen: EditUserProfileContainer}
 }, navOptions)
