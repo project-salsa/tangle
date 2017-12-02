@@ -2,6 +2,7 @@ import React from 'react'
 import {Text} from 'react-native'
 import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import DisplayMap from '../DisplayMap'
 
 export default class RequestComponent extends React.Component {
   constructor (props) {
@@ -11,6 +12,7 @@ export default class RequestComponent extends React.Component {
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
       gamePic: {uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Overwatch_circle_logo.svg/500px-Overwatch_circle_logo.svg.png'},
       hasJoined: false
+      // TODO: Remove hardcoded coordinate values for DisplayMap
     }
 
     this.handleButtonPress = this.handleButtonPress.bind(this)
@@ -43,6 +45,7 @@ export default class RequestComponent extends React.Component {
               </Body>
             </Row>
           </Grid>
+          <DisplayMap mark_lat={37.9} mark_long={-91.8} focus />
           <Body>
             <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
           </Body>
