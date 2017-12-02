@@ -4,6 +4,7 @@ import MapView from 'react-native-maps'
 export default class SelectMap extends React.Component {
   constructor (props) {
     super(props)
+    this.handlePress = this.handlePress.bind(this)
     this.state = {
       region: {
         latitude: 37.9485,
@@ -22,8 +23,12 @@ export default class SelectMap extends React.Component {
     }
   }
 
-  getMark () {
-    return this.state.mark_cord
+  handlePress(e) {
+    this.setState({ mark_cord: e.nativeEvent.coordinate })
+    this.setState({ region: {latitude: e.nativeEvent.coordinate.latitude,
+      longitude: e.nativeEvent.coordinate.longitude, latitudeDelta: 0.009, longitudeDelta: 0.005}
+    })
+    this.props.getCoordinate(e.nativeEvent.coordinate)
   }
 
   render () {
@@ -31,7 +36,7 @@ export default class SelectMap extends React.Component {
       <MapView
         style={{height: this.state.map_height, flex: 1}}
         region={this.state.region}
-        onPress={(e) => this.setState({ mark_cord: e.nativeEvent.coordinate })}>
+        onPress={this.handlePress}>
         <MapView.Marker coordinate={this.state.mark_cord} />
       </MapView>
     )

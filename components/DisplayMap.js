@@ -14,7 +14,8 @@ export default class DisplayMap extends React.Component {
       mark_cord: {
         latitude: 37.9485,
         longitude: -91.7715
-      }
+      },
+      map_height: 200
     }
     if (this.props.mark_lat) {
       this.state.mark_cord.latitude = this.props.mark_lat
@@ -26,11 +27,14 @@ export default class DisplayMap extends React.Component {
       this.state.region.latitude = this.state.mark_cord.latitude
       this.state.region.longitude = this.state.mark_cord.longitude
     }
+    if (this.props.map_ht) {
+      this.state.map_height = this.props.map_ht
+    }
   }
 
   render () {
     return (
-      <MapView style={{height: 250, flex: 1}} region={this.state.region}>
+      <MapView style={{height: this.state.map_height, flex: 1}} region={this.state.region}>
         <MapView.Marker
           coordinate={this.state.mark_cord}
         />
