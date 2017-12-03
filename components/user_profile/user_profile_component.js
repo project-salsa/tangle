@@ -9,7 +9,7 @@ export default class UserProfileComponent extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'DummyUser',
+      username: 'test',
       // TODO add profilePic to user schema in db and pull it from back-end
       email: 'email@email.com',
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
@@ -22,6 +22,7 @@ export default class UserProfileComponent extends Component {
 
   render () {
     const { navigate } = this.props.navigation
+
     let styles = StyleSheet.create({
       title: {
         fontSize: 12
@@ -31,8 +32,8 @@ export default class UserProfileComponent extends Component {
       }
     })
     let canEdit
-    if (this.props.authStore.username == this.props.username){
-        canEdit = <Button rounded light>
+    if (this.props.authStore.username == this.state.username){
+        canEdit = <Button rounded light onPress={() => navigate('EditUserProfile', { navigation: this.props.navigation })}>
           <Text fontSize={4}>
             Edit Profile
           </Text>
@@ -68,39 +69,39 @@ export default class UserProfileComponent extends Component {
               Username
             </Text>
             <Text style={styles.userValues}>
-              {this.state.username}
+              {this.props.authStore.username}
             </Text>
           </Body>
           <Text style={styles.title}>
             Email
           </Text>
           <Text style={styles.userValues}>
-            {this.state.email}
+            {this.props.email}
           </Text>
           <Text style={styles.title}>
             Discord
           </Text>
           <Text style={styles.userValues}>
-            {this.state.discord}
+            {this.props.discord}
           </Text>
           <Text style={styles.title}>
             Steam
           </Text>
           <Text style={styles.userValues}>
-            {this.state.steam}
+            {this.props.steam}
           </Text>
           <Text style={styles.title}>
             BattleNet
           </Text>
           <Text style={styles.userValues}>
-            {this.state.battlenet}
+            {this.props.battlenet}
           </Text>
           <Text style={styles.title}>
             {'\n'}
             Game Tags
           </Text>
           {/* /* Display Game Tags */}
-          <List dataArray={this.state.gameTags}
+          <List dataArray={this.props.gameTags}
             // style={ styles.userValues}
             renderRow={(item) =>
               <ListItem>
