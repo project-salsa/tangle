@@ -63,26 +63,18 @@ export default class UserProfileEdit extends Component {
         fontSize: 24
       }
     })
-    const { navigate } = this.props.navigation
 
     return (
       <Container>
-        <Header>
+        <Header style={{marginTop: 24}}>
           <Left>
-            <Button transparent>
-              <Icon name='menu' />
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name='md-arrow-back' />
             </Button>
           </Left>
           <Body>
             <Title>Edit Profile</Title>
           </Body>
-          <Right>
-            <Button full rounded light onPress={() => navigate('UserProfile')}>
-              <Text fontSize={4}>
-              Back
-            </Text>
-            </Button>
-          </Right>
         </Header>
         <Content>
           <Body>

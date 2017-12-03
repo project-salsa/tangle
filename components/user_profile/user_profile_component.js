@@ -9,7 +9,7 @@ export default class UserProfileComponent extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'DummyUser',
+      username: 'test',
       // TODO add profilePic to user schema in db and pull it from back-end
       email: 'email@email.com',
       profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
@@ -48,9 +48,9 @@ export default class UserProfileComponent extends Component {
 
     return (
       <Container>
-        <Header>
+        <Header style={{marginTop: 24}}>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
               <Icon name='menu' />
             </Button>
           </Left>

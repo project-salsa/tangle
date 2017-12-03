@@ -1,15 +1,16 @@
 import React from 'react'
-import { Container, Content, View, Text } from 'native-base'
+import { Container, Content, View, Text, Left, Button, Body, Title, Icon } from 'native-base'
 import RequestList from './request_list'
 import { inject } from 'mobx-react'
 import Header from '../common/header'
+import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
 export default class DashboardComponent extends React.Component {
   render () {
     return (
-      <Container>
-        <Header title='Dashboard' navigation={this.props.navigation} />
+      <Container style={GlobalStyleSheet.bgColor}>
+        <Header title='Dashboard' navigation={this.props.navigation} style={GlobalStyleSheet.headerText}/>
         <Content>
           <RequestList requests={this.props.requests} navigation={this.props.navigation} />
         </Content>
