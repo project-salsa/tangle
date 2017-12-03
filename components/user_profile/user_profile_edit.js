@@ -2,56 +2,61 @@ import { Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Thumbnail, Item, Input } from 'native-base'
 import axios from 'axios'
+import Loader from '../Loader'
+import { inject } from 'mobx-react'
 
 // import Request from 'react-http-request';
-
+@inject ('authStore')
 export default class UserProfileEdit extends Component {
   constructor (props) {
     super(props)
     this.state = {
-
-      username: 'DummyUser',
-      email: 'email@email.com',
-      password: 'password123',
-      profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
-      gameTags: ['game1', 'game2', 'game3', 'game4'],
-      discord: 'DummyDiscord',
-      steam: 'DummySteam',
-      battlenet: 'DummyBattle.net'
+      username: this.props.authStore.user.username,
+      email: this.props.authStore.user.email,
+      profilePic: this.props.authStore.user.profilePic,
+      subscribedTags: this.props.authStore.user.subscribedTags,
+      discordID: this.props.authStore.user.discordID,
+      steamID: this.props.authStore.user.steamID,
+      battlenetID: this.props.authStore.user.battlenetID,
+      isLoading: ''
     }
-    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  handleInputChange (event) {
-    const target = event.target
-    const val = target.type
-    const name = target.name
-
-    this.setState({
-      [name]: val
-    })
   }
 
   handleSubmit () {
+    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    axios.post('https://tangled.michaelbeaver.info/users', {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-      profilePic: this.state.profilePic,
-      gameTags: this.state.gameTags,
-      discord: this.state.discord,
-      steam: this.state.steam,
-      battlenet: this.state.battlenet
-    })
-      .then((resp) => {
+    const axiosOptions = {
+      method: 'PUT',
+      url: 'https://tangled.michaelbeaver.info/users/' + this.state.username + '/',
+      data: {
+        currentPassword: String,
+        EditData: {
+          email: this.state.email,
+          password: this.state.password,
+          profilePic: this.state.profilePic,
+          subscribedTags: this.state.subscribedTags,
+          discordID: this.state.discordID,
+          steamID: this.state.steamID,
+          battlenetID: this.state.battlenetID
+        }
+      },
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    axios(axiosOptions).then((resp) => {
+      if (resp.data.success) {
         console.log(resp)
-        navigate('Dashboard')
-      }, (err) => {
-        console.log(err)
-      }).catch((err) => {
-        console.log(err)
-      })
+        navigate('UserProfile')
+        this.setState({ isLoading: false })
+      }
+      console.log(resp.data)
+    }).catch((err) => {
+      // TODO: Log errors
+      console.log(JSON.stringify(err))
+    })
   }
 
   render () {
@@ -83,15 +88,14 @@ export default class UserProfileEdit extends Component {
             </Text>
             {/* Thumbnail for Profile Picture */}
             <Thumbnail large source={this.state.profilePic} />
-            {/* /* Display Username */}
             <Text style={styles.title}>
               {'\n'}
-            Update Username
+            Update Profile Picture
           </Text>
             <Item style={styles.userValues}>
               <Input
-                name='username'
-                onChangeText={this.handleInputChange}
+                name='profilePic'
+                onChangeText={(text) => this.setState({profilePic: text})}
               />
             </Item>
             {/* /* Display Email */}
@@ -102,7 +106,7 @@ export default class UserProfileEdit extends Component {
             <Item style={styles.userValues}>
               <Input
                 name='email'
-                onChangeText={this.handleInputChange}
+                onChangeText={(text) => this.setState({email: text})}
               />
             </Item>
             {/* /* Display Password */}
@@ -111,9 +115,9 @@ export default class UserProfileEdit extends Component {
             Update Password
           </Text>
             <Item style={styles.userValues}>
-              <Input
+              <Input secureTextEntry
                 name='password'
-                onChangeText={this.handleInputChange}
+                onChangeText={(text) => this.setState({password: text})}
               />
             </Item>
             <Text style={styles.title}>
@@ -122,8 +126,8 @@ export default class UserProfileEdit extends Component {
           </Text>
             <Item style={styles.userValues}>
               <Input
-                name='discord'
-                onChangeText={this.handleInputChange}
+                name='discordID'
+                onChangeText={(text) => this.setState({discordID: text})}
               />
             </Item>
             <Text style={styles.title}>
@@ -132,8 +136,8 @@ export default class UserProfileEdit extends Component {
             </Text>
             <Item style={styles.userValues}>
               <Input
-                name='steam'
-                onChangeText={this.handleInputChange}
+                name='steamID'
+                onChangeText={(text) => this.setState({steamID: text})}
               />
             </Item>
             <Text style={styles.title}>
@@ -142,15 +146,35 @@ export default class UserProfileEdit extends Component {
             </Text>
             <Item style={styles.userValues}>
               <Input
-                name='battlenet'
-                onChangeText={this.handleInputChange}
+                name='battlenetID'
+                onChangeText={(text) => this.setState({battlenetID: text})}
             />
             </Item>
             <Text style={styles.title}>
               {'\n'}
+              Your Tags
             </Text>
-            <Button block info onPress={this.handleSubmit}>
-              <Text fontSize={20}>
+            <Item style={styles.userValues}>
+              <Input
+                name='subscribedTags'
+                onChangeText={(text) => this.setState({subscribedTags: text})}
+              />
+            </Item>
+            <Text style={styles.title}>
+              {'\n'}
+              Please Enter Current Password
+            </Text>
+            <Item style={styles.userValues}>
+              <Input secureTextEntry
+                name='currentPassword'
+                onChangeText={(text) => this.setState({currentPassword: text})}
+              />
+            </Item>
+            <Text style={styles.title}>
+              {'\n'}
+            </Text>
+            <Button full primary onPress={this.handleSubmit}>
+              <Text>
               Save
             </Text>
             </Button>
