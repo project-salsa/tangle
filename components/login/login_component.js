@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
 import { inject } from 'mobx-react'
+import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
 export default class LoginComponent extends React.Component {
@@ -28,13 +29,13 @@ export default class LoginComponent extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <Container>
-        <Header style={{backgroundColor: 'black'}}>
+        <Header style={GlobalStyleSheet.primaryColor}>
           <Body>
-            <Title style={{fontWeight: 'bold', fontSize: 30}}>Welcome to Tangle!</Title>
+            <Title style={GlobalStyleSheet.headerText}>Welcome to Tangle!</Title>
           </Body>
         </Header>
         <Content padder>
-          <Form style={{backgroundColor: '#AAAAAA'}}>
+          <Form style={GlobalStyleSheet.backgroundColor}>
             <Item floatingLabel>
               <Icon active name='bulb' />
               <Label>  Enter Username</Label>
@@ -46,7 +47,7 @@ export default class LoginComponent extends React.Component {
               <Input secureTextEntry onChangeText={(input) => this.setState({password: input})} />
             </Item>
           </Form>
-          <View style={{backgroundColor: '#999999', height: 15}} />
+          <View style={GlobalStyleSheet.secondaryColor} />
           <View style={{height: 10}} />
           <View>
             <Button full primary onPress={this.handleSubmit}>
