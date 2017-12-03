@@ -34,6 +34,7 @@ export default class RequestContainer extends React.Component {
           };
     axios(axiosOptions).then((resp) => {
       if (resp.data.success) {
+        const request = resp.data.request
         this.setState({
           postTitle: request.title,
           hostUser: request.user,

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from 'react-native'
+import {Text, View} from 'react-native'
 import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
@@ -50,8 +50,6 @@ export default class RequestComponent extends React.Component {
               </Body>
             </Row>
           </Grid>
-          <DisplayMap map_ht={250} mark_lat={this.state.location.latitude} mark_long={this.state.location.longitude}
-                      focus />
           <Body>
             <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
           </Body>
@@ -65,19 +63,27 @@ export default class RequestComponent extends React.Component {
             </Col>
             <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
               <Body>
-                <Text style={{fontSize: 18}}>Place</Text>
-                <Thumbnail source={this.state.gamePic} />
-                <Text>Location Name</Text>
-              </Body>
-            </Col>
-            <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
-              <Body>
                 <Text style={{fontSize: 18}}>Game</Text>
                 <Thumbnail source={this.state.gamePic} />
                 <Text>{this.props.game.name}</Text>
               </Body>
             </Col>
           </Grid>
+          <View style={{height: 350, flex:1, backgroundColor: '#776B76'}}>
+            <View style={{flex: 1}} />
+            <View style={{flex: 20, flexDirection: 'row'}}>
+              <View style={{flex: 1}} />
+              <View style={{flex: 20}}>
+                <DisplayMap map_ht={330} mark_lat={this.state.location.latitude}
+                            mark_long={this.state.location.longitude} focus />
+              </View>
+              <View style={{flex: 1}} />
+            </View>
+            <View style={{flex: 1}} />
+          </View>
+
+
+
           <Button block primary>
             <Text style={{color: '#FFFFFF', fontSize: 18}}>Join</Text>
           </Button>
