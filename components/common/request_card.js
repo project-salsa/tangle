@@ -7,19 +7,6 @@ export default class RequestCard extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <Card>
-<<<<<<< HEAD
-        <CardItem button onPress={() => navigate('Request', { requestId: this.props.requestId })}>
-          <Left>
-            <Text>
-              {this.props.title}
-              {'\n'}
-              {this.props.user}
-            </Text>
-          </Left>
-          <Text>
-            {this.props.game}
-          </Text>
-=======
         <CardItem button style={GlobalStyleSheet.tertiaryColor}
           onPress={() => navigate('Request', { requestId: this.props.requestId })}>
           <View style={{flex: 1, backgroundColor: '#eeeeee'}}>
@@ -48,7 +35,6 @@ export default class RequestCard extends React.Component {
             </View>
             <View style={{flex: 1}} />
           </View>
->>>>>>> develop
         </CardItem>
       </Card>
     )
@@ -61,8 +47,5 @@ RequestCard.defaultProps = {
   user: '', // maybe this should be userId and we can grab info?
   tags: [], // may need to be changed based on what we want to do w/ the tag system
   game: '', // probably just a temporary prop
-<<<<<<< HEAD
-=======
   location: ''
->>>>>>> develop
 }

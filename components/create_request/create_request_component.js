@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import {Container, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
@@ -149,9 +149,9 @@ export default class CreateRequestComponent extends React.Component {
                 placeholder='Enter game title...'
                 style={GlobalStyleSheet.bgColor}
                 renderItem={(data) => (
-                  <Button onPress={() => this.setState({gameSelection: data})}>
+                  <TouchableOpacity onPress={() => this.setState({gameSelection: data})}>
                     <Text>{data}</Text>
-                  </Button> )} />
+                  </TouchableOpacity> )} />
             </View>
 
             {platformSelect}
