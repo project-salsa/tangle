@@ -1,7 +1,10 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
+import {Container, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
+import SelectMap from '../SelectMap'
+import Header from '../common/header'
+import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
 export default class CreateRequestComponent extends React.Component {
@@ -13,18 +16,23 @@ export default class CreateRequestComponent extends React.Component {
       gameSelection: '',
       platform: 'PC',
       tags: [],
-      locationName: '',
-      maxPlayers: 2
+      maxPlayers: 2,
+      location: {
+        latitude: 0,
+        longitude: 0
+      }
     }
-
+    this.handleCoordinateChange = this.handleCoordinateChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleCoordinateChange(coordinate) {
+    this.setState({ location: coordinate })
   }
 
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
-    // TODO: In the data section here, I think we can make this less verbose using some ES6 spread syntax.
-    // Not a big deal since it's a code style issue, but worth looking into later.
     const axiosOptions = {
       method: 'POST',
       url: this.props.serverAddress + '/requests',
@@ -34,7 +42,7 @@ export default class CreateRequestComponent extends React.Component {
         game: this.state.gameSelection,
         platform: this.state.platform,
         tags: this.state.tags,
-        location: this.state.locationName,
+        location: this.state.location,
         maxPlayers: this.state.maxPlayers,
         currentPlayers: []
       },
@@ -55,19 +63,12 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   render () {
+    console.log('CR Nav: ', this.props.navigation)
     return (
-      <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Create Game Request</Title>
-          </Body>
-        </Header>
+      <Container style={GlobalStyleSheet.bgColor}>
+        <Header title='New Request' navigation={this.props.navigation} style={GlobalStyleSheet.headerText}/>
         <Content padder>
+          <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
           <Form>
             <Item floatingLabel>
               <Label>Post Title</Label>
@@ -75,9 +76,10 @@ export default class CreateRequestComponent extends React.Component {
                 name='postTitle'
                 onChangeText={(text) => this.setState({postTitle: text})} />
             </Item>
-
+            <Text> </Text>
             <Text>Select a Game</Text>
             <Picker
+              style={GlobalStyleSheet.bgColor}
               iosHeader='Select a Game'
               placeholder={'Choose...'}
               mode='dialog'
@@ -89,24 +91,15 @@ export default class CreateRequestComponent extends React.Component {
               })}
             </Picker>
 
-            <Item floatingLabel>
+            <Item floatingLabel style={GlobalStyleSheet.bgColor}>
               <Icon active ios='ios-happy' android='md-happy' />
-              <Label>Number of Players</Label>
+              <Label> Number of Players</Label>
               <Input padder
                 name='maxPlayers'
                 type='number'
                 keyboardType='numeric'
                 maxLength={1}
                 onChangeText={(text) => this.setState({maxPlayers: text})} />
-            </Item>
-
-            <Item floatingLabel>
-              <Icon active ios='ios-pin' android='md-pin' />
-              <Label>Location</Label>
-              <Input padder
-                name='locationName'
-                onChangeText={(text) => this.setState({locationName: text})} />
-              {/* TODO User input for now, consider using map data in the future */}
             </Item>
           </Form>
 

@@ -40,12 +40,11 @@ export default class UserProfileComponent extends Component {
         </Button>
     }
 
-
     return (
       <Container>
-        <Header>
+        <Header style={{marginTop: 24}}>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
               <Icon name='menu' />
             </Button>
           </Left>
@@ -62,14 +61,14 @@ export default class UserProfileComponent extends Component {
               {'\n'}
             </Text>
             {/* Thumbnail for Profile Picture */}
-            <Thumbnail large source={this.state.profilePic} />
+            <Thumbnail large source={this.props.profilePic} />
             {/* Display Username */}
             <Text style={styles.title}>
               {'\n'}
               Username
             </Text>
             <Text style={styles.userValues}>
-              {this.props.authStore.username}
+              {this.props.username}
             </Text>
           </Body>
           <Text style={styles.title}>
