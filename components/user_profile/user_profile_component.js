@@ -9,14 +9,13 @@ export default class UserProfileComponent extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: 'test',
-      // TODO add profilePic to user schema in db and pull it from back-end
-      email: 'email@email.com',
-      profilePic: {uri: 'http://brand.mst.edu/media/universityadvancement/communications/images/logos/logo/Logo_356.jpg'},
-      gameTags: ['game1', 'game2', 'game3', 'game4'],
-      discord: 'DummyDiscord',
-      steam: 'DummySteam',
-      battlenet: 'DummyBattleNet'
+      username: this.props.authStore.user.username,
+      email: this.props.authStore.user.email,
+      profilePic: this.props.authStore.user.profilePic,
+      subscribedTags: this.props.authStore.user.subscribedTags,
+      discordID: this.props.authStore.user.discordID,
+      steamID: this.props.authStore.user.steamID,
+      battlenetID: this.props.authStore.user.battlenetID
     }
   }
 
@@ -32,7 +31,7 @@ export default class UserProfileComponent extends Component {
       }
     })
     let canEdit
-    if (this.props.authStore.username == this.state.username){
+    if (this.props.authStore.user.username == this.state.username){
         canEdit = <Button rounded light onPress={() => navigate('EditUserProfile', { navigation: this.props.navigation })}>
           <Text fontSize={4}>
             Edit Profile
@@ -61,46 +60,46 @@ export default class UserProfileComponent extends Component {
               {'\n'}
             </Text>
             {/* Thumbnail for Profile Picture */}
-            <Thumbnail large source={this.props.profilePic} />
+            <Thumbnail large source={this.state.profilePic} />
             {/* Display Username */}
             <Text style={styles.title}>
               {'\n'}
               Username
             </Text>
             <Text style={styles.userValues}>
-              {this.props.username}
+              {this.state.username}
             </Text>
           </Body>
           <Text style={styles.title}>
             Email
           </Text>
           <Text style={styles.userValues}>
-            {this.props.email}
+            {this.state.email}
           </Text>
           <Text style={styles.title}>
             Discord
           </Text>
           <Text style={styles.userValues}>
-            {this.props.discord}
+            {this.state.discordID}
           </Text>
           <Text style={styles.title}>
             Steam
           </Text>
           <Text style={styles.userValues}>
-            {this.props.steam}
+            {this.state.steamID}
           </Text>
           <Text style={styles.title}>
             BattleNet
           </Text>
           <Text style={styles.userValues}>
-            {this.props.battlenet}
+            {this.state.battlenetID}
           </Text>
           <Text style={styles.title}>
             {'\n'}
             Game Tags
           </Text>
           {/* /* Display Game Tags */}
-          <List dataArray={this.props.gameTags}
+          <List dataArray={this.state.subscribedTags}
             // style={ styles.userValues}
             renderRow={(item) =>
               <ListItem>
