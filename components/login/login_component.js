@@ -29,7 +29,7 @@ export default class LoginComponent extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <Container>
-        <Header style={GlobalStyleSheet.primaryColor}>
+        <Header style={{backgroundColor: '#3c3cc1', marginTop: 24}}>
           <Body>
             <Title style={GlobalStyleSheet.headerText}>Welcome to Tangle!</Title>
           </Body>

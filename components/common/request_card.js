@@ -1,14 +1,15 @@
 import React from 'react'
 import { Card, CardItem, Icon, View, Text } from 'native-base'
+import GlobalStyleSheet from '../../style'
 
 export default class RequestCard extends React.Component {
   render () {
     const { navigate } = this.props.navigation
     return (
       <Card>
-        <CardItem button style={{backgroundColor: '#EEEEEE'}}
-                  onPress={() => navigate('Request', { requestId: this.props.requestId })}>
-          <View style={{flex:1, backgroundColor: '#887C87'}}>
+        <CardItem button style={GlobalStyleSheet.tertiaryColor}
+          onPress={() => navigate('Request', { requestId: this.props.requestId })}>
+          <View style={{flex: 1, backgroundColor: '#eeeeee'}}>
             <View style={{flex: 1}} />
             <View style={{flex: 20, flexDirection: 'row'}}>
               <View style={{flex: 2}}>

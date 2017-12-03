@@ -6,7 +6,7 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#ffffff'
   },
@@ -22,8 +22,8 @@ export default StyleSheet.create({
     backgroundColor: '#91aac4'
   },
   tertiaryColor: {
-        // white
-    backgroundColor: '#ffffff'
+        // grey
+    backgroundColor: '#eeeeee'
   },
   bgColor: {
         // bluish white

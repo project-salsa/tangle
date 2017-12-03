@@ -1,8 +1,10 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
+import {Container, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
 import SelectMap from '../SelectMap'
+import Header from '../common/header'
+import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
 export default class CreateRequestComponent extends React.Component {
@@ -63,8 +65,8 @@ export default class CreateRequestComponent extends React.Component {
   render () {
     console.log('CR Nav: ', this.props.navigation)
     return (
-      <Container>
-        <Header title='Create new Request' />
+      <Container style={GlobalStyleSheet.bgColor}>
+        <Header title='New Request' navigation={this.props.navigation} style={GlobalStyleSheet.headerText}/>
         <Content padder>
           <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
           <Form>
@@ -74,9 +76,10 @@ export default class CreateRequestComponent extends React.Component {
                 name='postTitle'
                 onChangeText={(text) => this.setState({postTitle: text})} />
             </Item>
-
+            <Text> </Text>
             <Text>Select a Game</Text>
             <Picker
+              style={GlobalStyleSheet.bgColor}
               iosHeader='Select a Game'
               placeholder={'Choose...'}
               mode='dialog'
@@ -88,9 +91,9 @@ export default class CreateRequestComponent extends React.Component {
               })}
             </Picker>
 
-            <Item floatingLabel>
+            <Item floatingLabel style={GlobalStyleSheet.bgColor}>
               <Icon active ios='ios-happy' android='md-happy' />
-              <Label>Number of Players</Label>
+              <Label> Number of Players</Label>
               <Input padder
                 name='maxPlayers'
                 type='number'

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Text, View} from 'react-native'
-import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
+import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
 import GlobalStyleSheet from '../../style'
@@ -34,27 +34,24 @@ export default class RequestComponent extends React.Component {
   render () {
     return (
       <Container>
-        <Header title='Details' navigation={this.props.navigation} action='Back' />
+        <Header title={this.props.postTitle} navigation={this.props.navigation} action='Back' style={GlobalStyleSheet.headerText} />
         <Content>
           <Grid>
-            <Row style={GlobalStyleSheet.bgColor}>
+            <Row style={{ backgroundColor: '#f2f9fc', height: 200 }}>
               <Body>
                 <Text>Banner Goes Here!</Text>
               </Body>
             </Row>
           </Grid>
-          <Body>
-            <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
-          </Body>
           <Grid>
-            <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
+            <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Host</Text>
                 <Thumbnail source={this.state.profilePic} />
                 <Text>{this.props.hostUser.username}</Text>
               </Body>
             </Col>
-            <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
+            <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Game</Text>
                 <Thumbnail source={this.state.gamePic} />
@@ -62,20 +59,18 @@ export default class RequestComponent extends React.Component {
               </Body>
             </Col>
           </Grid>
-          <View style={{height: 350, flex:1, backgroundColor: '#776B76'}}>
+          <View style={{height: 350, flex: 1, backgroundColor: '#f2f9fc'}}>
             <View style={{flex: 1}} />
             <View style={{flex: 20, flexDirection: 'row'}}>
               <View style={{flex: 1}} />
               <View style={{flex: 20}}>
                 <DisplayMap map_ht={330} mark_lat={this.state.location.latitude}
-                            mark_long={this.state.location.longitude} focus />
+                  mark_long={this.state.location.longitude} focus />
               </View>
               <View style={{flex: 1}} />
             </View>
             <View style={{flex: 1}} />
           </View>
-
-
 
           <Button block primary>
             <Text style={{color: '#FFFFFF', fontSize: 18}}>Join</Text>
