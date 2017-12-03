@@ -40,7 +40,7 @@ export default class SideBar extends React.Component {
                 return (
                   <ListItem
                     button
-                    onPress={() => this.props.navigation.navigate(data.screen, { username: this.props.authStore.username })}>
+                    onPress={() => this.props.navigation.navigate(data.screen, { username: this.props.authStore.user.username })}>
                     <Text>{data.name}</Text>
                   </ListItem>
                 )
