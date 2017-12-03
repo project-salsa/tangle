@@ -1,19 +1,21 @@
 import React from 'react'
 import axios from 'axios'
 import UserProfileEdit from '../../components/user_profile/user_profile_edit'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class UserProfileEditContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      profilePic: '',
-      username: '',
-      password: '',
-      email: '',
-      discord: '',
-      steam: '',
-      battlenet: '',
-      gameTags: []
+      username: this.props.authStore.user.username,
+      email: this.props.authStore.user.email,
+      profilePic: this.props.authStore.user.profilePic,
+      subscribedTags: this.props.authStore.user.subscribedTags,
+      discordId: this.props.authStore.user.discordId,
+      steamId: this.props.authStore.user.steamId,
+      battleNetId: this.props.authStore.user.battleNetId,
+      password: this.props.authStore.user.password
     }
   }
 
@@ -24,16 +26,16 @@ export default class UserProfileEditContainer extends React.Component {
         username: data.user.username,
         password: data.user.password,
         email: data.user.email,
-        discord: data.user.discord,
-        steam: data.user.steam,
-        battlenet: data.user.battlenet,
-        gameTags: data.user.gameTags
-      })
-    }, (err) => {
-      console.log(err)
-    }).catch((err) => {
-      console.log(err)
-    })
+        discordId: data.user.discordId,
+        steamId: data.user.steamId,
+        battleNetId: data.user.battlenetId,
+        subscribedTags: data.user.subscribedTags
+       })
+     }, (err) => {
+       console.log(err)
+     }).catch((err) => {
+       console.log(err)
+     })
   }
 
   render () {
@@ -41,12 +43,12 @@ export default class UserProfileEditContainer extends React.Component {
       <UserProfileEdit
         profilePic={this.profilePic}
         username={this.username}
-        userPassword={this.password}
-        userEmail={this.email}
-        discord={this.discord}
-        userSteam={this.steam}
-        userBattlenet={this.battlenet}
-        gameTags={this.gameTags}
+        password={this.password}
+        email={this.email}
+        discordId={this.discordId}
+        steamId={this.steamId}
+        battleNetId={this.battleNetId}
+        subscribedTags={this.subscribedTags}
         navigation={this.props.navigation}
       />
     )

@@ -13,11 +13,12 @@ export default class UserProfileEdit extends Component {
     this.state = {
       username: this.props.authStore.user.username,
       email: this.props.authStore.user.email,
+      password: this.props.authStore.user.password,
       profilePic: this.props.authStore.user.profilePic,
       subscribedTags: this.props.authStore.user.subscribedTags,
-      discordID: this.props.authStore.user.discordID,
-      steamID: this.props.authStore.user.steamID,
-      battlenetID: this.props.authStore.user.battlenetID,
+      discordId: this.props.authStore.user.discordId,
+      steamId: this.props.authStore.user.steamId,
+      battlenetId: this.props.authStore.user.battlenetId,
       isLoading: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,15 +31,15 @@ export default class UserProfileEdit extends Component {
       method: 'PUT',
       url: 'https://tangled.michaelbeaver.info/users/' + this.state.username + '/',
       data: {
-        currentPassword: String,
-        EditData: {
+        currentPassword: this.state.currentPassword,
+        editData: {
           email: this.state.email,
           password: this.state.password,
           profilePic: this.state.profilePic,
           subscribedTags: this.state.subscribedTags,
-          discordID: this.state.discordID,
-          steamID: this.state.steamID,
-          battlenetID: this.state.battlenetID
+          discordId: this.state.discordId,
+          steamId: this.state.steamId,
+          battleNetId: this.state.battleNetId
         }
       },
       headers: {
@@ -126,8 +127,8 @@ export default class UserProfileEdit extends Component {
           </Text>
             <Item style={styles.userValues}>
               <Input
-                name='discordID'
-                onChangeText={(text) => this.setState({discordID: text})}
+                name='discordId'
+                onChangeText={(text) => this.setState({discordId: text})}
               />
             </Item>
             <Text style={styles.title}>
@@ -136,8 +137,8 @@ export default class UserProfileEdit extends Component {
             </Text>
             <Item style={styles.userValues}>
               <Input
-                name='steamID'
-                onChangeText={(text) => this.setState({steamID: text})}
+                name='steamId'
+                onChangeText={(text) => this.setState({steamId: text})}
               />
             </Item>
             <Text style={styles.title}>
@@ -146,8 +147,8 @@ export default class UserProfileEdit extends Component {
             </Text>
             <Item style={styles.userValues}>
               <Input
-                name='battlenetID'
-                onChangeText={(text) => this.setState({battlenetID: text})}
+                name='battlenetId'
+                onChangeText={(text) => this.setState({battlenetId: text})}
             />
             </Item>
             <Text style={styles.title}>
@@ -170,11 +171,11 @@ export default class UserProfileEdit extends Component {
                 onChangeText={(text) => this.setState({currentPassword: text})}
               />
             </Item>
-            <Text style={styles.title}>
+            <Text>
               {'\n'}
             </Text>
             <Button full primary onPress={this.handleSubmit}>
-              <Text>
+              <Text style={{color: 'white', fontSize: 24}}>
               Save
             </Text>
             </Button>

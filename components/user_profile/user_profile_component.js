@@ -13,9 +13,9 @@ export default class UserProfileComponent extends Component {
       email: this.props.authStore.user.email,
       profilePic: this.props.authStore.user.profilePic,
       subscribedTags: this.props.authStore.user.subscribedTags,
-      discordID: this.props.authStore.user.discordID,
-      steamID: this.props.authStore.user.steamID,
-      battlenetID: this.props.authStore.user.battlenetID
+      discordId: this.props.authStore.user.discordId,
+      steamId: this.props.authStore.user.steamId,
+      battleNetId: this.props.authStore.user.battleNetId
     }
   }
 
@@ -80,19 +80,19 @@ export default class UserProfileComponent extends Component {
             Discord
           </Text>
           <Text style={styles.userValues}>
-            {this.state.discordID}
+            {this.state.discordId}
           </Text>
           <Text style={styles.title}>
             Steam
           </Text>
           <Text style={styles.userValues}>
-            {this.state.steamID}
+            {this.state.steamId}
           </Text>
           <Text style={styles.title}>
             BattleNet
           </Text>
           <Text style={styles.userValues}>
-            {this.state.battlenetID}
+            {this.state.battleNetId}
           </Text>
           <Text style={styles.title}>
             {'\n'}
