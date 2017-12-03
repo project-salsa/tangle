@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Content, H1 } from 'native-base'
+import { Container, Content, View, Text } from 'native-base'
 import RequestList from './request_list'
 import { inject } from 'mobx-react'
 import Header from '../common/header'
