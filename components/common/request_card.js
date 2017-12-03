@@ -12,17 +12,19 @@ export default class RequestCard extends React.Component {
             <View style={{flex: 1}} />
             <View style={{flex: 20, flexDirection: 'row'}}>
               <View style={{flex: 2}}>
-                <View style={{height: 7}} />
+                <View style={{height: 1}} />
                 <Icon active name='man' style={{padding: 10}} />
               </View>
               <View style={{flex: 20, flexDirection: 'row'}}>
                 <View style={{flex: 3}}>
-                  <Text style={{padding: 1}}>
+                  <View style={{height: 5}} />
+                  <Text>
                     {this.props.user}
                   </Text>
                 </View>
                 <View style={{flex: 8}}>
-                  <Text style={{padding: 1}}>
+                  <View style={{height: 5}} />
+                  <Text>
                     {this.props.game} {'\n'}
                     "{this.props.title}"
                   </Text>
