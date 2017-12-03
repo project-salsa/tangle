@@ -4,6 +4,7 @@ import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} 
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
 import GlobalStyleSheet from '../../style'
+import Header from '../common/header'
 
 export default class RequestComponent extends React.Component {
   constructor (props) {
@@ -33,16 +34,7 @@ export default class RequestComponent extends React.Component {
   render () {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Details</Title>
-          </Body>
-        </Header>
+        <Header title='Details' navigation={this.props.navigation} action='Back' />
         <Content>
           <Grid>
             <Row style={GlobalStyleSheet.bgColor}>

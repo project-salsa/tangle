@@ -31,7 +31,6 @@ export default class DashboardContainer extends React.Component {
           requests: response.data.requests
         })
       }
-      console.log(response.data)
       this.setState({ isLoading: false })
     }).catch((err) => {
       // TODO: handle errors more properly, but I think this is fine for now. It'll just return an empty list to the component

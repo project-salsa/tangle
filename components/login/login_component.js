@@ -20,11 +20,11 @@ export default class LoginComponent extends React.Component {
     this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
     this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
-      navigate('Dashboard')
+      navigate('Router')
       this.setState({ isLoading: false })
     }).catch((err) => {
       // TODO: Login Errors
-      console.log('Error while logging in: ' + err)
+      console.log('Error while logging in: ' + err.message)
       this.setState({ isLoading: false })
     })
   }
