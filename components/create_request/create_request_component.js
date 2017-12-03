@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
+import {Container, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
 import Autocomplete from 'react-native-autocomplete-input'
 import SelectMap from '../SelectMap'
+import Header from '../common/header'
 
 @inject('authStore')
 export default class CreateRequestComponent extends React.Component {
@@ -123,23 +124,14 @@ export default class CreateRequestComponent extends React.Component {
 
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Create New Post</Title>
-          </Body>
-        </Header>
+        <Header title='Create New Request' navigation={this.props.navigation} action='Back' />
         <Content padder
           keyboardShouldPersistTaps='always'>
           <Form>
-            <Item floatingLabel>
-              <Label>Post Title</Label>
+            <Item>
               <Input
                 name='postTitle'
+                placeholder='Post Title'
                 onChangeText={(text) => this.setState({postTitle: text})} />
             </Item>
 
@@ -159,22 +151,23 @@ export default class CreateRequestComponent extends React.Component {
 
             {platformSelect}
 
-            <Item floatingLabel>
-              <Label>Number of Players</Label>
-              <Input padder
-                name='maxPlayers'
-                type='number'
-                keyboardType='numeric'
-                maxLength={2}
-                onChangeText={(text) => this.setState({maxPlayers: text})} />
-            </Item>
-
+            <Text>Tap your location on the map</Text>
             <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
 
-            <Item floatingLabel>
-              <Label>Preferred Contact</Label>
+            <Item>
+              <Input padder
+                     name='maxPlayers'
+                     placeholder='Number of Players'
+                     type='number'
+                     keyboardType='numeric'
+                     maxLength={2}
+                     onChangeText={(text) => this.setState({maxPlayers: text})} />
+            </Item>
+
+            <Item last>
               <Input padder
                  name='contactInfo'
+                 placeholder='Preferred Contact Info'
                  defaultValue={this.props.defaultContact}
                  onChangeText={(text) => this.setState({contactInfo: text})} />
             </Item>

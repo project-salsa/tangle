@@ -35,12 +35,12 @@ export default class LoginComponent extends React.Component {
         </Header>
         <Content padder>
           <Form style={{backgroundColor: '#AAAAAA'}}>
-            <Item floatingLabel>
+            <Item stackedLabel>
               <Icon active name='bulb' />
               <Label>  Enter Username</Label>
               <Input onChangeText={(input) => this.setState({username: input})} />
             </Item>
-            <Item floatingLabel>
+            <Item stackedLabel>
               <Icon active name='lock' />
               <Label>  Enter Password</Label>
               <Input secureTextEntry onChangeText={(input) => this.setState({password: input})} />

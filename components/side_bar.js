@@ -12,12 +12,14 @@ const routes = [
 @inject('authStore')
 export default class SideBar extends React.Component {
   render() {
+    let welcomeMessage = 'Welcome ' + this.props.authStore.username + '!'
+
     return (
       <Container>
         <Content>
           <Image
             source={{
-              uri: "https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/react-navigation/img/drawer-cover.png"
+              uri: "http://cdn.shopify.com/s/files/1/0213/0448/products/large-procion-dye-rust-orange_grande.jpg"
             }}
             style={{
               height: 120,
@@ -26,13 +28,17 @@ export default class SideBar extends React.Component {
               alignItems: "center"
             }}>
             <Image
-              square
+              circle
               style={{ height: 80, width: 70 }}
               source={{
-                uri: "https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/react-navigation/img/logo.png"
+                uri: "https://vignette.wikia.nocookie.net/plantsvszombies/images/4/42/Shrek_emoji.png"
               }}
             />
           </Image>
+          <Text
+            style={{textAlign: 'center'}}>
+            {welcomeMessage}
+          </Text>
           <List
             dataArray={routes}
             renderRow={(data) => {

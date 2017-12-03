@@ -53,6 +53,9 @@ export default class CreateRequestView extends React.Component {
         else if (response.data.user.battleNetId) {
           contact = response.data.user.battleNetId
         }
+        else {
+          contact = ''
+        }
         this.setState({
           defaultContact: contact
         })

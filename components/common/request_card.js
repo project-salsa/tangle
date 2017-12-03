@@ -7,7 +7,7 @@ export default class RequestCard extends React.Component {
     return (
       <Card>
         <CardItem button onPress={() => navigate('Request', { requestId: this.props.requestId })}>
-            <Left>
+          <Left>
             <Text>
               {this.props.title}
               {'\n'}
@@ -17,7 +17,6 @@ export default class RequestCard extends React.Component {
           <Text>
             {this.props.game}
             {'\n'}
-            {this.props.location}
           </Text>
         </CardItem>
       </Card>
@@ -31,5 +30,4 @@ RequestCard.defaultProps = {
   user: '', // maybe this should be userId and we can grab info?
   tags: [], // may need to be changed based on what we want to do w/ the tag system
   game: '', // probably just a temporary prop
-  location: '' // issa string now but this should be some sort of location data type
 }
