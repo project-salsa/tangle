@@ -17,10 +17,10 @@ export default class LoginComponent extends React.Component {
   handleSubmit () {
     const { navigate } = this.props.navigation
     this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
-      navigate('Dashboard')
+      navigate('Router')
     }).catch((err) => {
       // TODO: Login Errors
-      console.log('Error while logging in: ' + err)
+      console.log('Error while logging in: ' + err.message)
     })
   }
 

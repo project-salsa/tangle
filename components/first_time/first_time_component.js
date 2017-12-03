@@ -19,11 +19,7 @@ export default class FirstTimeComponent extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <Container>
-        <Header style={{backgroundColor: 'black'}}>
-          <Body>
-            <Title style={{fontWeight: 'bold', fontSize: 30}}>First-Time Setup</Title>
-          </Body>
-        </Header>
+        <Header title='First-time Setup' />
         <Content padder>
           <Form style={{backgroundColor: '#AAAAAA'}}>
             <Item inlineLabel>

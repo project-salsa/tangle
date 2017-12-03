@@ -55,18 +55,10 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   render () {
+    console.log('CR Nav: ', this.props.navigation)
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Create Game Request</Title>
-          </Body>
-        </Header>
+        <Header title='Create new Request' />
         <Content padder>
           <Form>
             <Item floatingLabel>
