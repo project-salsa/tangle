@@ -1,8 +1,10 @@
 import React from 'react'
-import { View, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import {Container, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Loader from '../Loader'
 import Autocomplete from 'react-native-autocomplete-input'
 import SelectMap from '../SelectMap'
 import Header from '../common/header'
@@ -22,7 +24,8 @@ export default class CreateRequestComponent extends React.Component {
       contactInfo: '',
       platformList: [],
       platformReady: false,
-      location: [0, 0]
+      location: [0, 0],
+      isLoading: false
     }
 
     this.updatePlatforms = this.updatePlatforms.bind(this)
@@ -64,6 +67,7 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   handleSubmit () {
+    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
     const axiosOptions = {
       method: 'POST',
@@ -87,14 +91,17 @@ export default class CreateRequestComponent extends React.Component {
     axios(axiosOptions).then((resp) => {
       if (resp.data.success) {
         navigate('Request', {requestId: resp.data.requestId})
+        this.setState({ isLoading: false })
       }
     }).catch((err) => {
       // TODO: Log errors
       console.log(err.message)
+      this.setState({ isLoading: false })
     })
   }
 
   render () {
+    if (this.state.isLoading) { return ( <Loader /> ) }
     const displayGames = this.getGames(this.state.gameSelection)
 
     let platformSelect
@@ -104,7 +111,7 @@ export default class CreateRequestComponent extends React.Component {
       } else {
         platformSelect = (
           <View>
-            <Text>Select a Platform</Text>
+            <Text>   Select a Platform</Text>
             <Picker
               iosHeader='Select a Platform'
               placeholder='Choose...'
@@ -122,68 +129,74 @@ export default class CreateRequestComponent extends React.Component {
     }
 
     return (
-      <Container style={GlobalStyleSheet.bgColor}>
-        <Header
-          title='Create New Request'
-          navigation={this.props.navigation}
-          style={GlobalStyleSheet.headerText}
-          action='Back' />
-        <Content padder
-          keyboardShoultPersistTaps='always'>
-          <Form>
-            <Item>
-              <Input
-                name='postTitle'
-                placeholder='Post Title'
-                onChangeText={(text) => this.setState({postTitle: text})} />
-            </Item>
+      <KeyboardAwareScrollView
+        style={GlobalStyleSheet.bgColor}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={false}>
+        <Container style={GlobalStyleSheet.bgColor}>
+          <Header
+            title='Create New Request'
+            navigation={this.props.navigation}
+            style={GlobalStyleSheet.headerText}
+            action='Back' />
+          <Content padder
+            keyboardShoultPersistTaps='always'>
+            <Form>
+              <Item>
+                <Input
+                  name='postTitle'
+                  placeholder='Post Title'
+                  onChangeText={(text) => this.setState({postTitle: text})} />
+              </Item>
 
-            <View>
-              <Autocomplete
-                autoCapitalize="none"
-                autoCorrect={false}
-                containerStyle={GlobalStyleSheet.bgColor}
-                data={displayGames[0] === this.state.gameSelection ? [] : displayGames}
-                defaultValue={this.state.gameSelection}
-                onChangeText={text => this.setState({ gameSelection: text })}
-                placeholder='Enter game title...'
-                style={GlobalStyleSheet.bgColor}
-                renderItem={(data) => (
-                  <TouchableOpacity onPress={() => this.setState({gameSelection: data})}>
-                    <Text>{data}</Text>
-                  </TouchableOpacity> )} />
-            </View>
+              <View>
+                <Text>   Select a game</Text>
+                <Autocomplete
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  containerStyle={GlobalStyleSheet.bgColor}
+                  data={displayGames[0] === this.state.gameSelection ? [] : displayGames}
+                  defaultValue={this.state.gameSelection}
+                  onChangeText={text => this.setState({ gameSelection: text })}
+                  placeholder='Enter game title...'
+                  style={GlobalStyleSheet.bgColor}
+                  renderItem={(data) => (
+                    <TouchableOpacity onPress={() => this.setState({gameSelection: data})}>
+                      <Text>{data}</Text>
+                    </TouchableOpacity> )} />
+              </View>
 
-            {platformSelect}
+              {platformSelect}
 
-            <Text>Tap your location on the map</Text>
-            <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
+              <Text>   Tap your location on the map</Text>
+              <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
 
-            <Item style={GlobalStyleSheet.bgColor}>
-              <Input padder
-                     name='maxPlayers'
-                     placeholder='Number of Players'
-                     type='number'
-                     keyboardType='numeric'
-                     maxLength={2}
-                     onChangeText={(text) => this.setState({maxPlayers: text})} />
-            </Item>
+              <Item style={GlobalStyleSheet.bgColor}>
+                <Input padder
+                       name='maxPlayers'
+                       placeholder='Number of Players'
+                       type='number'
+                       keyboardType='numeric'
+                       maxLength={2}
+                       onChangeText={(text) => this.setState({maxPlayers: text})} />
+              </Item>
 
-            <Item last style={GlobalStyleSheet.bgColor}>
-              <Input padder
-                 name='contactInfo'
-                 placeholder='Preferred Contact Info'
-                 defaultValue={this.props.defaultContact}
-                 onChangeText={(text) => this.setState({contactInfo: text})} />
-            </Item>
-          </Form>
+              <Item last style={GlobalStyleSheet.bgColor}>
+                <Input padder
+                   name='contactInfo'
+                   placeholder='Preferred Contact Info'
+                   defaultValue={this.props.defaultContact}
+                   onChangeText={(text) => this.setState({contactInfo: text})} />
+              </Item>
+            </Form>
 
-          <Button full primary
-            onPress={this.handleSubmit}>
-            <Text>Create Request</Text>
-          </Button>
-        </Content>
-      </Container>
+            <Button full primary
+              onPress={this.handleSubmit}>
+              <Text>Create Request</Text>
+            </Button>
+          </Content>
+        </Container >
+      </KeyboardAwareScrollView>
     )
   }
 }

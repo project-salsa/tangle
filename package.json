@@ -39,6 +39,7 @@
     "react-http-request": "^1.0.3",
     "react-native": "^0.47.0",
     "react-native-autocomplete-input": "^3.4.0",
+    "react-native-keyboard-aware-scroll-view": "^0.4.1",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-maps": "^0.17.1",
     "react-native-numberpicker": "0.0.5",
