@@ -26,14 +26,16 @@ export default class RequestContainer extends React.Component {
   componentDidMount () {
     const axiosOptions = {
             method: 'GET',
-            url: this.state.serverAddress + '/requests' + this.props.navigation.state.params.requestId,
+            url: this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId,
             headers: {
               Authorization: `Bearer ${this.props.authStore.token}`
             },
             json: true
           };
-    axios(axiosOptions).then((resp) => {
-      if (resp.data.success) {
+    axios(axiosOptions).then((response) => {
+      const request = response.data.request
+
+      if (response.data.success) {
         this.setState({
           postTitle: request.title,
           hostUser: request.user,
@@ -48,10 +50,9 @@ export default class RequestContainer extends React.Component {
           }
         })
       }
-      console.log(resp.data)
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
-      console.log(JSON.stringify(err))
+      console.log(err.message)
     })
   }
 

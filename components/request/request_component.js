@@ -1,8 +1,10 @@
 import React from 'react'
 import {Text} from 'react-native'
-import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
+import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
+
+import Header from '../common/header'
 
 export default class RequestComponent extends React.Component {
   constructor (props) {
@@ -32,16 +34,7 @@ export default class RequestComponent extends React.Component {
   render () {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Details</Title>
-          </Body>
-        </Header>
+        <Header title='Details' navigation={this.props.navigation} action='Back' />
         <Content>
           <Grid>
             <Row style={{ backgroundColor: '#776B76', height: 200 }}>
