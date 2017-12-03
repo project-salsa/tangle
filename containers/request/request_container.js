@@ -26,7 +26,7 @@ export default class RequestContainer extends React.Component {
   componentDidMount () {
     const axiosOptions = {
             method: 'GET',
-            url: this.state.serverAddress + '/requests' + this.props.navigation.state.params.requestId,
+            url: this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId,
             headers: {
               Authorization: `Bearer ${this.props.authStore.token}`
             },
