@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, View, Image } from 'react-native'
+import {Text, Image } from 'react-native'
 import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail, View} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { inject } from 'mobx-react'
@@ -13,31 +13,6 @@ import Header from '../common/header'
 export default class RequestComponent extends React.Component {
   constructor (props) {
     super(props)
-
-    this.handleButtonPress = this.handleButtonPress.bind(this)
-  }
-
-  handleButtonPress (mode) {
-    const { params } = this.props.navigation.state
-    if (mode === 'Join') {
-      // Make Join Request
-      const axiosOptions = {
-        method: 'POST',
-        url: 'https://tangled.michaelbeaver.info/requests/' + params.requestId + '/join',
-        headers: {
-          Authorization: `Bearer ${this.props.authStore.token}`
-        },
-        json: true
-      }
-      axios(axiosOptions).then((response) => {
-        console.log(response)
-        this.forceUpdate()
-      }).catch((err) => {
-        console.log(err.message)
-      })
-    } else {
-      // Make Leave Request
-    }
   }
 
   render () {

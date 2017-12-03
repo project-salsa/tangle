@@ -128,6 +128,9 @@ export default class RequestContainer extends React.Component {
     if (this.state.infoOutOfDate) {
       this.updateRequest()
       // TODO: Loading overlay
+      return (
+        <RequestComponent />
+      )
     } else {
       return (
         <RequestComponent
