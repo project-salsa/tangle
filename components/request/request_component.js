@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from 'react-native'
+import { View, Text} from 'react-native'
 import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
@@ -39,8 +39,13 @@ export default class RequestComponent extends React.Component {
           <Grid>
             <Row style={{ backgroundColor: '#776B76', height: 200 }}>
               <Body>
-                <Text>Banner Goes Here!</Text>
+                <Text>Banner Goes Here! {'\n'} {this.props.currentPlayers} / {this.props.maxPlayers} </Text>
               </Body>
+              <View>
+                <Text style={{textAlign: 'center'}}>
+
+                </Text>
+              </View>
             </Row>
           </Grid>
           <DisplayMap map_ht={250} mark_lat={this.state.location.latitude} mark_long={this.state.location.longitude}
