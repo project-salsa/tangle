@@ -37,7 +37,7 @@ export default class UserProfileComponent extends Component {
           <Button
             rounded
             light
-            onPress={() => navigate('EditProfile')}
+            onPress={() => navigate('EditUserProfile')}
           >
             <Text fontSize={4}>
               Edit Profile
