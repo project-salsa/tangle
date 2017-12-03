@@ -7,10 +7,10 @@ import { inject } from 'mobx-react'
 export default class DashboardComponent extends React.Component {
   render () {
     return (
-      <Container style={{backgroundColor: '#776B76'}}>
+      <Container style={{backgroundColor: '#FFFFFF'}}>
         <Content>
           <View style={{alignItems: 'center'}}>
-            <Text style={{fontWeight: 'bold', fontSize: 40, color: 'white'}}>Dashboard</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 40}}>Dashboard</Text>
           </View>
           <RequestList requests={this.props.requests} navigation={this.props.navigation} />
         </Content>
