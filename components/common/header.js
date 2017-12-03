@@ -17,7 +17,7 @@ export default class HeaderComponent extends React.Component {
     }
 
     return (
-      <Header>
+      <Header style={{marginTop: 24}}>
         <Left>
           <Button
             transparent

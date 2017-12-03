@@ -1,43 +1,18 @@
 import React from 'react'
-import { Text, Image } from 'react-native'
-import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail, View} from 'native-base'
+import {Text, View, Image} from 'react-native'
+import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { inject } from 'mobx-react'
 import axios from 'axios'
 
 import DisplayMap from '../DisplayMap'
-
+import GlobalStyleSheet from '../../style'
 import Header from '../common/header'
 
 @inject('authStore')
 export default class RequestComponent extends React.Component {
   constructor (props) {
     super(props)
-
-    this.handleButtonPress = this.handleButtonPress.bind(this)
-  }
-
-  handleButtonPress (mode) {
-    const { params } = this.props.navigation.state
-    if (mode === 'Join') {
-      // Make Join Request
-      const axiosOptions = {
-        method: 'POST',
-        url: 'https://tangled.michaelbeaver.info/requests/' + params.requestId + '/join',
-        headers: {
-          Authorization: `Bearer ${this.props.authStore.token}`
-        },
-        json: true
-      }
-      axios(axiosOptions).then((response) => {
-        console.log(response)
-        this.forceUpdate()
-      }).catch((err) => {
-        console.log(err.message)
-      })
-    } else {
-      // Make Leave Request
-    }
   }
 
   render () {
@@ -80,31 +55,26 @@ export default class RequestComponent extends React.Component {
 
     return (
       <Container>
-        <Header title='Details' navigation={this.props.navigation} action='Back' />
+        <Header title={this.props.postTitle} navigation={this.props.navigation} action='Back' style={GlobalStyleSheet.headerText} />
         <Content>
           <Grid>
-            <Row style={{ backgroundColor: '#776B76', height: 200 }}>
+            <Row style={GlobalStyleSheet.bgColor}>
               <Image style={{ height: 200, width: 500, justifyContent: 'center', alignItems: 'center' }} source={{ uri: this.props.game.bannerUrl }} />
             </Row>
           </Grid>
-          <DisplayMap
-            map_ht={250}
-            mark_lat={this.props.location[1]}
-            mark_long={this.props.location[0]}
-            focus
-          />
+
           <Body>
             <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
           </Body>
           <Grid>
-            <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
+            <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Host</Text>
                 <Thumbnail source={this.props.hostUser.profilePic} />
                 <Text>{this.props.hostUser.username}</Text>
               </Body>
             </Col>
-            <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
+            <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Place</Text>
                 <Thumbnail source={{ uri: this.props.game.iconUrl }} />
@@ -119,6 +89,22 @@ export default class RequestComponent extends React.Component {
               </Body>
             </Col>
           </Grid>
+          <View style={{height: 350, flex: 1, backgroundColor: '#f2f9fc'}}>
+            <View style={{flex: 1}} />
+            <View style={{flex: 20, flexDirection: 'row'}}>
+              <View style={{flex: 1}} />
+              <View style={{flex: 20}}>
+                <DisplayMap
+                  map_ht={330}
+                  mark_lat={this.props.location[1]}
+                  mark_long={this.props.location[0]}
+                  focus
+                />
+              </View>
+              <View style={{flex: 1}} />
+            </View>
+            <View style={{flex: 1}} />
+          </View>
           {contactInfo}
           {joinLeaveButton}
         </Content>
