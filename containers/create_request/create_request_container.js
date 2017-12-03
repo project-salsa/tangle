@@ -9,7 +9,8 @@ export default class CreateRequestView extends React.Component {
     super(props)
     this.state = {
       serverAddress: 'https://tangled.michaelbeaver.info',
-      gamesList: []
+      gamesList: [],
+      defaultContact: ''
     }
   }
 
@@ -32,6 +33,31 @@ export default class CreateRequestView extends React.Component {
       // TODO: Log Errors instead of printing them to console
       console.log(err.message)
     })
+    const axiosOptions2 = {
+      method: 'GET',
+      url: this.state.serverAddress + '/users/' + this.props.authStore.username,
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    axios(axiosOptions2).then((response) => {
+      if (response.data.success) {
+        let contact
+        if (response.data.user.discordId) {
+          contact = response.data.user.discordId
+        }
+        else if (response.data.user.steamId) {
+          contact = response.data.user.steamId
+        }
+        else if (response.data.user.battleNetId) {
+          contact = response.data.user.battleNetId
+        }
+        this.setState({
+          defaultContact: contact
+        })
+      }
+    })
   }
 
   render () {
@@ -39,7 +65,8 @@ export default class CreateRequestView extends React.Component {
       <CreateRequestComponent
         serverAddress={this.state.serverAddress}
         navigation={this.props.navigation}
-        gamesList={this.state.gamesList} />
+        gamesList={this.state.gamesList}
+        defaultContact={this.state.defaultContact} />
     )
   }
 }

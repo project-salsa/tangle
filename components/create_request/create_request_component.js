@@ -18,15 +18,18 @@ export default class CreateRequestComponent extends React.Component {
       tags: [],
       locationName: '',
       maxPlayers: 2,
+      contactInfo: '',
       platformList: [],
-      gameSelected: false
+      platformReady: false
     }
 
     this.getGames = this.getGames.bind(this)
+    this.updatePlatforms = this.updatePlatforms.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidUpdate() {
+  updatePlatforms() {
+    // TODO: Stop component from running this code when it's not necessary
     const axiosOptions = {
       method: 'GET',
       url: this.props.serverAddress + '/games/' + this.state.gameSelection,
@@ -37,8 +40,7 @@ export default class CreateRequestComponent extends React.Component {
     };
     axios(axiosOptions).then((response) => {
       if (response.data.success) {
-        this.state.platformList = response.data.game.platforms
-        console.log(this.state.platformList)
+        this.setState({platformList: response.data.game.platforms, platformReady: true})
       }
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
@@ -70,6 +72,7 @@ export default class CreateRequestComponent extends React.Component {
         tags: this.state.tags,
         location: this.state.locationName,
         maxPlayers: this.state.maxPlayers,
+        contactInfo: this.state.contactInfo,
         currentPlayers: []
       },
       headers: {
@@ -87,27 +90,32 @@ export default class CreateRequestComponent extends React.Component {
     })
   }
 
+
+
   render () {
-    const gamesList = this.getGames(this.state.gameSelection)
+    const displayGames = this.getGames(this.state.gameSelection)
 
     let platformSelect
-    if (this.state.gameSelected) {
-      platformSelect = (
-        <View>
-          <Picker
+    if (this.props.gamesList.indexOf(this.state.gameSelection) > -1) {
+      this.updatePlatforms()
+      if (this.state.platformReady) {
+        platformSelect = (
+          <View>
+            <Text>Select a Platform</Text>
+            <Picker
               iosHeader='Select a Platform'
-              placeholder={'Choose...'}
+              placeholder='Choose...'
               mode='dialog'
-              prompt='Select a Platform'
+              prompt='Platform'
               selectedValue={this.state.platform}
               onValueChange={(value) => this.setState({platform: value})}>
-            <Text>Select a Platform</Text>
-            {this.state.platformList.map((item, index) => {
-              return (<Item label={item} value={item} key={index} />)
-            })}
-          </Picker>
-        </View>
-      )
+              {this.state.platformList.map((item, index) => {
+                return (<Item label={item} value={item} key={index}/>)
+              })}
+            </Picker>
+          </View>
+        )
+      }
     }
 
     return (
@@ -136,36 +144,43 @@ export default class CreateRequestComponent extends React.Component {
               <Autocomplete
                 autoCapitalize="none"
                 autoCorrect={false}
-                data={gamesList[0] === this.state.gameSelection ? [] : gamesList}
+                data={displayGames[0] === this.state.gameSelection ? [] : displayGames}
                 defaultValue={this.state.gameSelection}
                 onChangeText={text => this.setState({ gameSelection: text })}
                 placeholder='Enter game title...'
-                renderItem={data => (
-                  <TouchableOpacity onPress={() => this.setState({gameSelection: data, gameSelected: true})}>
+                renderItem={(data) => (
+                  <TouchableOpacity onPress={() => this.setState({gameSelection: data})}>
                     <Text>{data}</Text>
                   </TouchableOpacity> )} />
             </View>
-            <View>
-              {platformSelect}
 
-              <Item floatingLabel>
-                <Label>Number of Players</Label>
-                <Input padder
-                  name='maxPlayers'
-                  type='number'
-                  keyboardType='numeric'
-                  maxLength={2}
-                  onChangeText={(text) => this.setState({maxPlayers: text})} />
-              </Item>
+            {platformSelect}
 
-              <Item floatingLabel>
-                <Label>Location</Label>
-                <Input padder
-                  name='locationName'
-                  onChangeText={(text) => this.setState({locationName: text})} />
-                {/* TODO Change to Daniel's location select component */}
-              </Item>
-            </View>
+            <Item floatingLabel>
+              <Label>Number of Players</Label>
+              <Input padder
+                name='maxPlayers'
+                type='number'
+                keyboardType='numeric'
+                maxLength={2}
+                onChangeText={(text) => this.setState({maxPlayers: text})} />
+            </Item>
+
+            <Item floatingLabel>
+              <Label>Location</Label>
+              <Input padder
+                name='locationName'
+                onChangeText={(text) => this.setState({locationName: text})} />
+              {/* TODO Change to Daniel's location select component */}
+            </Item>
+
+            <Item floatingLabel>
+              <Label>Preferred Contact</Label>
+              <Input padder
+                 name='contactInfo'
+                 defaultValue={this.props.defaultContact}
+                 onChangeText={(text) => this.setState({contactInfo: text})} />
+            </Item>
             </Form>
 
             <Button full primary
