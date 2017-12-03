@@ -1,6 +1,6 @@
 import React from 'react'
 import {Text, View} from 'react-native'
-import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
+import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
 import GlobalStyleSheet from '../../style'
