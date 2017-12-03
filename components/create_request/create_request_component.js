@@ -31,7 +31,6 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   updatePlatforms() {
-    // TODO: Stop component from running this code when it's not necessary
     const axiosOptions = {
       method: 'GET',
       url: this.props.serverAddress + '/games/' + this.state.gameSelection,
@@ -99,7 +98,9 @@ export default class CreateRequestComponent extends React.Component {
 
     let platformSelect
     if (this.props.gamesList.indexOf(this.state.gameSelection) > -1) {
-      this.updatePlatforms()
+      if (!this.state.platformReady){
+        this.updatePlatforms()
+      }
       if (this.state.platformReady) {
         platformSelect = (
           <View>
