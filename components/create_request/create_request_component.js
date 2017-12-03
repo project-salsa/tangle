@@ -2,6 +2,7 @@ import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
+import SelectMap from '../SelectMap'
 
 @inject('authStore')
 export default class CreateRequestComponent extends React.Component {
@@ -13,18 +14,23 @@ export default class CreateRequestComponent extends React.Component {
       gameSelection: '',
       platform: 'PC',
       tags: [],
-      locationName: '',
-      maxPlayers: 2
+      maxPlayers: 2,
+      location: {
+        latitude: 0,
+        longitude: 0
+      }
     }
-
+    this.handleCoordinateChange = this.handleCoordinateChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleCoordinateChange(coordinate) {
+    this.setState({ location: coordinate })
   }
 
   handleSubmit () {
     console.log(this.state)
     const { navigate } = this.props.navigation
-    // TODO: In the data section here, I think we can make this less verbose using some ES6 spread syntax.
-    // Not a big deal since it's a code style issue, but worth looking into later.
     const axiosOptions = {
       method: 'POST',
       url: this.props.serverAddress + '/requests',
@@ -34,7 +40,7 @@ export default class CreateRequestComponent extends React.Component {
         game: this.state.gameSelection,
         platform: this.state.platform,
         tags: this.state.tags,
-        location: this.state.locationName,
+        location: this.state.location,
         maxPlayers: this.state.maxPlayers,
         currentPlayers: []
       },
@@ -60,6 +66,7 @@ export default class CreateRequestComponent extends React.Component {
       <Container>
         <Header title='Create new Request' />
         <Content padder>
+          <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
           <Form>
             <Item floatingLabel>
               <Label>Post Title</Label>
@@ -90,15 +97,6 @@ export default class CreateRequestComponent extends React.Component {
                 keyboardType='numeric'
                 maxLength={1}
                 onChangeText={(text) => this.setState({maxPlayers: text})} />
-            </Item>
-
-            <Item floatingLabel>
-              <Icon active ios='ios-pin' android='md-pin' />
-              <Label>Location</Label>
-              <Input padder
-                name='locationName'
-                onChangeText={(text) => this.setState({locationName: text})} />
-              {/* TODO User input for now, consider using map data in the future */}
             </Item>
           </Form>
 
