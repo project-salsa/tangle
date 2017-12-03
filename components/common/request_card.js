@@ -6,7 +6,8 @@ export default class RequestCard extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <Card>
-        <CardItem button onPress={() => navigate('Request', { requestId: this.props.requestId })}>
+        <CardItem button style={{backgroundColor: '#BBAFBA'}}
+                  onPress={() => navigate('Request', { requestId: this.props.requestId })}>
             <Left>
             <Text>
               {this.props.title}

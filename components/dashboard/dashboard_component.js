@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Content, H1 } from 'native-base'
+import { Container, Content, View, Text } from 'native-base'
 import RequestList from './request_list'
 import { inject } from 'mobx-react'
 
@@ -7,9 +7,11 @@ import { inject } from 'mobx-react'
 export default class DashboardComponent extends React.Component {
   render () {
     return (
-      <Container>
+      <Container style={{backgroundColor: '#776B76'}}>
         <Content>
-          <H1>Dashboard</H1>
+          <View style={{alignItems: 'center'}}>
+            <Text style={{fontWeight: 'bold', fontSize: 40, color: 'white'}}>Dashboard</Text>
+          </View>
           <RequestList requests={this.props.requests} navigation={this.props.navigation} />
         </Content>
       </Container>
