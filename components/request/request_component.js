@@ -3,6 +3,7 @@ import {Text, View} from 'react-native'
 import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import DisplayMap from '../DisplayMap'
+import GlobalStyleSheet from '../../style'
 
 export default class RequestComponent extends React.Component {
   constructor (props) {
@@ -44,7 +45,7 @@ export default class RequestComponent extends React.Component {
         </Header>
         <Content>
           <Grid>
-            <Row style={{ backgroundColor: '#776B76', height: 200 }}>
+            <Row style={GlobalStyleSheet.bgColor}>
               <Body>
                 <Text>Banner Goes Here!</Text>
               </Body>

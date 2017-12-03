@@ -14,20 +14,20 @@ export default StyleSheet.create({
     fontSize: 24
   },
   primaryColor: {
-        // blue
-    color: '#2988e8'
+        // blue - headers bby
+    backgroundColor: '#3c3cc1'
   },
   secondaryColor: {
         // blue-grey
-    color: '#91aac4'
+    backgroundColor: '#91aac4'
   },
   tertiaryColor: {
         // white
-    color: '#ffffff'
+    backgroundColor: '#ffffff'
   },
-  backgroundColor: {
+  bgColor: {
         // bluish white
-    color: '#f2f9fc'
+    backgroundColor: '#f2f9fc'
   }
 })
 

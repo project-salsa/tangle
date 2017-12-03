@@ -35,7 +35,7 @@ export default class LoginComponent extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          <Form style={GlobalStyleSheet.backgroundColor}>
+          <Form style={GlobalStyleSheet.bgColor}>
             <Item floatingLabel>
               <Icon active name='bulb' />
               <Label>  Enter Username</Label>
