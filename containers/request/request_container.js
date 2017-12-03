@@ -13,10 +13,13 @@ export default class RequestContainer extends React.Component {
       game: '',
       platform: '',
       tags: [],
-      locationName: '',
       maxPlayers: 2,
       currentPlayers: [],
-      serverAddress: 'https://tangled.michaelbeaver.info'
+      serverAddress: 'https://tangled.michaelbeaver.info',
+      location: {
+        latitude: '',
+        longitude: ''
+      }
     }
   }
 
@@ -29,21 +32,20 @@ export default class RequestContainer extends React.Component {
             },
             json: true
           };
-    axios(axiosOptions).then((resp) => {
-      if (resp.data.success) {
-        const request = resp.data.request
+    axios(axiosOptions).then((response) => {
+      const request = response.data.request
+      if (response.data.success) {
         this.setState({
           postTitle: request.title,
           hostUser: request.user,
           game: request.game,
           platform: request.platform,
           tags: request.tags,
-          locationName: request.location,
           maxPlayers: request.maxPlayers,
-          currentPlayers: request.currentPlayers
+          currentPlayers: request.currentPlayers,
+          location: [request.location.latitude, request.location.longitude]
         })
       }
-      console.log(resp.data)
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
       console.log(err.message)
@@ -59,8 +61,9 @@ export default class RequestContainer extends React.Component {
         game={this.state.game}
         platform={this.state.platform}
         tags={this.state.tags}
-        locationName={this.state.locationName}
-        maxPlayers={this.state.maxPlayers} />
+        maxPlayers={this.state.maxPlayers}
+        coords={this.state.location}
+      />
     )
   }
 }
