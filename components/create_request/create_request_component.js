@@ -6,6 +6,7 @@ import { inject } from 'mobx-react'
 import Autocomplete from 'react-native-autocomplete-input'
 import SelectMap from '../SelectMap'
 import Header from '../common/header'
+import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
 export default class CreateRequestComponent extends React.Component {
@@ -121,10 +122,14 @@ export default class CreateRequestComponent extends React.Component {
     }
 
     return (
-      <Container>
-        <Header title='Create New Request' navigation={this.props.navigation} action='Back' />
+      <Container style={GlobalStyleSheet.bgColor}>
+        <Header
+          title='Create New Request'
+          navigation={this.props.navigation}
+          style={GlobalStyleSheet.headerText}
+          action='Back' />
         <Content padder
-          keyboardShouldPersistTaps='always'>
+          keyboardShoultPersistTaps='always'>
           <Form>
             <Item>
               <Input
@@ -137,14 +142,16 @@ export default class CreateRequestComponent extends React.Component {
               <Autocomplete
                 autoCapitalize="none"
                 autoCorrect={false}
+                containerStyle={GlobalStyleSheet.bgColor}
                 data={displayGames[0] === this.state.gameSelection ? [] : displayGames}
                 defaultValue={this.state.gameSelection}
                 onChangeText={text => this.setState({ gameSelection: text })}
                 placeholder='Enter game title...'
+                style={GlobalStyleSheet.bgColor}
                 renderItem={(data) => (
-                  <TouchableOpacity onPress={() => this.setState({gameSelection: data})}>
+                  <Button onPress={() => this.setState({gameSelection: data})}>
                     <Text>{data}</Text>
-                  </TouchableOpacity> )} />
+                  </Button> )} />
             </View>
 
             {platformSelect}
@@ -152,7 +159,7 @@ export default class CreateRequestComponent extends React.Component {
             <Text>Tap your location on the map</Text>
             <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
 
-            <Item>
+            <Item style={GlobalStyleSheet.bgColor}>
               <Input padder
                      name='maxPlayers'
                      placeholder='Number of Players'
@@ -162,19 +169,19 @@ export default class CreateRequestComponent extends React.Component {
                      onChangeText={(text) => this.setState({maxPlayers: text})} />
             </Item>
 
-            <Item last>
+            <Item last style={GlobalStyleSheet.bgColor}>
               <Input padder
                  name='contactInfo'
                  placeholder='Preferred Contact Info'
                  defaultValue={this.props.defaultContact}
                  onChangeText={(text) => this.setState({contactInfo: text})} />
             </Item>
-            </Form>
+          </Form>
 
-            <Button full primary
-              onPress={this.handleSubmit}>
-              <Text>Send Request</Text>
-            </Button>
+          <Button full primary
+            onPress={this.handleSubmit}>
+            <Text>Create Request</Text>
+          </Button>
         </Content>
       </Container>
     )
