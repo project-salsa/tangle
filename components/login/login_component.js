@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
 import { inject } from 'mobx-react'
+import Loader from '../Loader'
 import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
@@ -9,24 +10,28 @@ export default class LoginComponent extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isLoading: ''
     }
-
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit () {
+    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
     this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
       navigate('Dashboard')
+      this.setState({ isLoading: false })
     }).catch((err) => {
       // TODO: Login Errors
       console.log('Error while logging in: ' + err)
+      this.setState({ isLoading: false })
     })
   }
 
   render () {
     const { navigate } = this.props.navigation
+    if (this.state.isLoading) { return ( <Loader /> ) }
     return (
       <Container>
         <Header style={GlobalStyleSheet.primaryColor}>
