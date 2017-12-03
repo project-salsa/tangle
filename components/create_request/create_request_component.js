@@ -101,8 +101,7 @@ export default class CreateRequestComponent extends React.Component {
     if (this.props.gamesList.indexOf(this.state.gameSelection) > -1) {
       if (!this.state.platformReady){
         this.updatePlatforms()
-      }
-      if (this.state.platformReady) {
+      } else {
         platformSelect = (
           <View>
             <Text>Select a Platform</Text>
