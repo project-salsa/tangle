@@ -3,6 +3,7 @@ import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon,
 import { inject } from 'mobx-react'
 import Loader from '../Loader'
 import GlobalStyleSheet from '../../style'
+import axios from 'axios'
 
 @inject('authStore')
 export default class RegisterComponent extends React.Component {
@@ -11,6 +12,8 @@ export default class RegisterComponent extends React.Component {
     this.state = {
       username: '',
       password: '',
+      email: '',
+      error: '',
       isLoading: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -19,13 +22,19 @@ export default class RegisterComponent extends React.Component {
   handleSubmit () {
     this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
-      navigate('Router')
+    axios.post('https://tangled.michaelbeaver.info/users',
+      {
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email
+      }
+    ).then(() => {
+      navigate('Login')
       this.setState({ isLoading: false })
     }).catch((err) => {
-      // TODO: Login Errors
-      console.log('Error while logging in: ' + err.message)
+      // TODO: Error handling
       this.setState({ isLoading: false })
+      console.log('Error while creating account: ' + err.message)
     })
   }
 
@@ -42,14 +51,21 @@ export default class RegisterComponent extends React.Component {
         <Content padder>
           <Form style={GlobalStyleSheet.bgColor}>
             <Item floatingLabel>
-              <Icon active name='bulb' />
-              <Label>  Enter Username</Label>
+              <Label>Username</Label>
               <Input onChangeText={(input) => this.setState({username: input})} />
             </Item>
             <Item floatingLabel>
-              <Icon active name='lock' />
-              <Label>  Enter Password</Label>
+              <Label>Email</Label>
+              <Input onChangeText={(input) => this.setState({email: input})} />
+            </Item>
+            <Item floatingLabel>
+              <Label>Password</Label>
               <Input secureTextEntry onChangeText={(input) => this.setState({password: input})} />
+            </Item>
+            {/*TODO Check to see Confirm Password is same as password*/}
+            <Item floatingLabel>
+              <Label>Confirm Password</Label>
+              <Input secureTextEntry onChangeText={(input) => this.setState({confirmPassword: input})} />
             </Item>
           </Form>
           <View style={GlobalStyleSheet.secondaryColor} />
