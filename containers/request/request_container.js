@@ -16,10 +16,7 @@ export default class RequestContainer extends React.Component {
       maxPlayers: 2,
       currentPlayers: [],
       serverAddress: 'https://tangled.michaelbeaver.info',
-      location: {
-        latitude: '',
-        longitude: ''
-      }
+      location: [0, 0]
     }
   }
 
@@ -43,7 +40,7 @@ export default class RequestContainer extends React.Component {
           tags: request.tags,
           maxPlayers: request.maxPlayers,
           currentPlayers: request.currentPlayers,
-          location: [request.location.latitude, request.location.longitude]
+          location: [request.location.coordinates[1], request.location.coordinates[0]]
         })
       }
     }).catch((err) => {
@@ -62,7 +59,7 @@ export default class RequestContainer extends React.Component {
         platform={this.state.platform}
         tags={this.state.tags}
         maxPlayers={this.state.maxPlayers}
-        coords={this.state.location}
+        location={this.state.location}
       />
     )
   }

@@ -60,7 +60,7 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   handleCoordinateChange(coordinate) {
-    this.setState({ location: coordinate })
+    this.setState({ location: [coordinate.longitude, coordinate.latitude] })
   }
 
   handleSubmit () {
@@ -83,7 +83,7 @@ export default class CreateRequestComponent extends React.Component {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
       json: true
-    };
+    }
     axios(axiosOptions).then((resp) => {
       if (resp.data.success) {
         navigate('Request', {requestId: resp.data.requestId})
@@ -93,8 +93,6 @@ export default class CreateRequestComponent extends React.Component {
       console.log(err.message)
     })
   }
-
-
 
   render () {
     const displayGames = this.getGames(this.state.gameSelection)
