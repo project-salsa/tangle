@@ -9,9 +9,8 @@ export default class DashboardComponent extends React.Component {
   render () {
     return (
       <Container>
-        <Header title='Dashboard' />
+        <Header title='Dashboard' navigation={this.props.navigation} />
         <Content>
-          <H1>Dashboard</H1>
           <RequestList requests={this.props.requests} navigation={this.props.navigation} />
         </Content>
       </Container>

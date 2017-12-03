@@ -1,7 +1,9 @@
 import React from 'react'
 import {Text} from 'react-native'
-import {Container, Header, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
+import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+
+import Header from '../common/header'
 
 export default class RequestComponent extends React.Component {
   constructor (props) {
@@ -25,7 +27,7 @@ export default class RequestComponent extends React.Component {
   render () {
     return (
       <Container>
-        <Header title='Details' />
+        <Header title='Details' navigation={this.props.navigation} action='Back' />
         <Content>
           <Grid>
             <Row style={{ backgroundColor: '#776B76', height: 200 }}>

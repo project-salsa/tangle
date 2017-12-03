@@ -4,21 +4,25 @@ import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Tex
 export default class HeaderComponent extends React.Component {
   render () {
     let onPressAction
-    // switch (this.props.action) {
-    //   case 'Drawer':
-    //     onPressAction = () => this.props.navigation.navigate('DrawerOpen')
-    //     break
-    //   case 'Back':
-    //     onPressAction = () => this.props.navigation.goBack
-    // }
+    let iconName
+    switch (this.props.action) {
+      case 'Drawer':
+        onPressAction = () => this.props.navigation.navigate('DrawerOpen')
+        iconName = 'menu'
+        break
+      case 'Back':
+        onPressAction = () => this.props.navigation.goBack()
+        iconName = 'md-arrow-back'
+        break
+    }
 
     return (
       <Header>
         <Left>
           <Button
             transparent
-            onPress={() => this.props.navigation.navigate('DrawerOpen')}>
-            <Icon name='menu' />
+            onPress={onPressAction}>
+            <Icon name={iconName} />
           </Button>
         </Left>
         <Body>
