@@ -87,8 +87,12 @@ export default class RequestComponent extends React.Component {
               <Image style={{ height: 200, width: 500, justifyContent: 'center', alignItems: 'center' }} source={{ uri: this.props.game.bannerUrl }} />
             </Row>
           </Grid>
-          {/*<DisplayMap map_ht={250} mark_lat={this.state.location.latitude} mark_long={this.state.location.longitude}*/}
-                      {/*focus />*/}
+          <DisplayMap
+            map_ht={250}
+            mark_lat={this.props.location[1]}
+            mark_long={this.props.location[0]}
+            focus
+          />
           <Body>
             <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
           </Body>

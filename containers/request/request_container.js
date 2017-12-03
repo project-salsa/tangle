@@ -81,8 +81,9 @@ export default class RequestContainer extends React.Component {
           tags: request.tags,
           maxPlayers: request.maxPlayers,
           currentPlayers: request.currentPlayers,
-          // location: [request.location.latitude, request.location.longitude],
-          contactInfo: request.contactInfo
+          location: request.location.coordinates,
+          contactInfo: request.contactInfo,
+          infoOutOfDate: false
         })
       }
     }).catch((err) => {
@@ -113,7 +114,7 @@ export default class RequestContainer extends React.Component {
           tags: request.tags,
           maxPlayers: request.maxPlayers,
           currentPlayers: request.currentPlayers,
-          // location: [request.location.latitude, request.location.longitude],
+          location: request.location.coordinates,
           contactInfo: request.contactInfo
         })
       }
@@ -126,7 +127,6 @@ export default class RequestContainer extends React.Component {
   render () {
     if (this.state.infoOutOfDate) {
       this.updateRequest()
-      this.setState({ infoOutOfDate: false })
       // TODO: Loading overlay
     } else {
       return (
@@ -139,7 +139,7 @@ export default class RequestContainer extends React.Component {
           tags={this.state.tags}
           currentPlayers={this.state.currentPlayers}
           maxPlayers={this.state.maxPlayers}
-          coords={'Renos house'}
+          location={this.state.location}
           contactInfo={this.state.contactInfo}
           handleJoin={this.handleJoin}
         />
