@@ -39,7 +39,7 @@ export default class RequestComponent extends React.Component {
           <Grid>
             <Row style={{ backgroundColor: '#776B76', height: 200 }}>
               <Body>
-                <Text>Banner Goes Here! {'\n'} {this.props.currentPlayers} / {this.props.maxPlayers} </Text>
+                <Text>Banner Goes Here! {'\n'}{this.props.currentPlayers} / {this.props.maxPlayers} </Text>
               </Body>
               <View>
                 <Text style={{textAlign: 'center'}}>
