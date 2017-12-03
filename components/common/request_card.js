@@ -17,7 +17,6 @@ export default class RequestCard extends React.Component {
           <Text>
             {this.props.game}
             {'\n'}
-            {this.props.location}
           </Text>
         </CardItem>
       </Card>

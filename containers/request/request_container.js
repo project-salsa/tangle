@@ -67,6 +67,7 @@ export default class RequestContainer extends React.Component {
         tags={this.state.tags}
         maxPlayers={this.state.maxPlayers}
         coords={this.state.location}
+        currentPlayers={this.state.currentPlayers.length}
       />
     )
   }
