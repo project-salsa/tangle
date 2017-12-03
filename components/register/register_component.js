@@ -5,7 +5,7 @@ import Loader from '../Loader'
 import GlobalStyleSheet from '../../style'
 
 @inject('authStore')
-export default class LoginComponent extends React.Component {
+export default class RegisterComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -36,7 +36,7 @@ export default class LoginComponent extends React.Component {
       <Container>
         <Header style={{backgroundColor: '#3c3cc1', marginTop: 24}}>
           <Body>
-            <Title style={GlobalStyleSheet.headerText}>Welcome to Tangle!</Title>
+            <Title style={GlobalStyleSheet.headerText}>Registration</Title>
           </Body>
         </Header>
         <Content padder>
@@ -56,12 +56,9 @@ export default class LoginComponent extends React.Component {
           <View style={{height: 10}} />
           <View>
             <Button full primary onPress={this.handleSubmit}>
-              <Text>Login</Text>
+              <Text>Register</Text>
             </Button>
             <View style={{height: 15}} />
-            <Button full danger onPress={() => navigate('Register')}>
-              <Text>Need to Register?</Text>
-            </Button>
           </View>
         </Content>
       </Container>
