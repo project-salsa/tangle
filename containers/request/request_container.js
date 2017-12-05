@@ -106,7 +106,6 @@ export default class RequestContainer extends React.Component {
     }
     axios(axiosOptions).then((response) => {
       const request = response.data.request
-
       if (response.data.success) {
         this.setState({
           postTitle: request.title,
