@@ -15,7 +15,7 @@ export default class CreateRequestComponent extends React.Component {
     super(props)
     this.state = {
       postTitle: '',
-      hostUser: this.props.authStore.username,
+      hostUser: this.props.authStore.user.username,
       gameSelection: '',
       platform: '',
       tags: [],

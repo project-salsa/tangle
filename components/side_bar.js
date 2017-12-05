@@ -12,7 +12,7 @@ const routes = [
 @inject('authStore')
 export default class SideBar extends React.Component {
   render() {
-    let welcomeMessage = 'Welcome ' + this.props.authStore.username + '!'
+    let welcomeMessage = 'Welcome ' + this.props.authStore.user.username + '!'
 
     return (
       <Container>

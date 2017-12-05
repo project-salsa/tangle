@@ -35,7 +35,7 @@ export default class CreateRequestView extends React.Component {
     })
     const axiosOptions2 = {
       method: 'GET',
-      url: this.state.serverAddress + '/users/' + this.props.authStore.username,
+      url: this.state.serverAddress + '/users/' + this.props.authStore.user.username,
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
