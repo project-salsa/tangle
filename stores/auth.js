@@ -3,7 +3,30 @@ import axios from 'axios'
 
 export default class AuthStore {
   @observable token = ''
-  @observable username = ''
+  @observable user = {}
+
+  getUserData(username) {
+    return new Promise ((resolve, reject) => {
+      if (!this.token) {
+        // Requires user to be signed in
+        return reject('Error getting user data: you must be logged in to do that!')
+      }
+      const requestOptions = {
+        method: 'GET',
+        url: 'https://tangled.michaelbeaver.info/users/' + username,
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        },
+        json: true
+      }
+      axios(requestOptions).then((response) => {
+        this.user = response.data.user
+        return resolve()
+      }).catch((err) => {
+        return reject('Error getting user data: ', err.message)
+      })
+    })
+  }
 
   logUserIn(username, password) {
     return new Promise ((resolve, reject) => {
@@ -14,8 +37,11 @@ export default class AuthStore {
         }
       ).then((response) => {
         this.token = response.data.token
-        this.username = username
-        return resolve()
+        this.getUserData(username).then(() => {
+          return resolve()
+        }).catch((err) => {
+          return reject(err)
+        })
       }).catch((err) => {
         // TODO: Error handling
         console.log("Axios Error - Auth Store")
