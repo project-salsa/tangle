@@ -1,7 +1,10 @@
 import React from 'react'
-import {Container, Body, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
+import { View, TouchableOpacity } from 'react-native'
+import {Container, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
+import Loader from '../Loader'
+import Autocomplete from 'react-native-autocomplete-input'
 import SelectMap from '../SelectMap'
 import Header from '../common/header'
 import GlobalStyleSheet from '../../style'
@@ -12,26 +15,58 @@ export default class CreateRequestComponent extends React.Component {
     super(props)
     this.state = {
       postTitle: '',
-      hostUser: 'DummyUser', // TODO: change when we can track current user
+      hostUser: this.props.authStore.user.username,
       gameSelection: '',
-      platform: 'PC',
+      platform: '',
       tags: [],
       maxPlayers: 2,
-      location: {
-        latitude: 0,
-        longitude: 0
-      }
+      contactInfo: '',
+      platformList: [],
+      platformReady: false,
+      location: [0, 0],
+      isLoading: false
     }
+
+    this.updatePlatforms = this.updatePlatforms.bind(this)
+    this.getGames = this.getGames.bind(this)
     this.handleCoordinateChange = this.handleCoordinateChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  updatePlatforms() {
+    const axiosOptions = {
+      method: 'GET',
+      url: this.props.serverAddress + '/games/' + this.state.gameSelection,
+      headers: {
+        Authorization: `Bearer ${this.props.authStore.token}`
+      },
+      json: true
+    };
+    axios(axiosOptions).then((response) => {
+      if (response.data.success) {
+        this.setState({platformList: response.data.game.platforms, platformReady: true})
+      }
+    }).catch((err) => {
+      // TODO: Log Errors instead of printing them to console
+      console.log(err.message)
+    })
+  }
+
+  getGames(query) {
+    if (query === '') {
+      return [];
+    }
+    const trimmedQuery = query.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '').trim()
+    const regex = new RegExp(trimmedQuery, 'i');
+    return this.props.gamesList.filter(game => game.search(regex) >= 0);
+  }
+
   handleCoordinateChange(coordinate) {
-    this.setState({ location: coordinate })
+    this.setState({ location: [coordinate.longitude, coordinate.latitude] })
   }
 
   handleSubmit () {
-    console.log(this.state)
+    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
     const axiosOptions = {
       method: 'POST',
@@ -44,72 +79,119 @@ export default class CreateRequestComponent extends React.Component {
         tags: this.state.tags,
         location: this.state.location,
         maxPlayers: this.state.maxPlayers,
+        contactInfo: this.state.contactInfo,
         currentPlayers: []
       },
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
       json: true
-    };
+    }
     axios(axiosOptions).then((resp) => {
       if (resp.data.success) {
+        this.setState({ isLoading: false })
         navigate('Request', {requestId: resp.data.requestId})
       }
-      console.log(resp.data)
     }).catch((err) => {
       // TODO: Log errors
-      console.log(JSON.stringify(err))
+      console.log(err.message)
+      this.setState({ isLoading: false })
     })
   }
 
   render () {
-    console.log('CR Nav: ', this.props.navigation)
-    return (
-      <Container style={GlobalStyleSheet.bgColor}>
-        <Header title='New Request' navigation={this.props.navigation} style={GlobalStyleSheet.headerText}/>
-        <Content padder>
-          <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
-          <Form>
-            <Item floatingLabel>
-              <Label>Post Title</Label>
-              <Input
-                name='postTitle'
-                onChangeText={(text) => this.setState({postTitle: text})} />
-            </Item>
-            <Text> </Text>
-            <Text>Select a Game</Text>
+    if (this.state.isLoading) { return ( <Loader /> ) }
+    const displayGames = this.getGames(this.state.gameSelection)
+
+    let platformSelect
+    if (this.props.gamesList.indexOf(this.state.gameSelection) > -1) {
+      if (!this.state.platformReady){
+        this.updatePlatforms()
+      } else {
+        platformSelect = (
+          <View>
+            <Text>   Select a Platform</Text>
             <Picker
-              style={GlobalStyleSheet.bgColor}
-              iosHeader='Select a Game'
-              placeholder={'Choose...'}
+              iosHeader='Select a Platform'
+              placeholder='Choose...'
               mode='dialog'
-              prompt='Select a Game'
-              selectedValue={this.state.gameSelection}
-              onValueChange={(value) => this.setState({gameSelection: value})}>
-              {this.props.gamesList.map((item, index) => {
-                return (<Item label={item} value={item} key={index} />)
+              prompt='Platform'
+              selectedValue={this.state.platform}
+              onValueChange={(value) => this.setState({platform: value})}>
+              {this.state.platformList.map((item, index) => {
+                return (<Item label={item} value={item} key={index}/>)
               })}
             </Picker>
+          </View>
+        )
+      }
+    }
 
-            <Item floatingLabel style={GlobalStyleSheet.bgColor}>
-              <Icon active ios='ios-happy' android='md-happy' />
-              <Label> Number of Players</Label>
+    return (
+      <Container style={GlobalStyleSheet.bgColor}>
+        <Header
+          title='Create New Request'
+          navigation={this.props.navigation}
+          style={GlobalStyleSheet.headerText}
+          action='Back' />
+        <Content padder
+          behavior='padding'
+          keyboardShoultPersistTaps='always'>
+          <Form>
+            <Item>
+              <Input
+                name='postTitle'
+                placeholder='Post Title'
+                onChangeText={(text) => this.setState({postTitle: text})} />
+            </Item>
+
+            <View>
+              <Text>   Select a game</Text>
+              <Autocomplete
+                autoCapitalize="none"
+                autoCorrect={false}
+                containerStyle={GlobalStyleSheet.bgColor}
+                data={displayGames[0] === this.state.gameSelection ? [] : displayGames}
+                defaultValue={this.state.gameSelection}
+                onChangeText={text => this.setState({ gameSelection: text })}
+                placeholder='Enter game title...'
+                style={GlobalStyleSheet.bgColor}
+                renderItem={(data) => (
+                  <TouchableOpacity onPress={() => this.setState({gameSelection: data})}>
+                    <Text>{data}</Text>
+                  </TouchableOpacity> )} />
+            </View>
+
+            {platformSelect}
+
+            <Text>   Tap your location on the map</Text>
+            <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
+
+            <Item style={GlobalStyleSheet.bgColor}>
               <Input padder
-                name='maxPlayers'
-                type='number'
-                keyboardType='numeric'
-                maxLength={1}
-                onChangeText={(text) => this.setState({maxPlayers: text})} />
+                     name='maxPlayers'
+                     placeholder='Number of Players'
+                     type='number'
+                     keyboardType='numeric'
+                     maxLength={2}
+                     onChangeText={(text) => this.setState({maxPlayers: text})} />
+            </Item>
+
+            <Item last style={GlobalStyleSheet.bgColor}>
+              <Input padder
+                 name='contactInfo'
+                 placeholder='Preferred Contact Info'
+                 defaultValue={this.props.defaultContact}
+                 onChangeText={(text) => this.setState({contactInfo: text})} />
             </Item>
           </Form>
 
           <Button full primary
             onPress={this.handleSubmit}>
-            <Text>Send Request</Text>
+            <Text>Create Request</Text>
           </Button>
-
         </Content>
-      </Container>
+      </Container >
     )
   }
 }
