@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
+import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label, Toast} from 'native-base'
 import { inject } from 'mobx-react'
 import Loader from '../Loader'
 import GlobalStyleSheet from '../../style'
@@ -12,30 +12,55 @@ export default class RegisterComponent extends React.Component {
     this.state = {
       username: '',
       password: '',
+      confirmPassword: '',
       email: '',
-      error: '',
-      isLoading: ''
+      isLoading: '',
+      showToast: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit () {
-    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    axios.post('https://tangled.michaelbeaver.info/users',
-      {
-        username: this.state.username,
-        password: this.state.password,
-        email: this.state.email
-      }
-    ).then(() => {
-      navigate('Login')
-      this.setState({ isLoading: false })
-    }).catch((err) => {
-      // TODO: Error handling
-      this.setState({ isLoading: false })
-      console.log('Error while creating account: ' + err.message)
-    })
+    if (this.state.username === '' || this.state.email === '' || this.state.password === '') {
+      Toast.show({
+        text: 'Please complete all fields to register.',
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 5000
+      })
+    }
+    else if (this.state.password !== this.state.confirmPassword) {
+      Toast.show({
+        text: 'Please check that your passwords match.',
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 5000
+      })
+    }
+    else {
+      this.setState({ isLoading: true })
+      axios.post('https://tangled.michaelbeaver.info/users',
+        {
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        }
+      ).then(() => {
+        this.setState({isLoading: false})
+        navigate('Login')
+      }).catch((err) => {
+        // TODO: Error handling
+        this.setState({isLoading: false})
+        console.log('Error while creating account: ' + err.message)
+        Toast.show({
+          text: 'Something went wrong. Please try again.',
+          position: 'bottom',
+          buttonText: 'Okay',
+          duration: 5000
+        })
+      })
+    }
   }
 
   render () {
@@ -62,7 +87,6 @@ export default class RegisterComponent extends React.Component {
               <Label>Password</Label>
               <Input secureTextEntry onChangeText={(input) => this.setState({password: input})} />
             </Item>
-            {/*TODO Check to see Confirm Password is same as password*/}
             <Item floatingLabel>
               <Label>Confirm Password</Label>
               <Input secureTextEntry onChangeText={(input) => this.setState({confirmPassword: input})} />
