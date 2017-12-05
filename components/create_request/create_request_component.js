@@ -89,8 +89,8 @@ export default class CreateRequestComponent extends React.Component {
     }
     axios(axiosOptions).then((resp) => {
       if (resp.data.success) {
-        navigate('Request', {requestId: resp.data.requestId})
         this.setState({ isLoading: false })
+        navigate('Request', {requestId: resp.data.requestId})
       }
     }).catch((err) => {
       // TODO: Log errors
