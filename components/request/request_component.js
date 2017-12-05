@@ -32,7 +32,7 @@ export default class RequestComponent extends React.Component {
     }
 
     for (const player of this.props.currentPlayers) {
-      if (player.username === this.props.authStore.username) {
+      if (player.username === this.props.authStore.user.username) {
         hasJoined = true
         break
       }

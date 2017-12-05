@@ -32,7 +32,7 @@ export default class UserProfileComponent extends Component {
       }
     })
     let canEdit
-    if (this.props.authStore.username === this.props.username){
+    if (this.props.authStore.user.username === this.props.username){
         canEdit = (
           <Button
             rounded

@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import RequestComponent from '../../components/request/request_component'
 import { inject } from 'mobx-react'
+
+import RequestComponent from '../../components/request/request_component'
+import Loader from '../../components/Loader'
 
 @inject('authStore')
 export default class RequestContainer extends React.Component {
@@ -128,7 +130,7 @@ export default class RequestContainer extends React.Component {
       this.updateRequest()
       // TODO: Loading overlay
       return (
-        <RequestComponent />
+        <Loader />
       )
     } else {
       return (
