@@ -59,7 +59,7 @@ export default class LoginComponent extends React.Component {
               <Text>Login</Text>
             </Button>
             <View style={{height: 15}} />
-            <Button full danger onPress={() => navigate('UserProfile')}>
+            <Button full danger onPress={() => navigate('Register')}>
               <Text>Need to Register?</Text>
             </Button>
           </View>
