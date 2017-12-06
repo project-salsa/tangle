@@ -44,7 +44,10 @@ export default class CreateRequestComponent extends React.Component {
     };
     axios(axiosOptions).then((response) => {
       if (response.data.success) {
-        this.setState({platformList: response.data.game.platforms, platformReady: true})
+        this.setState({
+          platformList: response.data.game.platforms,
+          platformReady: true,
+          platform: response.data.game.platforms[0]})
       }
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
@@ -94,8 +97,8 @@ export default class CreateRequestComponent extends React.Component {
       }
     }).catch((err) => {
       // TODO: Log errors
-      console.log(err.message)
-      this.setState({ isLoading: false })
+      console.log(err.data)
+      this.setState({ isLoading: false, platformReady: false })
     })
   }
 
@@ -153,7 +156,7 @@ export default class CreateRequestComponent extends React.Component {
                 containerStyle={GlobalStyleSheet.bgColor}
                 data={displayGames[0] === this.state.gameSelection ? [] : displayGames}
                 defaultValue={this.state.gameSelection}
-                onChangeText={text => this.setState({ gameSelection: text })}
+                onChangeText={text => this.setState({ gameSelection: text, platformReady: false})}
                 placeholder='Enter game title...'
                 style={GlobalStyleSheet.bgColor}
                 renderItem={(data) => (

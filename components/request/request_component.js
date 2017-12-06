@@ -16,8 +16,10 @@ export default class RequestComponent extends React.Component {
   }
 
   render () {
+    console.log(this.props.location)
     let hasJoined = false
     let contactInfo
+    let mapDisplay
     let joinLeaveButton = (
       <Button block primary onPress={() => this.props.handleJoin('Join')}>
         <Text style={{color: '#FFFFFF', fontSize: 18}}>Join Request</Text>
@@ -49,6 +51,27 @@ export default class RequestComponent extends React.Component {
       contactInfo = (
         <View>
           <Text>{this.props.contactInfo}</Text>
+        </View>
+      )
+    }
+
+    if(this.props.location.length > 0) {
+      mapDisplay = (
+        <View style={{height: 350, flex: 1, backgroundColor: '#f2f9fc'}}>
+          <View style={{flex: 1}} />
+          <View style={{flex: 20, flexDirection: 'row'}}>
+            <View style={{flex: 1}} />
+            <View style={{flex: 20}}>
+              <DisplayMap
+                map_ht={330}
+                mark_lat={Number(this.props.location[1])}
+                mark_long={Number(this.props.location[0])}
+                focus
+              />
+            </View>
+            <View style={{flex: 1}} />
+          </View>
+          <View style={{flex: 1}} />
         </View>
       )
     }
@@ -89,22 +112,7 @@ export default class RequestComponent extends React.Component {
               </Body>
             </Col>
           </Grid>
-          <View style={{height: 350, flex: 1, backgroundColor: '#f2f9fc'}}>
-            <View style={{flex: 1}} />
-            <View style={{flex: 20, flexDirection: 'row'}}>
-              <View style={{flex: 1}} />
-              <View style={{flex: 20}}>
-                <DisplayMap
-                  map_ht={330}
-                  mark_lat={this.props.location[1]}
-                  mark_long={this.props.location[0]}
-                  focus
-                />
-              </View>
-              <View style={{flex: 1}} />
-            </View>
-            <View style={{flex: 1}} />
-          </View>
+          {mapDisplay}
           {contactInfo}
           {joinLeaveButton}
         </Content>
