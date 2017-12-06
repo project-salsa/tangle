@@ -120,7 +120,7 @@ export default class UserProfileEdit extends Component {
         key={tag}
         onPress={() => this.removeTag(tag)}
         >
-        <Text>        {tag}     </Text>
+        <Text style={{color:'white'}}>        {tag}     </Text>
         <Icon name='close'/>
         </Button>
 
@@ -286,7 +286,7 @@ export default class UserProfileEdit extends Component {
                 }
               />
               <Button info onPress={() => this.addTag(this.state.subscribedTagsField)}>
-                <Text>  Add Tag  </Text>
+                <Text style={{color:'white'}}>  Add Tag  </Text>
               </Button>
             </Item>
             <View style={{justifyContent: 'center'}}>
