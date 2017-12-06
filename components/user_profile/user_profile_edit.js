@@ -26,35 +26,39 @@ export default class UserProfileEdit extends Component {
   handleSubmit () {
     this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    const editInfo = ['password', 'email', 'profilePic', 'subscribedTags', 'discordId', 'steamId', 'battleNetId']
+    const validFields = ['password', 'email', 'profilePic', 'subscribedTags', 'discordId', 'steamId', 'battleNetId']
     const editData = {}
-    for (const key of editInfo) {
-      if (typeof editInfo[key] !== 'undefined' && editInfo[key] !== '') {
-        switch (key) {
+    console.log(this.state.subscribedTags)
+    console.log(this.state.discordId)
+    for (const field of validFields) {
+      if (typeof this.state[field] !== 'undefined' && this.state[field] !== '') {
+        switch (field) {
           case 'subscribedTags':
-            editData[key] = this.state[key].split(',')
+            if (this.state[field].length > 0) {
+              editData[field] = this.state[field]
+            }
             break
           default:
-            editData[key] = editInfo[key]
+            editData[field] = validFields[field]
         }
       }
     }
-
+    console.log(editData)
     const axiosOptions = {
       method: 'PUT',
       url: 'https://tangled.michaelbeaver.info/users/' + this.state.username,
       data: {
         currentPassword: this.state.currentPassword,
-        editData: editData
+        editData
       },
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
       json: true
     };
-    console.log("In HandleSubmit!")
+    console.log('In HandleSubmit!')
     axios(axiosOptions).then((resp) => {
-      console.log("Using Axios!")
+      console.log('Using Axios!')
       if (resp.data.success) {
         console.log("In Success")
         console.log(resp)
@@ -66,6 +70,7 @@ export default class UserProfileEdit extends Component {
       console.log("FAILED")
       // TODO: Log errors
       console.log(JSON.stringify(err))
+      this.setState({ isLoading: false })
     })
   }
 
