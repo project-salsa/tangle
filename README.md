@@ -19,6 +19,10 @@ npm start
 ```
 to start the development server.
 
+## Running the app locally (iOS)
+
+Coming soon(tm)
+
 ## Contributing
 
 We use StandardJS as a style guide. All changes to this repository's code should pass that style check. See [here](https://standardjs.com/index.html#install) for information on setting up a local tool to check your style before making a Pull Request.
