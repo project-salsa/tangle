@@ -30,7 +30,7 @@ export default class RequestComponent extends React.Component {
         </Button>
       )
     }
-    if (this.props.authStore.username == this.props.hostUser.username)
+    if (this.props.authStore.user.username === this.props.hostUser.username)
     {
       joinLeaveButton = (
         <Button block primary disabled>
@@ -89,7 +89,7 @@ export default class RequestComponent extends React.Component {
                 <Text>Location Name</Text>
               </Body>
             </Col>
-            <Col size={1} style={{ backgroundColor: '#776B76', height: 100 }}>
+            <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Game</Text>
                 <Thumbnail source={{ uri: this.props.game.iconUrl }} />
