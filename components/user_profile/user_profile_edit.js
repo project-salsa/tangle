@@ -1,6 +1,6 @@
 import { Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Thumbnail, Item, Input } from 'native-base'
+import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Thumbnail, Item, Input, Toast } from 'native-base'
 import axios from 'axios'
 import Loader from '../Loader'
 import { inject } from 'mobx-react'
@@ -18,6 +18,17 @@ export default class UserProfileEdit extends Component {
       discordId: this.props.authStore.user.discordId,
       steamId: this.props.authStore.user.steamId,
       battleNetId: this.props.authStore.user.battleNetId,
+      editData: {
+        currentPassword: '',
+        username: '',
+        email: '',
+        password: '',
+        profilePic: '',
+        subscribedTags: '',
+        discordId: '',
+        steamId: '',
+        battleNetId: ''
+      },
       isLoading: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,49 +38,55 @@ export default class UserProfileEdit extends Component {
     this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
     const validFields = ['password', 'email', 'profilePic', 'subscribedTags', 'discordId', 'steamId', 'battleNetId']
-    const editData = {}
-    console.log(this.state.subscribedTags)
-    console.log(this.state.discordId)
+    const axiosData = {}
+    const editData = this.state.editData
     for (const field of validFields) {
-      if (typeof this.state[field] !== 'undefined' && this.state[field] !== '') {
+      const data = editData[field]
+      if (typeof data !== 'undefined' && data !== null && data !== '') {
         switch (field) {
           case 'subscribedTags':
-            if (this.state[field].length > 0) {
-              editData[field] = this.state[field]
+            if (editData[field].length > 0) {
+              axiosData[field] = editData[field]
             }
             break
           default:
-            editData[field] = validFields[field]
+            axiosData[field] = editData[field]
         }
       }
     }
-    console.log(editData)
+    console.log(axiosData)
     const axiosOptions = {
       method: 'PUT',
       url: 'https://tangled.michaelbeaver.info/users/' + this.state.username,
       data: {
-        currentPassword: this.state.currentPassword,
-        editData
+        currentPassword: this.state.editData.currentPassword,
+        editData: axiosData
       },
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
       json: true
     };
-    console.log('In HandleSubmit!')
     axios(axiosOptions).then((resp) => {
-      console.log('Using Axios!')
       if (resp.data.success) {
-        console.log("In Success")
         console.log(resp)
-        navigate('UserProfile')
-        this.setState({ isLoading: false })
+        this.props.authStore
+          .getUserData(this.props.authStore.user.username)
+          .then(() => {
+            this.setState({ isLoading: false })
+            navigate('UserProfile')
+          })
       }
       console.log(resp.data)
     }).catch((err) => {
-      console.log("FAILED")
       // TODO: Log errors
       console.log(JSON.stringify(err))
+      Toast.show({
+        text: 'Something went wrong, please try again.',
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 5000
+      })
       this.setState({ isLoading: false })
     })
   }
@@ -112,7 +129,12 @@ export default class UserProfileEdit extends Component {
               <Input
                 style={styles.userValues}
                 name='profilePic'
-                onChangeText={(text) => this.setState({profilePic: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.profilePic = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             {/* /* Display Email */}
@@ -124,7 +146,12 @@ export default class UserProfileEdit extends Component {
               <Input
                 style={styles.userValues}
                 name='email'
-                onChangeText={(text) => this.setState({email: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.email = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             {/* /* Display Password */}
@@ -137,7 +164,12 @@ export default class UserProfileEdit extends Component {
                 style={styles.userValues}
                 secureTextEntry
                 name='password'
-                onChangeText={(text) => this.setState({password: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.password = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             <Text style={styles.title}>
@@ -148,7 +180,12 @@ export default class UserProfileEdit extends Component {
               <Input
                 style={styles.userValues}
                 name='discordId'
-                onChangeText={(text) => this.setState({discordId: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.discordId = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             <Text style={styles.title}>
@@ -159,7 +196,12 @@ export default class UserProfileEdit extends Component {
               <Input
                 style={styles.userValues}
                 name='steamId'
-                onChangeText={(text) => this.setState({steamId: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.steamId = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             <Text style={styles.title}>
@@ -170,7 +212,12 @@ export default class UserProfileEdit extends Component {
               <Input
                 style={styles.userValues}
                 name='battleNetId'
-                onChangeText={(text) => this.setState({battleNetId: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.battleNetId = text
+                  this.setState({editData: editData})
+                }
+                }
             />
             </Item>
             <Text style={styles.title}>
@@ -182,7 +229,12 @@ export default class UserProfileEdit extends Component {
                 style={styles.userValues}
                 value={this.state.subscribedTags.toString()}
                 name='subscribedTags'
-                onChangeText={(text) => this.setState({subscribedTags: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.subscribedTags = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             <Text style={styles.title}>
@@ -194,7 +246,12 @@ export default class UserProfileEdit extends Component {
                 style={styles.userValues}
                 secureTextEntry
                 name='currentPassword'
-                onChangeText={(text) => this.setState({currentPassword: text})}
+                onChangeText={(text) => {
+                  const editData = this.state.editData
+                  editData.currentPassword = text
+                  this.setState({editData: editData})
+                }
+                }
               />
             </Item>
             <Text>
