@@ -45,20 +45,18 @@ export default class CreateRequestView extends React.Component {
       if (response.data.success) {
         let contact
         if (response.data.user.discordId) {
-          contact = response.data.user.discordId
+          contact = 'Discord: ' + response.data.user.discordId
         }
         else if (response.data.user.steamId) {
-          contact = response.data.user.steamId
+          contact = 'Steam: ' + response.data.user.steamId
         }
         else if (response.data.user.battleNetId) {
-          contact = response.data.user.battleNetId
+          contact = 'BattleNet: ' + response.data.user.battleNetId
         }
         else {
           contact = ''
         }
-        this.setState({
-          defaultContact: contact
-        })
+        this.setState({defaultContact: contact})
       }
     })
   }

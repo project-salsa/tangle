@@ -51,7 +51,13 @@ export default class RegisterComponent extends React.Component {
         navigate('Login')
       }).catch((err) => {
         // TODO: Error handling
-        this.setState({isLoading: false})
+        this.setState({
+          isLoading: false,
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        })
         console.log('Error while creating account: ' + err.message)
         Toast.show({
           text: 'Something went wrong. Please try again.',

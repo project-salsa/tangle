@@ -30,8 +30,8 @@ export default class LoginComponent extends React.Component {
     else {
       this.setState({ isLoading: true })
       this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
-        navigate('Router')
         this.setState({ isLoading: false })
+        navigate('Router')
       }).catch((err) => {
         this.setState({ isLoading: false })
         if (err.request.status === 401) {
