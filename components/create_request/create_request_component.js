@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import {Container, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input} from 'native-base'
+import {Container, Title, Text, Form, Left, Content, Picker, Button, Icon, Item, Label, Input, Toast} from 'native-base'
 import axios from 'axios'
 import { inject } from 'mobx-react'
 import Loader from '../Loader'
@@ -24,7 +24,9 @@ export default class CreateRequestComponent extends React.Component {
       platformList: [],
       platformReady: false,
       location: [0, 0],
-      isLoading: false
+      locSelected: false,
+      isLoading: false,
+      showToast: false
     }
 
     this.updatePlatforms = this.updatePlatforms.bind(this)
@@ -65,41 +67,50 @@ export default class CreateRequestComponent extends React.Component {
   }
 
   handleCoordinateChange(coordinate) {
-    this.setState({ location: [coordinate.longitude, coordinate.latitude] })
+    this.setState({ location: [coordinate.longitude, coordinate.latitude], locSelected: true })
   }
 
   handleSubmit () {
-    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    const axiosOptions = {
-      method: 'POST',
-      url: this.props.serverAddress + '/requests',
-      data: {
-        title: this.state.postTitle,
-        user: this.state.hostUser,
-        game: this.state.gameSelection,
-        platform: this.state.platform,
-        tags: this.state.tags,
-        location: this.state.location,
-        maxPlayers: this.state.maxPlayers,
-        contactInfo: this.state.contactInfo,
-        currentPlayers: []
-      },
-      headers: {
-        Authorization: `Bearer ${this.props.authStore.token}`
-      },
-      json: true
-    }
-    axios(axiosOptions).then((resp) => {
-      if (resp.data.success) {
-        this.setState({ isLoading: false })
-        navigate('Request', {requestId: resp.data.requestId})
+    if (this.state.locSelected === false) {
+      Toast.show({
+        text: 'You need to select a location.',
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 6000
+      })
+    } else {
+      this.setState({isLoading: true})
+      const axiosOptions = {
+        method: 'POST',
+        url: this.props.serverAddress + '/requests',
+        data: {
+          title: this.state.postTitle,
+          user: this.state.hostUser,
+          game: this.state.gameSelection,
+          platform: this.state.platform,
+          tags: this.state.tags,
+          location: this.state.location,
+          maxPlayers: this.state.maxPlayers,
+          contactInfo: this.state.contactInfo,
+          currentPlayers: []
+        },
+        headers: {
+          Authorization: `Bearer ${this.props.authStore.token}`
+        },
+        json: true
       }
-    }).catch((err) => {
-      // TODO: Log errors
-      console.log(err.message)
-      this.setState({ isLoading: false, platformReady: false })
-    })
+      axios(axiosOptions).then((resp) => {
+        if (resp.data.success) {
+          this.setState({isLoading: false})
+          navigate('Request', {requestId: resp.data.requestId})
+        }
+      }).catch((err) => {
+        // TODO: Log errors
+        console.log(err.message)
+        this.setState({isLoading: false, platformReady: false})
+      })
+    }
   }
 
   render () {
