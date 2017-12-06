@@ -28,9 +28,10 @@ export default class DashboardContainer extends React.Component {
       json: true
     }
     if (action === 'Main') {
-      if (this.props.authStore.user.subscribedTags && this.props.authStore.user.subscribedTags.length > 0) {
+      const subscribedTags = this.props.authStore.user.subscribedTags
+      if (subscribedTags && subscribedTags.length > 0) {
         requestOptions.params = {
-          tags: this.props.authStore.user.subscribedTags
+          'tags[]': subscribedTags
         }
       }
     } else if (action === 'Self') {
