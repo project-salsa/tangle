@@ -284,16 +284,16 @@ export default class UserProfileEdit extends Component {
                 }
                 }
               />
-              <Button onPress={() => this.addTag(this.state.subscribedTagsField)}>
-                <Text>Add Tag</Text>
+              <Button info onPress={() => this.addTag(this.state.subscribedTagsField)}>
+                <Text>  Add Tag  </Text>
               </Button>
             </Item>
             <View style={{justifyContent: 'center'}}>
               { subscribedTagsList }
             </View>
-            <Text style={styles.title}>
+            <Text style={{fontWeight: 'bold'}}>
               {'\n'}
-              Please Enter Current Password
+              Please Enter Current Password (Required)
             </Text>
             <Item>
               <Input
