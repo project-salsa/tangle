@@ -30,6 +30,14 @@ export default class RequestComponent extends React.Component {
         </Button>
       )
     }
+    if (this.props.authStore.username == this.props.hostUser.username)
+    {
+      joinLeaveButton = (
+        <Button block primary disabled>
+          <Text style={{color: '#FFFFFF', fontSize: 18}}>Join Request</Text>
+        </Button>
+      )
+    }
 
     for (const player of this.props.currentPlayers) {
       if (player.username === this.props.authStore.user.username) {
