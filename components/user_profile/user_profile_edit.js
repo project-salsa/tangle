@@ -5,7 +5,6 @@ import axios from 'axios'
 import Loader from '../Loader'
 import { inject } from 'mobx-react'
 
-// import Request from 'react-http-request';
 @inject ('authStore')
 export default class UserProfileEdit extends Component {
   constructor (props) {
@@ -18,7 +17,7 @@ export default class UserProfileEdit extends Component {
       subscribedTags: this.props.authStore.user.subscribedTags,
       discordId: this.props.authStore.user.discordId,
       steamId: this.props.authStore.user.steamId,
-      battlenetId: this.props.authStore.user.battlenetId,
+      battleNetId: this.props.authStore.user.battleNetId,
       isLoading: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,40 +26,51 @@ export default class UserProfileEdit extends Component {
   handleSubmit () {
     this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
+    const editInfo = ['password', 'email', 'profilePic', 'subscribedTags', 'discordId', 'steamId', 'battleNetId']
+    const editData = {}
+    for (const key of editInfo) {
+      if (typeof editInfo[key] !== 'undefined' && editInfo[key] !== '') {
+        switch (key) {
+          case 'subscribedTags':
+            editData[key] = this.state[key].split(',')
+            break
+          default:
+            editData[key] = editInfo[key]
+        }
+      }
+    }
+
     const axiosOptions = {
       method: 'PUT',
-      url: 'https://tangled.michaelbeaver.info/users/' + this.state.username + '/',
+      url: 'https://tangled.michaelbeaver.info/users/' + this.state.username,
       data: {
         currentPassword: this.state.currentPassword,
-        editData: {
-          email: this.state.email,
-          password: this.state.password,
-          profilePic: this.state.profilePic,
-          subscribedTags: this.state.subscribedTags,
-          discordId: this.state.discordId,
-          steamId: this.state.steamId,
-          battleNetId: this.state.battleNetId
-        }
+        editData: editData
       },
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
       json: true
     };
+    console.log("In HandleSubmit!")
     axios(axiosOptions).then((resp) => {
+      console.log("Using Axios!")
       if (resp.data.success) {
+        console.log("In Success")
         console.log(resp)
         navigate('UserProfile')
         this.setState({ isLoading: false })
       }
       console.log(resp.data)
     }).catch((err) => {
+      console.log("FAILED")
       // TODO: Log errors
       console.log(JSON.stringify(err))
     })
   }
 
   render () {
+    if (this.state.isLoading) { return ( <Loader /> ) }
     let styles = StyleSheet.create({
       title: {
         fontSize: 12
@@ -93,8 +103,9 @@ export default class UserProfileEdit extends Component {
               {'\n'}
             Update Profile Picture
           </Text>
-            <Item style={styles.userValues}>
+            <Item>
               <Input
+                style={styles.userValues}
                 name='profilePic'
                 onChangeText={(text) => this.setState({profilePic: text})}
               />
@@ -104,8 +115,9 @@ export default class UserProfileEdit extends Component {
               {'\n'}
               Update Email
             </Text>
-            <Item style={styles.userValues}>
+            <Item>
               <Input
+                style={styles.userValues}
                 name='email'
                 onChangeText={(text) => this.setState({email: text})}
               />
@@ -115,8 +127,10 @@ export default class UserProfileEdit extends Component {
               {'\n'}
             Update Password
           </Text>
-            <Item style={styles.userValues}>
-              <Input secureTextEntry
+            <Item>
+              <Input
+                style={styles.userValues}
+                secureTextEntry
                 name='password'
                 onChangeText={(text) => this.setState({password: text})}
               />
@@ -125,8 +139,9 @@ export default class UserProfileEdit extends Component {
               {'\n'}
             Discord
           </Text>
-            <Item style={styles.userValues}>
+            <Item>
               <Input
+                style={styles.userValues}
                 name='discordId'
                 onChangeText={(text) => this.setState({discordId: text})}
               />
@@ -135,8 +150,9 @@ export default class UserProfileEdit extends Component {
               {'\n'}
               Steam
             </Text>
-            <Item style={styles.userValues}>
+            <Item>
               <Input
+                style={styles.userValues}
                 name='steamId'
                 onChangeText={(text) => this.setState({steamId: text})}
               />
@@ -145,18 +161,21 @@ export default class UserProfileEdit extends Component {
               {'\n'}
               Battle.net
             </Text>
-            <Item style={styles.userValues}>
+            <Item>
               <Input
-                name='battlenetId'
-                onChangeText={(text) => this.setState({battlenetId: text})}
+                style={styles.userValues}
+                name='battleNetId'
+                onChangeText={(text) => this.setState({battleNetId: text})}
             />
             </Item>
             <Text style={styles.title}>
               {'\n'}
               Your Tags
             </Text>
-            <Item style={styles.userValues}>
+            <Item>
               <Input
+                style={styles.userValues}
+                value={this.state.subscribedTags.toString()}
                 name='subscribedTags'
                 onChangeText={(text) => this.setState({subscribedTags: text})}
               />
@@ -165,8 +184,10 @@ export default class UserProfileEdit extends Component {
               {'\n'}
               Please Enter Current Password
             </Text>
-            <Item style={styles.userValues}>
-              <Input secureTextEntry
+            <Item>
+              <Input
+                style={styles.userValues}
+                secureTextEntry
                 name='currentPassword'
                 onChangeText={(text) => this.setState({currentPassword: text})}
               />

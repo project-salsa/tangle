@@ -38,7 +38,6 @@ export default class UserProfileComponent extends Component {
           </Text>
         </Button>
     }
-
     return (
       <Container>
         <Header style={{marginTop: 24}}>

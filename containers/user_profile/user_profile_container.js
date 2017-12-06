@@ -8,13 +8,13 @@ export default class UserProfileContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: this.props.authStore.user.username,
-      email: this.props.authStore.user.email,
-      profilePic: this.props.authStore.user.profilePic,
-      subscribedTags: this.props.authStore.user.subscribedTags,
-      discordId: this.props.authStore.user.discordId,
-      steamId: this.props.authStore.user.steamId,
-      battleNetId: this.props.authStore.user.battleNetId,
+      username: '',
+      email: '',
+      profilePic: '',
+      subscribedTags: '',
+      discordId: '',
+      steamId: '',
+      battleNetId: '',
       serverAddress: 'https://tangled.michaelbeaver.info'
     }
   }
@@ -30,7 +30,7 @@ export default class UserProfileContainer extends React.Component {
       },
       json: true
     }
-    console.log('Axios OPtions', axiosOptions)
+    console.log('Axios Options', axiosOptions)
     axios(axiosOptions).then((response) => {
       console.log('Responded!')
       const user = response.data.user
