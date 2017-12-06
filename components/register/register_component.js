@@ -64,7 +64,6 @@ export default class RegisterComponent extends React.Component {
   }
 
   render () {
-    const { navigate } = this.props.navigation
     if (this.state.isLoading) { return ( <Loader /> ) }
     return (
       <Container>
