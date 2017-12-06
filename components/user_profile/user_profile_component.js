@@ -13,9 +13,39 @@ export default class UserProfileComponent extends Component {
       email: this.props.authStore.user.email,
       profilePic: this.props.authStore.user.profilePic,
       subscribedTags: this.props.authStore.user.subscribedTags,
+      subscribedTagsList: [],
       discordId: this.props.authStore.user.discordId,
       steamId: this.props.authStore.user.steamId,
       battleNetId: this.props.authStore.user.battleNetId
+    }
+    this.addTag = this.addTag.bind(this)
+  }
+
+  addTag(tag) {
+    const tagsList = this.state.subscribedTagsList
+    let obj = tagsList.find(o => o.key === tag)
+    if (typeof obj === 'undefined') {
+      tagsList.push(<Button
+          info
+          rounded
+          small
+          key={tag}
+          onPress={() => this.removeTag(tag)}
+        >
+          <Text>      {tag}      </Text>
+        </Button>
+
+      )
+    }
+    this.setState({
+      subscribedTagsList: tagsList
+    })
+  }
+
+  componentDidMount() {
+    const tags = this.state.subscribedTags
+    for (const tag of tags) {
+      this.addTag(tag)
     }
   }
 
@@ -31,7 +61,7 @@ export default class UserProfileComponent extends Component {
       }
     })
     let canEdit
-    if (this.props.authStore.user.username == this.state.username){
+    if (this.props.authStore.user.username === this.state.username){
         canEdit = <Button rounded light onPress={() => navigate('EditUserProfile', { navigation: this.props.navigation })}>
           <Text fontSize={4}>
             Edit Profile
@@ -98,13 +128,14 @@ export default class UserProfileComponent extends Component {
             Game Tags
           </Text>
           {/* /* Display Game Tags */}
-          <List dataArray={this.state.subscribedTags}
-            // style={ styles.userValues}
-            renderRow={(item) =>
-              <ListItem>
-                <Text>{item}</Text>
-              </ListItem>
-            } />
+          {this.state.subscribedTagsList}
+          {/*<List dataArray={this.state.subscribedTags}*/}
+            {/*// style={ styles.userValues}*/}
+            {/*renderRow={(item) =>*/}
+              {/*<ListItem>*/}
+                {/*<Text>{item}</Text>*/}
+              {/*</ListItem>*/}
+            {/*} />*/}
         </Content>
       </Container>
     )

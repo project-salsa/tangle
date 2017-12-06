@@ -116,10 +116,11 @@ export default class UserProfileEdit extends Component {
         info
         rounded
         iconRight
+        small
         key={tag}
         onPress={() => this.removeTag(tag)}
         >
-        <Text>            {tag}          </Text>
+        <Text>        {tag}     </Text>
         <Icon name='close'/>
         </Button>
 
