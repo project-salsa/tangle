@@ -2,19 +2,23 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-A cross platorm app built using React Native. Matches local gamers up with each other.
+A cross platform app built using React Native. Matches local gamers up with each other.
 
-## Starting the App
+## Running the app locally (Android)
 
-Run `npm start`, and use the Expo app to scan the QR code given. The app will automatically re-compile with any changes.
+Follow the guide [here](https://facebook.github.io/react-native/docs/getting-started.html)
+(Under the section labeled 'Building Projects with Native Code) to get
+your computer set up for React Native development. After installing
+Android Studio and required components, go into the root directory and run
+```
+npm run android
+```
+You may also need to run
+```
+npm start
+```
+to start the development server.
 
 ## Contributing
 
 We use StandardJS as a style guide. All changes to this repository's code should pass that style check. See [here](https://standardjs.com/index.html#install) for information on setting up a local tool to check your style before making a Pull Request.
-
-## First Time Setup Guide
-1. Install node (any version will likely work, but this has been tested on v8.0+)
-2. Install npm version 4.6.1 - `npm i -g npm@4.6.1`
-3. Run `npm i` inside of the base directory
-4. Install watchman (might be optional, try without first) (instructions [here](https://medium.com/@vonchristian/how-to-setup-watchman-on-ubuntu-16-04-53196cc0227c) (for Ubuntu))
-5. Run `npm start` and wait for the QR code to appear. If it doesn't, ping Reno on Discord and tell him he has sucky instructions.
