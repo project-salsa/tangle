@@ -23,10 +23,13 @@ export default class SelectMap extends React.Component {
     }
   }
 
-  handlePress(e) {
+  handlePress (e) {
     this.setState({ mark_cord: e.nativeEvent.coordinate })
-    this.setState({ region: {latitude: e.nativeEvent.coordinate.latitude,
-      longitude: e.nativeEvent.coordinate.longitude, latitudeDelta: 0.009, longitudeDelta: 0.005}
+    this.setState({ region: {
+      latitude: e.nativeEvent.coordinate.latitude,
+      longitude: e.nativeEvent.coordinate.longitude,
+      latitudeDelta: 0.009,
+      longitudeDelta: 0.005}
     })
     this.props.getCoordinate(e.nativeEvent.coordinate)
   }
