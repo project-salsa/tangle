@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppRegistry } from 'react-native'
+import { Root } from 'native-base'
 import { Provider, observer } from 'mobx-react'
 
 import stores from './stores'
@@ -29,9 +30,11 @@ export default class App extends React.Component {
   render () {
     if (this.state.isReady) {
       return (
-        <Provider {...stores}>
-          <EntryPoint/>
-        </Provider>
+        <Root>
+          <Provider {...stores}>
+            <EntryPoint/>
+          </Provider>
+        </Root>
       )
     } else {
       return null

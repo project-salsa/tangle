@@ -45,7 +45,7 @@ export default class AuthStore {
       }).catch((err) => {
         // TODO: Error handling
         console.log("Axios Error - Auth Store")
-        return reject(err.message)
+        return reject(err)
       })
     })
   }

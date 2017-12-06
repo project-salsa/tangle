@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label} from 'native-base'
+import {Container, Header, Body, Title, Text, Form, Content, View, Button, Icon, Item, Input, Label, Toast} from 'native-base'
 import { inject } from 'mobx-react'
 import Loader from '../Loader'
 import GlobalStyleSheet from '../../style'
@@ -11,22 +11,48 @@ export default class LoginComponent extends React.Component {
     this.state = {
       username: '',
       password: '',
-      isLoading: ''
+      isLoading: '',
+      showToast: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit () {
-    this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
-      navigate('Router')
-      this.setState({ isLoading: false })
-    }).catch((err) => {
-      // TODO: Login Errors
-      console.log('Error while logging in: ' + err.message)
-      this.setState({ isLoading: false })
-    })
+    if (this.state.username === '' || this.state.password === '') {
+      Toast.show({
+        text: 'Please complete both fields to log in.',
+        position: 'bottom',
+        buttonText: 'Okay',
+        duration: 5000
+      })
+    }
+    else {
+      this.setState({ isLoading: true })
+      this.props.authStore.logUserIn(this.state.username, this.state.password).then(() => {
+        navigate('Router')
+        this.setState({ isLoading: false })
+      }).catch((err) => {
+        this.setState({ isLoading: false })
+        if (err.request.status === 401) {
+          Toast.show({
+            text: 'Incorrect username or password.',
+            position: 'bottom',
+            buttonText: 'Okay',
+            duration: 5000
+          })
+        }
+        else if (err.request.status === 500) {
+          Toast.show({
+            text: 'Something went wrong.',
+            position: 'bottom',
+            buttonText: 'Okay',
+            duration: 5000
+          })
+        }
+        this.setState({username: '', password: ''})
+      })
+    }
   }
 
   render () {
@@ -59,7 +85,7 @@ export default class LoginComponent extends React.Component {
               <Text>Login</Text>
             </Button>
             <View style={{height: 15}} />
-            <Button full danger onPress={() => navigate('UserProfile')}>
+            <Button full danger onPress={() => navigate('Register')}>
               <Text>Need to Register?</Text>
             </Button>
           </View>
