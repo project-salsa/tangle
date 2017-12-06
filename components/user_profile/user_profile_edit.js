@@ -1,6 +1,6 @@
 import { Text, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import { Container, Header, Title, Content, Button, Left, Right, Body, Icon, Thumbnail, Item, Input, Toast } from 'native-base'
+import { Container, View, Header, Title, Content, Button, Left, Right, Body, Icon, Thumbnail, Item, Input, Toast } from 'native-base'
 import axios from 'axios'
 import Loader from '../Loader'
 import { inject } from 'mobx-react'
@@ -14,24 +14,27 @@ export default class UserProfileEdit extends Component {
       email: this.props.authStore.user.email,
       password: this.props.authStore.user.password,
       profilePic: this.props.authStore.user.profilePic,
-      subscribedTags: this.props.authStore.user.subscribedTags,
       discordId: this.props.authStore.user.discordId,
       steamId: this.props.authStore.user.steamId,
       battleNetId: this.props.authStore.user.battleNetId,
+      subscribedTagsField: '',
       editData: {
         currentPassword: '',
         username: '',
         email: '',
         password: '',
         profilePic: '',
-        subscribedTags: '',
+        subscribedTags: this.props.authStore.user.subscribedTags,
         discordId: '',
         steamId: '',
         battleNetId: ''
       },
-      isLoading: ''
+      isLoading: '',
+      subscribedTagsList: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.removeTag = this.removeTag.bind(this)
+    this.addTag = this.addTag.bind(this)
   }
 
   handleSubmit () {
@@ -90,6 +93,54 @@ export default class UserProfileEdit extends Component {
       this.setState({ isLoading: false })
     })
   }
+  removeTag(tag) {
+    const editData = this.state.editData
+    const tagsList = this.state.subscribedTagsList
+    let obj = tagsList.find((o, i) => {
+      if (o.key === tag) {
+        tagsList.splice(i, 1)
+      }
+    })
+    const index = editData.subscribedTags.indexOf(tag)
+    if(index > -1) {
+      editData.subscribedTags.splice(index, 1)
+    }
+    this.setState({editData: editData, subscribedTagsList: tagsList})
+  }
+
+  addTag(tag) {
+    const tagsList = this.state.subscribedTagsList
+    let obj = tagsList.find(o => o.key === tag)
+    if (typeof obj === 'undefined') {
+      tagsList.push(<Button
+        info
+        rounded
+        iconRight
+        key={tag}
+        onPress={() => this.removeTag(tag)}
+        >
+        <Text>            {tag}          </Text>
+        <Icon name='close'/>
+        </Button>
+
+      )
+    }
+    const editData = this.state.editData
+    if (!editData.subscribedTags.includes(tag)) {
+      editData.subscribedTags.push(tag)
+    }
+    this.setState({
+      subscribedTagsList: tagsList,
+      editData: editData
+    })
+  }
+
+  componentDidMount() {
+    const tags = this.state.editData.subscribedTags
+    for (const tag of tags) {
+      this.addTag(tag)
+    }
+  }
 
   render () {
     if (this.state.isLoading) { return ( <Loader /> ) }
@@ -102,6 +153,7 @@ export default class UserProfileEdit extends Component {
       }
     })
 
+    let subscribedTagsList = this.state.subscribedTagsList
     return (
       <Container>
         <Header style={{marginTop: 24}}>
@@ -227,16 +279,18 @@ export default class UserProfileEdit extends Component {
             <Item>
               <Input
                 style={styles.userValues}
-                value={this.state.subscribedTags.toString()}
                 name='subscribedTags'
-                onChangeText={(text) => {
-                  const editData = this.state.editData
-                  editData.subscribedTags = text
-                  this.setState({editData: editData})
+                onChangeText={(text) => { this.setState({subscribedTagsField: text})
                 }
                 }
               />
+              <Button onPress={() => this.addTag(this.state.subscribedTagsField)}>
+                <Text>Add Tag</Text>
+              </Button>
             </Item>
+            <View style={{justifyContent: 'center'}}>
+              { subscribedTagsList }
+            </View>
             <Text style={styles.title}>
               {'\n'}
               Please Enter Current Password
