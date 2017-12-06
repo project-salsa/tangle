@@ -20,7 +20,8 @@ export default class RequestContainer extends React.Component {
       serverAddress: 'https://tangled.michaelbeaver.info',
       location: [],
       contactInfo: '',
-      infoOutOfDate: false
+      infoOutOfDate: false,
+      isLoading: false
     }
 
     this.handleJoin = this.handleJoin.bind(this)
@@ -95,6 +96,9 @@ export default class RequestContainer extends React.Component {
 
 
   componentDidMount () {
+    this.setState({
+      isLoading: true
+    })
     const axiosOptions = {
       method: 'GET',
       url: this.state.serverAddress + '/requests/' + this.props.navigation.state.params.requestId,
@@ -115,7 +119,8 @@ export default class RequestContainer extends React.Component {
           maxPlayers: request.maxPlayers,
           currentPlayers: request.currentPlayers,
           location: request.location.coordinates,
-          contactInfo: request.contactInfo
+          contactInfo: request.contactInfo,
+          isLoading: false
         })
       }
     }).catch((err) => {
@@ -127,10 +132,11 @@ export default class RequestContainer extends React.Component {
   render () {
     if (this.state.infoOutOfDate) {
       this.updateRequest()
-      // TODO: Loading overlay
       return (
-        <Loader />
+        <Loader/>
       )
+    } else if (this.state.isLoading) {
+      return ( <Loader />)
     } else {
       return (
         <RequestComponent

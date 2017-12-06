@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, View, Image} from 'react-native'
+import {Text, View, Image, TouchableOpacity} from 'react-native'
 import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import MapView from 'react-native-maps'
@@ -30,6 +30,14 @@ export default class RequestComponent extends React.Component {
       hostPic = hostUser.profilePicUrl
     }
     if (this.props.currentPlayers.length >= this.props.maxPlayers ) {
+      joinLeaveButton = (
+        <Button block primary disabled>
+          <Text style={{color: '#FFFFFF', fontSize: 18}}>Join Request</Text>
+        </Button>
+      )
+    }
+    if (this.props.authStore.user.username === this.props.hostUser.username)
+    {
       joinLeaveButton = (
         <Button block primary disabled>
           <Text style={{color: '#FFFFFF', fontSize: 18}}>Join Request</Text>
@@ -86,7 +94,7 @@ export default class RequestComponent extends React.Component {
 
     return (
       <Container>
-        <Header title={this.props.postTitle} navigation={this.props.navigation} action='Back' style={GlobalStyleSheet.headerText} />
+        <Header title='Request Details' navigation={this.props.navigation} action='Back' style={GlobalStyleSheet.headerText} />
         <Content>
           <Grid>
             <Row style={GlobalStyleSheet.bgColor}>
@@ -94,20 +102,20 @@ export default class RequestComponent extends React.Component {
             </Row>
           </Grid>
           <Body>
-            <Text style={{ color: '#000000', fontSize: 36, fontStyle: 'italic' }}>{this.props.postTitle}</Text>
+            <Text style={{ color: '#000000', fontSize: 30 }}>{this.props.postTitle}</Text>
           </Body>
           <Grid>
             <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Host</Text>
-                <Thumbnail large source={{uri: hostPic}} />
+                <Thumbnail source={{uri: hostPic}} />
                 <Text>{hostUser.username}</Text>
               </Body>
             </Col>
             <Col size={1} style={{ backgroundColor: '#f2f9fc', height: 100 }}>
               <Body>
                 <Text style={{fontSize: 18}}>Game</Text>
-                <Thumbnail large source={{uri: this.props.game.iconUrl}} />
+                <Thumbnail source={{uri: this.props.game.iconUrl}} />
                 <Text>{this.props.game.name}</Text>
               </Body>
             </Col>
