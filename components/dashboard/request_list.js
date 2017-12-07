@@ -11,12 +11,14 @@ export default class RequestList extends React.Component {
         <RequestCard
           navigation={this.props.navigation}
           key={data._id}
-          user={data.user.username}
+          user={data.user}
           title={data.title}
           location={data.location}
           tags={data.tags}
-          game={data.game.name}
+          game={data.game}
           requestId={data._id}
+          currentPlayers={data.currentPlayers}
+          maxPlayers={data.maxPlayers}
         />
       )
     })

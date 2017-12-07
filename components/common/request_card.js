@@ -1,40 +1,71 @@
 import React from 'react'
-import { Card, CardItem, Icon, View, Text } from 'native-base'
+import { Card, CardItem, Col, Grid, Icon, Row, Text, Thumbnail } from 'native-base'
 import GlobalStyleSheet from '../../style'
+import { inject } from 'mobx-react'
 
+@inject('authStore')
 export default class RequestCard extends React.Component {
   render () {
     const { navigate } = this.props.navigation
+    let bgColor = GlobalStyleSheet.tertiaryColor
+    let textStyle = {
+      fontSize: 16
+    }
+    let titleStyle = {
+      fontSize: 20,
+      fontStyle: 'italic'
+    }
+    if (this.props.currentPlayers.length >= this.props.maxPlayers) {
+      // Change BG Color if request is full
+      bgColor = {
+        backgroundColor: '#FFB3BA'
+      }
+    }
+    let usernames = []
+    this.props.currentPlayers.forEach((user) => {
+      usernames.push(user.username)
+    })
+    if (usernames.includes(this.props.authStore.user.username)) {
+      bgColor = {
+        backgroundColor: '#BAE1FF'
+      }
+    }
+    if (this.props.user.username === this.props.authStore.user.username) {
+      bgColor = {
+        backgroundColor: '#BAFFC9'
+      }
+    }
     return (
       <Card>
-        <CardItem button style={GlobalStyleSheet.tertiaryColor}
+        <CardItem button style={bgColor}
           onPress={() => navigate('Request', { requestId: this.props.requestId })}>
-          <View style={{flex: 1, backgroundColor: '#eeeeee'}}>
-            <View style={{flex: 1}} />
-            <View style={{flex: 20, flexDirection: 'row'}}>
-              <View style={{flex: 2}}>
-                <View style={{height: 1}} />
-                <Icon active name='man' style={{padding: 10}} />
-              </View>
-              <View style={{flex: 20, flexDirection: 'row'}}>
-                <View style={{flex: 3}}>
-                  <View style={{height: 5}} />
-                  <Text>
-                    {this.props.user}
+          <Grid>
+            <Col style={{ width: '20%' }} >
+              <Thumbnail source={{ uri: this.props.game.iconUrl }} />
+            </Col>
+            <Col>
+              <Row>
+                <Text style={titleStyle}>{this.props.title}</Text>
+              </Row>
+              <Row>
+                <Col>
+                  <Text style={textStyle} >
+                    <Icon name='md-person' style={textStyle} /> {this.props.user.username}
                   </Text>
-                </View>
-                <View style={{flex: 8}}>
-                  <View style={{height: 5}} />
-                  <Text>
-                    {this.props.game} {'\n'}
-                    "{this.props.title}"
+                </Col>
+                <Col>
+                  <Text style={textStyle} >
+                    <Icon name='md-people' style={textStyle} /> {this.props.currentPlayers.length}/{this.props.maxPlayers}
                   </Text>
-                </View>
-              </View>
-              <View style={{flex: 1}} />
-            </View>
-            <View style={{flex: 1}} />
-          </View>
+                </Col>
+                <Col>
+                  <Text style={textStyle} >
+                    <Icon name='md-pin' style={textStyle} /> 1.2 mi
+                  </Text>
+                </Col>
+              </Row>
+            </Col>
+          </Grid>
         </CardItem>
       </Card>
     )
@@ -46,6 +77,6 @@ RequestCard.defaultProps = {
   title: '',
   user: '', // maybe this should be userId and we can grab info?
   tags: [], // may need to be changed based on what we want to do w/ the tag system
-  game: '', // probably just a temporary prop
+  game: {}, // Game object for the game being requested
   location: ''
 }
