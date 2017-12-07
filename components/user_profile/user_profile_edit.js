@@ -13,7 +13,7 @@ export default class UserProfileEdit extends Component {
       username: this.props.authStore.user.username,
       email: this.props.authStore.user.email,
       password: this.props.authStore.user.password,
-      profilePic: this.props.authStore.user.profilePicUrl,
+      profilePicUrl: this.props.authStore.user.profilePicUrl,
       discordId: this.props.authStore.user.discordId,
       steamId: this.props.authStore.user.steamId,
       battleNetId: this.props.authStore.user.battleNetId,
@@ -23,7 +23,7 @@ export default class UserProfileEdit extends Component {
         username: '',
         email: '',
         password: '',
-        profilePic: '',
+        profilePicUrl: '',
         subscribedTags: this.props.authStore.user.subscribedTags,
         discordId: '',
         steamId: '',
@@ -40,7 +40,7 @@ export default class UserProfileEdit extends Component {
   handleSubmit () {
     this.setState({ isLoading: true })
     const { navigate } = this.props.navigation
-    const validFields = ['password', 'email', 'profilePic', 'subscribedTags', 'discordId', 'steamId', 'battleNetId']
+    const validFields = ['password', 'email', 'profilePicUrl', 'subscribedTags', 'discordId', 'steamId', 'battleNetId']
     const axiosData = {}
     const editData = this.state.editData
     for (const field of validFields) {
@@ -173,7 +173,7 @@ export default class UserProfileEdit extends Component {
               {'\n'}
             </Text>
             {/* Thumbnail for Profile Picture */}
-            <Thumbnail large source={this.state.profilePic} />
+            <Thumbnail large source={{uri: this.state.profilePicUrl}} />
             <Text style={styles.title}>
               {'\n'}
             Update Profile Picture
@@ -181,10 +181,10 @@ export default class UserProfileEdit extends Component {
             <Item>
               <Input
                 style={styles.userValues}
-                name='profilePic'
+                name='profilePicUrl'
                 onChangeText={(text) => {
                   const editData = this.state.editData
-                  editData.profilePic = text
+                  editData.profilePicUrl = text
                   this.setState({editData: editData})
                 }
                 }
