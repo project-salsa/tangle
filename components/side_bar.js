@@ -1,6 +1,6 @@
 import React from "react"
 import { Image } from "react-native"
-import { Container, Content, Text, List, ListItem } from "native-base"
+import { Container, Content, Text, List, ListItem, Thumbnail } from "native-base"
 import { inject } from 'mobx-react'
 
 const routes = [
@@ -27,13 +27,7 @@ export default class SideBar extends React.Component {
               justifyContent: "center",
               alignItems: "center"
             }}>
-            <Image
-              circle
-              style={{ height: 80, width: 70 }}
-              source={{
-                uri: "https://vignette.wikia.nocookie.net/plantsvszombies/images/4/42/Shrek_emoji.png"
-              }}
-            />
+            <Thumbnail large source={{uri: this.props.authStore.user.profilePicUrl}} />
           </Image>
           <Text
             style={{textAlign: 'center'}}>

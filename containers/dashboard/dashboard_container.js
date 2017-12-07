@@ -21,17 +21,21 @@ export default class DashboardContainer extends React.Component {
     })
     let requestOptions = {
       method: 'GET',
-      url: 'https://tangled.michaelbeaver.info/requests/',
+      url: 'https://tangled.michaelbeaver.info/requests',
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
       json: true
     }
     if (action === 'Main') {
-      if (this.props.authStore.user.subscribedTags && this.props.authStore.user.subscribedTags.length > 0) {
-        requestOptions.params = {
-          tags: this.props.authStore.user.subscribedTags
-        }
+      const subscribedTags = this.props.authStore.user.subscribedTags
+      let tags = '?'
+      for (tag of subscribedTags) {
+        tags += 'tags[]=' + tag + '&'
+      }
+      requestOptions.url += tags
+      if (subscribedTags && subscribedTags.length > 0) {
+        requestOptions.url += tags
       }
     } else if (action === 'Self') {
       requestOptions.params = {
