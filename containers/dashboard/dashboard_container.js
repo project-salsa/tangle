@@ -48,8 +48,16 @@ export default class DashboardContainer extends React.Component {
     }
     axios(requestOptions).then((response) => {
       if (response.data.success) {
+        const requests = response.data.requests
+        if (action === 'Feed') {
+          requests.find((o, i) => {
+            if (o.user.username === this.props.authStore.user.username) {
+              requests.splice(i, 1)
+            }
+          })
+        }
         this.setState({
-          requests: response.data.requests,
+          requests: requests,
           isLoading: false
         })
       }
