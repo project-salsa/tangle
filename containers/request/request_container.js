@@ -40,7 +40,6 @@ export default class RequestContainer extends React.Component {
         json: true
       }
       axios(axiosOptions).then((response) => {
-        console.log(response)
         this.setState({ infoOutOfDate: true })
       }).catch((err) => {
         console.log(err.message)
