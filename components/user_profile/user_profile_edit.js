@@ -13,7 +13,7 @@ export default class UserProfileEdit extends Component {
       username: this.props.authStore.user.username,
       email: this.props.authStore.user.email,
       password: this.props.authStore.user.password,
-      profilePic: this.props.authStore.user.profilePic,
+      profilePic: this.props.authStore.user.profilePicUrl,
       discordId: this.props.authStore.user.discordId,
       steamId: this.props.authStore.user.steamId,
       battleNetId: this.props.authStore.user.battleNetId,
