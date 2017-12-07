@@ -32,7 +32,7 @@ export default class UserProfileComponent extends Component {
           key={tag}
           onPress={() => this.removeTag(tag)}
         >
-          <Text>      {tag}      </Text>
+          <Text style={{color:'white'}}>      {tag}      </Text>
         </Button>
 
       )
