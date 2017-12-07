@@ -84,9 +84,14 @@ export default class RequestComponent extends React.Component {
       )
       // Show contact info
       contactInfo = (
-        <View>
-          <Text>{this.props.contactInfo}</Text>
-        </View>
+        <Grid>
+          <Col size={1} style={{backgroundColor: '#f2f9fc'}}>
+            <Body>
+            <Text style={{fontSize: 20, textDecorationLine: 'underline'}}>Contact Host</Text>
+            <Text style={{ color: '#000000', fontSize: 18}}>{this.props.contactInfo}</Text>
+            </Body>
+          </Col>
+        </Grid>
       )
     }
 
