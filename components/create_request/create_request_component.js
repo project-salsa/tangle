@@ -18,6 +18,7 @@ export default class CreateRequestComponent extends React.Component {
       hostUser: this.props.authStore.user.username,
       gameSelection: '',
       platform: '',
+      genres: [],
       tags: [],
       maxPlayers: 2,
       contactInfo: '',
@@ -49,7 +50,9 @@ export default class CreateRequestComponent extends React.Component {
         this.setState({
           platformList: response.data.game.platforms,
           platformReady: true,
-          platform: response.data.game.platforms[0]})
+          platform: response.data.game.platforms[0],
+          genres: response.data.game.genres
+        })
       }
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
@@ -89,7 +92,7 @@ export default class CreateRequestComponent extends React.Component {
           user: this.state.hostUser,
           game: this.state.gameSelection,
           platform: this.state.platform,
-          tags: this.state.tags,
+          tags: this.state.tags + this.state.genres,
           location: this.state.location,
           maxPlayers: this.state.maxPlayers,
           contactInfo: this.state.contactInfo,
