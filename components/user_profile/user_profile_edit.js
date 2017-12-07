@@ -157,7 +157,7 @@ export default class UserProfileEdit extends Component {
     let subscribedTagsList = this.state.subscribedTagsList
     return (
       <Container>
-        <Header style={{marginTop: 24}}>
+        <Header>
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon name='md-arrow-back' />

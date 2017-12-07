@@ -70,7 +70,7 @@ export default class UserProfileComponent extends Component {
     }
     return (
       <Container>
-        <Header style={{marginTop: 24}}>
+        <Header>
           <Left>
             <Button transparent onPress={() => this.props.navigation.navigate('DrawerOpen')}>
               <Icon name='menu' />
