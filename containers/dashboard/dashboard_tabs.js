@@ -10,15 +10,18 @@ export default class DashboardTabs extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <Container>
-        <Header title='Dashboard' navigation={this.props.navigation} style={GlobalStyleSheet.headerText} />
-        <Tabs initialPage={0}>
-          <Tab heading='Feed' >
+        <Header title='Dashboard' navigation={this.props.navigation} style={GlobalStyleSheet.headerText}/>
+        <Tabs initialPage={1}>
+          <Tab heading='All'>
             <DashboardContainer navigation={this.props.navigation} />
+          </Tab>
+          <Tab heading='My Feed' >
+            <DashboardContainer navigation={this.props.navigation} action='Feed' />
           </Tab>
           <Tab heading='Joined' >
             <DashboardContainer navigation={this.props.navigation} action='Joined' />
           </Tab>
-          <Tab heading='My Requests' >
+          <Tab heading='Created' >
             <DashboardContainer navigation={this.props.navigation} action='Self' />
           </Tab>
         </Tabs>
