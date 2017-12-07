@@ -21,7 +21,7 @@ export default class DashboardContainer extends React.Component {
     })
     let requestOptions = {
       method: 'GET',
-      url: 'https://tangled.michaelbeaver.info/requests/',
+      url: 'https://tangled.michaelbeaver.info/requests',
       headers: {
         Authorization: `Bearer ${this.props.authStore.token}`
       },
@@ -29,10 +29,13 @@ export default class DashboardContainer extends React.Component {
     }
     if (action === 'Main') {
       const subscribedTags = this.props.authStore.user.subscribedTags
+      let tags = '?'
+      for (tag of subscribedTags) {
+        tags += 'tags[]=' + tag + '&'
+      }
+      requestOptions.url += tags
       if (subscribedTags && subscribedTags.length > 0) {
-        requestOptions.params = {
-          'tags[]': subscribedTags
-        }
+        requestOptions.url += tags
       }
     } else if (action === 'Self') {
       requestOptions.params = {
