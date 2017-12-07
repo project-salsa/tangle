@@ -21,6 +21,12 @@ export default class SelectMap extends React.Component {
     if (this.props.map_ht) {
       this.state.map_height = this.props.map_ht
     }
+    if (this.props.user_lat) {
+      this.state.region.latitude = this.props.user_lat
+    }
+    if (this.props.user_long) {
+      this.state.region.longitude = this.props.user_long
+    }
   }
 
   handlePress (e) {

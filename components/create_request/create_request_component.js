@@ -27,6 +27,8 @@ export default class CreateRequestComponent extends React.Component {
       location: [0, 0],
       locSelected: false,
       isLoading: false,
+      user_lat: '',
+      user_long: '',
       showToast: false
     }
 
@@ -119,9 +121,17 @@ export default class CreateRequestComponent extends React.Component {
   componentDidMount () {
     // Set initial contact to the autofill option
     // This is in here so we know that the props are set for sure.
-    this.setState({
-      contactInfo: this.props.defaultContact
-    })
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          contactInfo: this.props.defaultContact,
+          user_lat: position.coords.latitude,
+          user_long: position.coords.longitude
+        });
+      },
+      (error) => this.setState({ contactInfo: this.props.defaultContact }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
   }
 
   render () {
@@ -190,7 +200,8 @@ export default class CreateRequestComponent extends React.Component {
             {platformSelect}
 
             <Text>   Tap your location on the map</Text>
-            <SelectMap map_ht={250} getCoordinate={this.handleCoordinateChange} />
+            <SelectMap map_ht={250} user_lat={this.state.user_lat} user_long={this.state.user_long}
+                       getCoordinate={this.handleCoordinateChange} />
 
             <Item style={GlobalStyleSheet.bgColor}>
               <Input padder
