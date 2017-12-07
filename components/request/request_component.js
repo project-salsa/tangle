@@ -4,7 +4,6 @@ import {Container, Body, Title, Left, Right, Content, Button, Icon, Thumbnail, L
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import MapView from 'react-native-maps'
 import { inject } from 'mobx-react'
-import axios from 'axios'
 import GlobalStyleSheet from '../../style'
 import Header from '../common/header'
 
@@ -61,10 +60,16 @@ export default class RequestComponent extends React.Component {
 
     if (this.props.authStore.user.username === this.props.hostUser.username)
     {
+      joinLeaveButton = null
       contactInfo = (
-        <View>
-          <Text>{this.props.contactInfo}</Text>
-        </View>
+        <Grid>
+          <Col size={1} style={{backgroundColor: '#f2f9fc'}}>
+            <Body>
+            <Text style={{fontSize: 20, textDecorationLine: 'underline'}}>Provided Contact Info</Text>
+            <Text style={{ color: '#000000', fontSize: 18}}>{this.props.contactInfo}</Text>
+            </Body>
+          </Col>
+        </Grid>
       )
     }
 
