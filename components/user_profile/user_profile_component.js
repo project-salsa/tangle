@@ -89,7 +89,7 @@ export default class UserProfileComponent extends Component {
               {'\n'}
             </Text>
             {/* Thumbnail for Profile Picture */}
-            <Thumbnail large source={{uri: this.state.profilePic}} />
+            <Thumbnail large source={this.state.profilePicUrl} />
             {/* Display Username */}
             <Text style={styles.title}>
               {'\n'}

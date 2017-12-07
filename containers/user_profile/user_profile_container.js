@@ -10,7 +10,7 @@ export default class UserProfileContainer extends React.Component {
     this.state = {
       username: '',
       email: '',
-      profilePic: '',
+      profilePicUrl: '',
       subscribedTags: '',
       discordId: '',
       steamId: '',
