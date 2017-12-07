@@ -12,7 +12,8 @@ export default class RequestCard extends React.Component {
       fontSize: 16
     }
     let titleStyle = {
-
+      fontSize: 20,
+      fontStyle: 'italic'
     }
     if (this.props.currentPlayers.length >= this.props.maxPlayers) {
       // Change BG Color if request is full
@@ -44,22 +45,22 @@ export default class RequestCard extends React.Component {
             </Col>
             <Col>
               <Row>
-                <Text style={{ fontSize: 20, fontStyle: 'italic' }}>{this.props.title}</Text>
+                <Text style={titleStyle}>{this.props.title}</Text>
               </Row>
               <Row>
                 <Col>
-                  <Text style={{ fontSize: 16 }} >
-                    <Icon name='md-person' style={{ fontSize: 16 }} /> {this.props.user.username}
+                  <Text style={textStyle} >
+                    <Icon name='md-person' style={textStyle} /> {this.props.user.username}
                   </Text>
                 </Col>
                 <Col>
-                  <Text style={{ fontSize: 16 }} >
-                    <Icon name='md-people' style={{ fontSize: 16 }} /> {this.props.currentPlayers.length}/{this.props.maxPlayers}
+                  <Text style={textStyle} >
+                    <Icon name='md-people' style={textStyle} /> {this.props.currentPlayers.length}/{this.props.maxPlayers}
                   </Text>
                 </Col>
                 <Col>
-                  <Text style={{ fontSize: 16 }} >
-                    <Icon name='md-pin' style={{ fontSize: 16 }} /> 1.2 mi
+                  <Text style={textStyle} >
+                    <Icon name='md-pin' style={textStyle} /> 1.2 mi
                   </Text>
                 </Col>
               </Row>
