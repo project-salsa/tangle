@@ -8,13 +8,13 @@ export default class UserProfileContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      profilePic: '',
       username: '',
       email: '',
-      discord: '',
-      steam: '',
-      battleNet: '',
-      gameTags: '',
+      profilePic: '',
+      subscribedTags: '',
+      discordId: '',
+      steamId: '',
+      battleNetId: '',
       serverAddress: 'https://tangled.michaelbeaver.info'
     }
   }
@@ -30,17 +30,17 @@ export default class UserProfileContainer extends React.Component {
       },
       json: true
     }
-    console.log('Axios OPtions', axiosOptions)
+    console.log('Axios Options', axiosOptions)
     axios(axiosOptions).then((response) => {
       console.log('Responded!')
       const user = response.data.user
       this.setState({
         username: user.username,
         email: user.email,
-        discord: user.discordId,
-        steam: user.steamId,
-        battleNet: user.battleNetId,
-        gameTags: user.subscribedTags
+        discordId: user.discordId,
+        steamId: user.steamId,
+        battleNetId: user.battleNetId,
+        subscribedTags: user.subscribedTags
       })
     }).catch((err) => {
       console.log(err.message)
@@ -52,11 +52,11 @@ export default class UserProfileContainer extends React.Component {
     return (
       <UserProfileComponent
         username={this.state.username}
-        userEmail={this.state.email}
-        discord={this.state.discord}
-        userSteam={this.state.steam}
-        userBattlenet={this.state.battleNet}
-        gameTags={this.state.gameTags}
+        email={this.state.email}
+        discordId={this.state.discordId}
+        steamId={this.state.steamId}
+        battleNetId={this.state.battleNetId}
+        subscribedTags={this.state.subscribedTags}
         navigation={this.props.navigation}
       />
     )
