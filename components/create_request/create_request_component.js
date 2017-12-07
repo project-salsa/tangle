@@ -18,9 +18,10 @@ export default class CreateRequestComponent extends React.Component {
       hostUser: this.props.authStore.user.username,
       gameSelection: '',
       platform: '',
+      genres: [],
       tags: [],
       maxPlayers: 2,
-      contactInfo: this.props.defaultContact,
+      contactInfo: '',
       platformList: [],
       platformReady: false,
       location: [0, 0],
@@ -49,7 +50,9 @@ export default class CreateRequestComponent extends React.Component {
         this.setState({
           platformList: response.data.game.platforms,
           platformReady: true,
-          platform: response.data.game.platforms[0]})
+          platform: response.data.game.platforms[0],
+          genres: response.data.game.genres
+        })
       }
     }).catch((err) => {
       // TODO: Log Errors instead of printing them to console
@@ -89,7 +92,7 @@ export default class CreateRequestComponent extends React.Component {
           user: this.state.hostUser,
           game: this.state.gameSelection,
           platform: this.state.platform,
-          tags: this.state.tags,
+          tags: this.state.tags + this.state.genres,
           location: this.state.location,
           maxPlayers: this.state.maxPlayers,
           contactInfo: this.state.contactInfo,
@@ -111,6 +114,14 @@ export default class CreateRequestComponent extends React.Component {
         this.setState({isLoading: false, platformReady: false})
       })
     }
+  }
+
+  componentDidMount () {
+    // Set initial contact to the autofill option
+    // This is in here so we know that the props are set for sure.
+    this.setState({
+      contactInfo: this.props.defaultContact
+    })
   }
 
   render () {
