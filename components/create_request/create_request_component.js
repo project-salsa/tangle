@@ -20,7 +20,7 @@ export default class CreateRequestComponent extends React.Component {
       platform: '',
       tags: [],
       maxPlayers: 2,
-      contactInfo: '',
+      contactInfo: this.props.defaultContact,
       platformList: [],
       platformReady: false,
       location: [0, 0],
