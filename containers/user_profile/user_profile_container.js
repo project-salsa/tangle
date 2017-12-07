@@ -36,6 +36,7 @@ export default class UserProfileContainer extends React.Component {
       const user = response.data.user
       this.setState({
         username: user.username,
+        profilePicUrl: user.profilePicUrl,
         email: user.email,
         discordId: user.discordId,
         steamId: user.steamId,
@@ -58,6 +59,7 @@ export default class UserProfileContainer extends React.Component {
         battleNetId={this.state.battleNetId}
         subscribedTags={this.state.subscribedTags}
         navigation={this.props.navigation}
+        profilePicUrl={this.state.profilePicUrl}
       />
     )
   }

@@ -173,7 +173,7 @@ export default class UserProfileEdit extends Component {
               {'\n'}
             </Text>
             {/* Thumbnail for Profile Picture */}
-            <Thumbnail large source={this.state.profilePicUrl} />
+            <Thumbnail large source={{uri: this.state.profilePicUrl}} />
             <Text style={styles.title}>
               {'\n'}
             Update Profile Picture

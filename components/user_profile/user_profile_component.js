@@ -11,7 +11,7 @@ export default class UserProfileComponent extends Component {
     this.state = {
       username: this.props.authStore.user.username,
       email: this.props.authStore.user.email,
-      profilePic: this.props.authStore.user.profilePicUrl,
+      profilePicUrl: this.props.authStore.user.profilePicUrl,
       subscribedTags: this.props.authStore.user.subscribedTags,
       subscribedTagsList: [],
       discordId: this.props.authStore.user.discordId,
@@ -89,7 +89,7 @@ export default class UserProfileComponent extends Component {
               {'\n'}
             </Text>
             {/* Thumbnail for Profile Picture */}
-            <Thumbnail large source={this.state.profilePicUrl} />
+            <Thumbnail large source={{uri: this.state.profilePicUrl}} />
             {/* Display Username */}
             <Text style={styles.title}>
               {'\n'}
