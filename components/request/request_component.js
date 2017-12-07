@@ -1,6 +1,6 @@
 import React from 'react'
-import {Text, View, Image, TouchableOpacity} from 'react-native'
-import {Container, Body, Title, Left, Content, Button, Icon, Thumbnail} from 'native-base'
+import {Text, View, Image, FlatList} from 'react-native'
+import {Container, Body, Title, Left, Right, Content, Button, Icon, Thumbnail, List, ListItem} from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import MapView from 'react-native-maps'
 import { inject } from 'mobx-react'
@@ -12,23 +12,45 @@ import Header from '../common/header'
 export default class RequestComponent extends React.Component {
   constructor (props) {
     super(props)
+    this.renderUser = this.renderUser.bind(this)
+  }
+
+  renderUser ({item}) {
+    const { navigate } = this.props.navigation
+    return (
+      <ListItem
+        avatar
+        onPress={() => navigate('UserProfile', { username: item.username })}>
+        <Left>
+          <Thumbnail small source={{ uri: item.profilePicUrl }} />
+        </Left>
+        <Body>
+          <Text>{item.username}</Text>
+        </Body>
+        <Right />
+      </ListItem>
+    )
   }
 
   render () {
     const currentUser = this.props.authStore.user
     const hostUser = this.props.hostUser
     let hasJoined = false
+    let hostPic = 'https://tangled.michaelbeaver.info/assets/images/default-profile-pic.png'
     let contactInfo
     let mapDisplay
+    let joinedUserList
+
     let joinLeaveButton = (
       <Button block primary onPress={() => this.props.handleJoin('Join')}>
         <Text style={{color: '#FFFFFF', fontSize: 18}}>Join Request</Text>
       </Button>
     )
-    let hostPic = 'https://tangled.michaelbeaver.info/assets/images/default-profile-pic.png'
+
     if (hostUser.profilePicUrl !== '') {
       hostPic = hostUser.profilePicUrl
     }
+
     if (this.props.currentPlayers.length >= this.props.maxPlayers ) {
       joinLeaveButton = (
         <Button block primary disabled>
@@ -36,12 +58,13 @@ export default class RequestComponent extends React.Component {
         </Button>
       )
     }
+
     if (this.props.authStore.user.username === this.props.hostUser.username)
     {
-      joinLeaveButton = (
-        <Button block primary disabled>
-          <Text style={{color: '#FFFFFF', fontSize: 18}}>Join Request</Text>
-        </Button>
+      contactInfo = (
+        <View>
+          <Text>{this.props.contactInfo}</Text>
+        </View>
       )
     }
 
@@ -61,9 +84,14 @@ export default class RequestComponent extends React.Component {
       )
       // Show contact info
       contactInfo = (
-        <View>
-          <Text>{this.props.contactInfo}</Text>
-        </View>
+        <Grid>
+          <Col size={1} style={{backgroundColor: '#f2f9fc'}}>
+            <Body>
+            <Text style={{fontSize: 20, textDecorationLine: 'underline'}}>Contact Host</Text>
+            <Text style={{ color: '#000000', fontSize: 18}}>{this.props.contactInfo}</Text>
+            </Body>
+          </Col>
+        </Grid>
       )
     }
 
@@ -89,6 +117,29 @@ export default class RequestComponent extends React.Component {
           </View>
           <View style={{flex: 1}} />
         </View>
+      )
+    }
+
+    if(this.props.currentPlayers.length === 0) {
+      joinedUserList = (
+        <Grid>
+          <Col size={1} style={{ height: 150 }}>
+            <Body>
+              <Text style={{color: '#605d66', fontSize: 18}}>Nobody's here!</Text>
+            </Body>
+          </Col>
+        </Grid>
+      )
+    } else {
+      joinedUserList = (
+        <List>
+          <FlatList
+            data={this.props.currentPlayers}
+            renderItem={this.renderUser}
+            keyExtractor={item => item.username}
+            extraData={this.state}
+          />
+        </List>
       )
     }
 
@@ -123,6 +174,14 @@ export default class RequestComponent extends React.Component {
           {mapDisplay}
           {contactInfo}
           {joinLeaveButton}
+          <Grid>
+            <Col size={1} style={{backgroundColor: '#f2f9fc'}}>
+              <Body>
+                <Text style={{ color: '#000000', fontSize: 22}}>Current Players</Text>
+              </Body>
+            </Col>
+          </Grid>
+          {joinedUserList}
         </Content>
       </Container>
     )

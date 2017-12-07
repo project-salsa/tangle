@@ -116,6 +116,14 @@ export default class CreateRequestComponent extends React.Component {
     }
   }
 
+  componentDidMount () {
+    // Set initial contact to the autofill option
+    // This is in here so we know that the props are set for sure.
+    this.setState({
+      contactInfo: this.props.defaultContact
+    })
+  }
+
   render () {
     if (this.state.isLoading) { return ( <Loader /> ) }
     const displayGames = this.getGames(this.state.gameSelection)

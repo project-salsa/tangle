@@ -60,7 +60,7 @@ export default class LoginComponent extends React.Component {
     if (this.state.isLoading) { return ( <Loader /> ) }
     return (
       <Container>
-        <Header style={{backgroundColor: '#3c3cc1', marginTop: 24}}>
+        <Header style={{ backgroundColor: '#3c3cc1' }}>
           <Body>
             <Title style={GlobalStyleSheet.headerText}>Welcome to Tangle!</Title>
           </Body>
