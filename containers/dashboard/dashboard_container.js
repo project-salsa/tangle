@@ -27,7 +27,7 @@ export default class DashboardContainer extends React.Component {
       },
       json: true
     }
-    if (action === 'Main') {
+    if (action === 'Feed') {
       const subscribedTags = this.props.authStore.user.subscribedTags
       let tags = '?'
       for (tag of subscribedTags) {
@@ -45,9 +45,6 @@ export default class DashboardContainer extends React.Component {
       requestOptions.params = {
         joined: true
       }
-    } else {
-      // Pass an action prop, you dummy!
-      // TODO: Log this if it happens
     }
     axios(requestOptions).then((response) => {
       if (response.data.success) {
@@ -79,6 +76,6 @@ export default class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.defaultProps = {
-  action: 'Main',  // Should be 'Main', 'Self' or 'Joined'.
+  action: '',  // Should be 'Feed', 'Self' or 'Joined'.
   filters: []
 }
